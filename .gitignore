@@ -1,0 +1,38 @@
+# Secrets — never commit. Templates only.
+.env
+.env.*
+!.env.example
+!server/.env.example
+*.key
+*.pem
+*.p8
+*.p12
+.keys/
+
+# Dependencies and builds
+node_modules/
+node_modules
+.expo/
+dist/
+dist-web/
+web-build/
+*.tsbuildinfo
+*.log
+.DS_Store
+*.tmp.*
+coverage/
+
+# Foundry
+contracts/out/
+contracts/cache/
+contracts/lib/
+contracts/node_modules/
+# Forge's broadcast logs: a local Arc fork shares chain id 5042002 with the real testnet, so these cannot tell the
+# two apart. The record of a real deployment is deployments/arc-<network>.json.
+contracts/broadcast/
+
+# Local fork rehearsal (scripts/arc-fork.sh): addresses, keys of anvil dev accounts, logs, pids
+.fork/
+server/data/
+/android
+/ios

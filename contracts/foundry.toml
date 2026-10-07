@@ -1,0 +1,59 @@
+# XORR on Arc.
+#
+# XORR's own contracts use OpenZeppelin v5 and forge-std from lib/ (`sh setup.sh` fetches them). Chainlink (CCIP 2.0,
+# Data Feeds interfaces, Chainlink Local) and Uniswap v2's *published* build artifacts come from npm (`npm ci` in this
+# directory). Uniswap v2 is never recompiled: script/lib/Artifacts.sol deploys the npm bytecode byte for byte.
+[profile.default]
+src = "src"
+test = "test"
+script = "script"
+out = "out"
+libs = ["lib", "node_modules"]
+solc_version = "0.8.30"
+# XorrDelegation keeps the active owner in transient storage (EIP-1153), which Arc supports.
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 2_000
+via_ir = true
+# Byte-for-byte reproducible verification on Arc's Blockscout explorers.
+bytecode_hash = "none"
+auto_detect_remappings = false
+remappings = [
+  "forge-std/=lib/forge-std/src/",
+  "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+  "@chainlink/contracts-ccip/=node_modules/@chainlink/contracts-ccip/",
+  "@chainlink/contracts/=node_modules/@chainlink/contracts/",
+  "@chainlink/local/=node_modules/@chainlink/local/",
+  "@openzeppelin/contracts@4.8.3/=node_modules/@openzeppelin/contracts-4.8.3/",
+  "@openzeppelin/contracts@5.3.0/=node_modules/@openzeppelin/contracts-5.3.0/",
+  "@openzeppelin/contracts@5.0.2/=node_modules/@openzeppelin/contracts-5.0.2/",
+]
+fs_permissions = [
+  # Deploy.s.sol writes deployments/arc-<network>.json at the repo root, and the fork rehearsal writes .fork/
+  { access = "read-write", path = "../deployments" },
+  { access = "read-write", path = "../.fork" },
+  # Uniswap v2's published artifacts
+  { access = "read", path = "./node_modules/@uniswap" },
+  { access = "read", path = "./out" },
+]
+
+[fuzz]
+runs = 1024
+
+[invariant]
+runs = 128
+depth = 64
+fail_on_revert = false
+
+# Arc. Fork suites run with Circle's Arc Foundry (`forge test --network arc`), which executes Arc's native-USDC
+# precompile; plain forge can fork Arc but cannot move USDC.
+[rpc_endpoints]
+arc_testnet = "https://rpc.testnet.arc.io"
+arc_mainnet = "https://rpc.mainnet.arc.io"
+fork = "http://127.0.0.1:9110"
+
+[fmt]
+line_length = 120
+
+[lint]
+lint_on_build = false
