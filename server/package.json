@@ -1,0 +1,24 @@
+{
+  "name": "xorr-arc-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "XORR's executor on Arc: the council, the trades inside the on-chain permission, the keeper.",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.6",
+    "hono": "^4.10.7",
+    "viem": "2.56.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}
