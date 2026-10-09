@@ -36,3 +36,5 @@ contracts/broadcast/
 server/data/
 /android
 /ios
+
+/server/dist/

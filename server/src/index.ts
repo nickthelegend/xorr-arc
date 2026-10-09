@@ -11,7 +11,7 @@
  *   GET  /keeper               what the keeper did lately
  */
 import { serve } from '@hono/node-server';
-import { Hono } from 'hono';
+import { Hono, type Context, type Next } from 'hono';
 import { cors } from 'hono/cors';
 import { formatUnits, getAddress, isAddress, toFunctionSelector, type Address, type Hex } from 'viem';
 import {
@@ -25,18 +25,33 @@ import {
   usycTellerAbi,
 } from './abis.js';
 import { ASSETS, labelOf, SEATS, TRADABLE, tokenOf, type Sym } from '../../shared/arc.js';
-import { verifyRequest } from './auth.js';
+import { createReplayGuard } from './request-replay.js';
+import { resolve } from 'node:path';
+import { autopilotInput, roundAmount } from './action-input.js';
+import { requestReplayKey, verifyRequest } from './auth.js';
 import { executor, explain, memoLive, pub } from './chain.js';
-import { ALLOWED_ORIGINS, CFG, DEPLOYMENT, DEPLOYMENT_PATH, IS_FORK, KEEPER, MAX_ROUND_USD, NETWORK, PORT, RPC_URL } from './env.js';
+import { ALLOWED_ORIGINS, DATA_DIR, CFG, DEPLOYMENT, DEPLOYMENT_PATH, FEATURES, IS_FORK, KEEPER, MAX_ROUND_USD, NETWORK, PORT, RPC_URL } from './env.js';
 import { runRound } from './executor.js';
 import { keeperLog, startKeeper } from './keeper.js';
 import { balances, cirBtcReserve, quote, readFeed } from './market.js';
 import { store } from './store.js';
+import {
+  BURN_INTENT_DOMAIN,
+  BURN_INTENT_TYPES,
+  GATEWAY_MINTER_ABI,
+  burnIntentFromJson,
+  burnIntentToJson,
+  buildBurnIntent,
+  gatewayFor,
+} from './gateway.js';
+import { encodeFunctionData, keccak256, recoverTypedDataAddress, toHex } from 'viem';
+import { send } from './chain.js';
 
 const app = new Hono();
 app.use('*', cors({ origin: ALLOWED_ORIGINS.includes('*') ? '*' : ALLOWED_ORIGINS }));
 app.onError((e, c) => c.json({ error: explain(e) }, 500));
 
+const requests = createReplayGuard(resolve(DATA_DIR, 'signed-requests.json'));
 const d = DEPLOYMENT;
 const need = () => {
   if (!d) throw new Error(`No XORR deployment at ${DEPLOYMENT_PATH}. Deploy first (scripts/deploy.sh) or point XORR_DEPLOYMENT at one.`);
@@ -60,6 +75,7 @@ app.get('/config', async (c) => {
       executor: executor?.address ?? null,
       memoLive: await memoLive(),
       maxRoundUsd: MAX_ROUND_USD,
+      features: FEATURES,
       block,
       seats: SEATS,
     }),
@@ -176,19 +192,22 @@ type Signed<T> = { owner: string; body: T; at: number; signature: Hex };
 app.post('/rounds', async (c) => {
   const dep = need();
   const req = (await c.req.json()) as Signed<{ sym: Sym; side: 'buy' | 'sell'; usd: number }>;
-  const owner = await verifyRequest({ action: 'round', ...req });
+  const owner = await verifyRequest({ ...req, action: 'round' });
   const { sym, side, usd } = req.body;
   if (!TRADABLE.includes(sym) || (side !== 'buy' && side !== 'sell')) return c.json({ error: 'unknown asset or side' }, 400);
-  if (!(usd > 0) || usd > MAX_ROUND_USD) return c.json({ error: `a round is between $0 and $${MAX_ROUND_USD}` }, 400);
+  try { roundAmount(usd, MAX_ROUND_USD); } catch (e) { return c.json({ error: (e as Error).message }, 400); }
+  if (!requests.claim(requestReplayKey({ ...req, action: 'round' }), req.at + 5 * 60_000)) return c.json({ error: 'This signed request has already been used or expired. Sign a new request.' }, 409);
   const r = await runRound(dep, owner, { sym, side, usd }, 'owner');
   return c.json(json({ round: r }));
 });
 
 app.post('/autopilot', async (c) => {
   const req = (await c.req.json()) as Signed<{ on: boolean; usd: number }>;
-  const owner = await verifyRequest({ action: 'autopilot', ...req });
-  const usd = Math.min(Math.max(1, Number(req.body.usd) || 5), MAX_ROUND_USD);
-  store.setAutopilot(owner, !!req.body.on, usd);
+  const owner = await verifyRequest({ ...req, action: 'autopilot' });
+  let input;
+  try { input = autopilotInput(req.body, MAX_ROUND_USD); } catch (e) { return c.json({ error: (e as Error).message }, 400); }
+  if (!requests.claim(requestReplayKey({ ...req, action: 'autopilot' }), req.at + 5 * 60_000)) return c.json({ error: 'This signed request has already been used or expired. Sign a new request.' }, 409);
+  store.setAutopilot(owner, input.on, input.usd);
   return c.json({ ok: true, autopilot: store.autopilot()[owner.toLowerCase()] });
 });
 
@@ -219,6 +238,56 @@ app.get('/agents', async (c) => {
     }),
   );
   return c.json(json({ identityRegistry: dep.identityRegistry, reputationRegistry: dep.reputationRegistry, council: dep.council, seats }));
+});
+
+// ─── Circle Gateway: fund from any chain ─────────────────────────────────────
+const gw = gatewayFor(NETWORK);
+const off = (name: keyof typeof FEATURES) => async (c: Context, next: Next) => {
+  if (FEATURES[name]) return next();
+  return c.json({ error: `${name} is switched off on this executor (FEATURE_${name.toUpperCase()}=on to enable).` }, 404);
+};
+app.use('/gateway/*', off('gateway'));
+app.use('/cctp/*', off('cctp'));
+async function gatewayApi(path: string, body: unknown) {
+  const r = await fetch(`${gw.apiUrl}${path}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+  const out = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(`Circle Gateway ${r.status}: ${JSON.stringify(out).slice(0, 200)}`);
+  return out;
+}
+
+app.get('/gateway/:owner', async (c) => {
+  const owner = getAddress(c.req.param('owner'));
+  const json = (await gatewayApi('/v1/balances', { token: 'USDC', sources: gw.sources.map((s) => ({ domain: s.domain, depositor: owner })) })) as {
+    balances?: { domain: number; balance: string }[];
+  };
+  const balances = (json.balances ?? []).map((b) => ({ domain: b.domain, name: gw.sources.find((s) => s.domain === b.domain)?.name ?? `domain ${b.domain}`, balance: Number(b.balance) }));
+  return c.json({ wallet: gw.wallet, minter: gw.minter, sources: gw.sources, balances, total: balances.reduce((t, b) => t + b.balance, 0) });
+});
+
+app.post('/gateway/intent', async (c) => {
+  const b = (await c.req.json()) as { owner: string; sourceDomain: number; amountUnits: string };
+  const owner = getAddress(b.owner);
+  const salt = keccak256(toHex(`${owner}:${b.amountUnits}:${Date.now()}:${Math.random()}`));
+  const intent = buildBurnIntent(gw, { sourceDomain: Number(b.sourceDomain), depositor: owner, recipient: owner, value: BigInt(b.amountUnits), salt });
+  return c.json({ typedData: { domain: BURN_INTENT_DOMAIN, types: BURN_INTENT_TYPES, primaryType: 'BurnIntent', message: burnIntentToJson(intent) } });
+});
+
+app.post('/gateway/mint', async (c) => {
+  const b = (await c.req.json()) as { burnIntent: unknown; signature: Hex };
+  const intent = burnIntentFromJson(gw, b.burnIntent);
+  const signer = await recoverTypedDataAddress({ domain: BURN_INTENT_DOMAIN, types: BURN_INTENT_TYPES, primaryType: 'BurnIntent', message: intent, signature: b.signature });
+  if (signer.toLowerCase() !== `0x${intent.spec.sourceSigner.slice(26)}`.toLowerCase()) return c.json({ error: 'the burn intent is not signed by its depositor' }, 400);
+  const res = (await gatewayApi('/v1/transfer', [{ burnIntent: burnIntentToJson(intent), signature: b.signature }])) as { attestation?: Hex; signature?: Hex };
+  if (!res.attestation || !res.signature) return c.json({ error: 'Circle Gateway returned no attestation' }, 502);
+  const r = await send(gw.minter, encodeFunctionData({ abi: GATEWAY_MINTER_ABI, functionName: 'gatewayMint', args: [res.attestation, res.signature] }), 'gatewayMint');
+  return c.json({ mint: r.hash, ms: r.ms });
+});
+
+// ─── CCTP V2: withdraw to any chain (the app burns on Arc; Iris attests) ───
+app.get('/cctp/:hash', async (c) => {
+  const r = await fetch(`${CFG.irisApiUrl}/v2/messages/${CFG.cctpDomain}?transactionHash=${c.req.param('hash')}`);
+  const out = await r.json().catch(() => ({}));
+  return c.json(out, r.ok ? 200 : 404);
 });
 
 app.get('/keeper', (c) => c.json({ log: keeperLog.slice(0, 50) }));

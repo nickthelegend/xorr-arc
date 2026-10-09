@@ -63,3 +63,11 @@ export const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ?? '*').split(',').m
 export const MAX_ROUND_USD = Number(process.env.MAX_ROUND_USD ?? (NETWORK === 'arc-mainnet' ? 25 : 50));
 /** Price Desk: the most a quote may sit from Chainlink, in bps (the on-chain floor is the owner's slippage). */
 export const MAX_GAP_BPS = Number(process.env.MAX_GAP_BPS ?? 150);
+/**
+ * Extras that cannot be exercised on a fork (they need Circle's live attestation services) stay off until an operator
+ * turns them on: FEATURE_GATEWAY=on, FEATURE_CCTP=on. The core loop (permission, council, trade, revoke) never needs them.
+ */
+export const FEATURES = {
+  gateway: process.env.FEATURE_GATEWAY === 'on',
+  cctp: process.env.FEATURE_CCTP === 'on',
+};
