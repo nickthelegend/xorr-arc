@@ -51,8 +51,7 @@ Pools with liquidity (v3 `getPool` for fee tiers 100/500/3000/10000, v2 `getPair
 
 Other fee tiers of these pairs exist but are empty or dust. v4 pools were not enumerated (v4 has no `getPool`; it would
 need PoolManager `Initialize` logs). **Perps:** none found on Arc mainnet — not in Uniswap's registry, not in docs.arc.io
-(its "Port an AMM" guide and App Kit Swap Kit cover spot only). XORR's Monad build traded Perpl perps; that desk is
-dropped on Arc rather than faked.
+(its "Port an AMM" guide and App Kit Swap Kit cover spot only). XORR's perps desk is dropped on Arc rather than faked.
 
 The WETH pool is thin (~$2.4k), so the council keeps WETH trades small and the Chainlink floor in XorrDelegation refuses
 any fill that the pool's depth would push past the owner's slippage limit. cirBTC is the deep market on Arc.

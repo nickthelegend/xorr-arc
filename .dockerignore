@@ -1,0 +1,15 @@
+**/node_modules
+**/.env*
+**/data
+**/dist
+.git
+.fork
+contracts
+artifacts
+app
+src
+assets
+.claude
+.codex
+.vercel
+*.log

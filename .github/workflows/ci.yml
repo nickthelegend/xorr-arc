@@ -1,0 +1,20 @@
+name: Arc executor and app checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm --prefix server ci --ignore-scripts --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm --prefix server run typecheck
+      - run: npm test -- --run --maxWorkers=2
+      - run: npx tsc -p server/tsconfig.build.json
