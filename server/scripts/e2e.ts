@@ -12,7 +12,8 @@
  * 6  a raw spend over the cap, sent straight to the contract → mined revert DailyCapExceeded
  * 7  council round: sell the cirBTC back to USDC (closePosition, outside the cap)
  * 8  fork only: one hour passes; the keeper settles the rounds against Chainlink → ERC-8004 reputation per seat
- * 9  owner pulls the kill switch (revoke) → the next round is vetoed, a raw spend reverts PolicyRevoked
+ * 9  owner pulls the kill switch (revoke) → the next round is vetoed
+ * 10 a raw spend straight to the contract after the revoke → PolicyRevoked
  */
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -144,6 +145,18 @@ async function main() {
   const r5 = await round('EURC', 'buy', 5);
   if (r5.decision === 'vetoed') ok('9 kill switch', `revoke ${k.hash}; next round: ${r5.summary}`);
   else fail('9 kill switch', `${r5.decision}: ${r5.summary}`);
+
+  // 10 after the revoke, even a raw $5 spend straight to the contract (bypassing the council) is refused on chain
+  try {
+    const data = d.venueKind === 'uniswap-v3'
+      ? encodeFunctionData({ abi: swapRouter02Abi, functionName: 'exactInputSingle', args: [{ tokenIn: d.usdc, tokenOut: d.weth, fee: 3000, recipient: owner, amountIn: 5_000_000n, amountOutMinimum: 1n, sqrtPriceLimitX96: 0n }] })
+      : encodeFunctionData({ abi: v2RouterAbi, functionName: 'swapExactTokensForTokens', args: [5_000_000n, 1n, [d.usdc, d.weth], owner, expires] });
+    await pub.simulateContract({ account: agent, address: d.delegation, abi: delegationAbi, functionName: 'spend', args: [owner, d.venue, 5_000_000n, d.weth, 1n, '0x0000000000000000000000000000000000000000000000000000000000000000', data] });
+    fail('10 raw spend after revoke', 'the contract accepted it');
+  } catch (e) {
+    if (/PolicyRevoked/.test(String((e as Error).message))) ok('10 raw spend after revoke', 'XorrDelegation refuses: PolicyRevoked');
+    else fail('10 raw spend after revoke', String((e as Error).message).slice(0, 200));
+  }
 
   const bal = await (await fetch(`${API}/account/${owner}`)).json();
   console.log(`\nowner now: ${bal.balances.tokens.map((t: { label: string; amount: number }) => `${t.amount.toFixed(6)} ${t.label}`).join(', ')}; gas left ${bal.gasUsdc.toFixed(4)} USDC`);

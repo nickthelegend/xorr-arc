@@ -12,7 +12,7 @@
     "test": "vitest run",
     "server": "npm --prefix server start",
     "fork": "sh scripts/arc-fork.sh mainnet",
-    "e2e:fork": "npm --prefix server exec tsx scripts/e2e.ts"
+    "e2e:fork": "node scripts/e2e-fork.mjs"
   },
   "dependencies": {
     "@expo/metro-runtime": "~57.0.15",

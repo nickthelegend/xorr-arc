@@ -30,7 +30,7 @@ interface IV2Router {
  *                 SwapRouter02 as the only venue. Nothing is seeded; the daily-cap ceiling is tiny.
  *   chain 5042002 (Arc testnet, or a fork of it): no Uniswap and no Chainlink feeds exist there, so it also deploys
  *                 Uniswap v2 from published bytecode, XORR test tokens (xWETH, xcirBTC), mirror feeds of Chainlink's
- *                 mainnet answers (MIRROR_* env, read by scripts/deploy.sh), and seeds small pools.
+ *                 mainnet answers (MIRROR_* env, printed by scripts/mainnet-prices.sh and exported by scripts/deploy.sh), and seeds small pools.
  *
  * Env: DEPLOYER_PRIVATE_KEY (required), XORR_EXECUTOR (the executor's address: council recorder, mirror poster),
  *      DEPLOYMENT_OUT (default ../deployments/arc-<network>.json), DAILY_CAP_CEILING (USDC units),
