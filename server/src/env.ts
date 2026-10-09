@@ -65,9 +65,10 @@ export const MAX_ROUND_USD = Number(process.env.MAX_ROUND_USD ?? (NETWORK === 'a
 export const MAX_GAP_BPS = Number(process.env.MAX_GAP_BPS ?? 150);
 /**
  * Extras that cannot be exercised on a fork (they need Circle's live attestation services) stay off until an operator
- * turns them on: FEATURE_GATEWAY=on, FEATURE_CCTP=on. The core loop (permission, council, trade, revoke) never needs them.
+ * turns them on: FEATURE_GATEWAY=on, FEATURE_CCTP=on, FEATURE_USYC=on. The core loop (permission, council, trade, revoke) never needs them.
  */
 export const FEATURES = {
   gateway: process.env.FEATURE_GATEWAY === 'on',
   cctp: process.env.FEATURE_CCTP === 'on',
+  usyc: process.env.FEATURE_USYC === 'on',
 };

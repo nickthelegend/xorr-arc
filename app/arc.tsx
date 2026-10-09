@@ -22,9 +22,9 @@ export default function BuiltOnArc() {
     { piece: 'ERC-8004', what: 'Five council agents with on-chain identity; every round scored into the Reputation Registry.', address: d?.identityRegistry, state: `${agents.data?.seats.filter((s) => s.operator).length ?? 0}/5 registered`, ok: (agents.data?.seats.filter((s) => s.operator).length ?? 0) === 5 },
     { piece: 'Arc Memo', what: 'Every agent trade carries its council decision id as the memo id.', address: a.memo, state: config.memoLive ? 'CallFrom live on this node' : 'node does not run CallFrom: plain calls', ok: config.memoLive },
     { piece: 'Chainlink CCIP', what: 'A stop sent from Base or Ethereum reaches your permission on Arc (XorrStopReceiver).', address: d?.stopReceiver, state: `router ${a.ccip.router.slice(0, 8)}…`, ok: !!d },
-    { piece: 'Circle Gateway', what: 'Fund XORR from a unified USDC balance on any chain.', address: a.gatewayMinter, state: 'mint by the executor', ok: true },
-    { piece: 'CCTP V2', what: 'Withdraw: burn on Arc, mint on Base or Ethereum.', address: a.tokenMessengerV2, state: `domain ${a.cctpDomain}`, ok: true },
-    { piece: 'USYC', what: 'Idle USDC parked for yield (entitled wallets).', address: a.usyc, state: 'permissioned', ok: true },
+    { piece: 'Circle Gateway', what: 'Fund XORR from a unified USDC balance on any chain.', address: a.gatewayMinter, state: config.features?.gateway ? 'enabled on this executor' : 'switched off (FEATURE_GATEWAY)', ok: !!config.features?.gateway },
+    { piece: 'CCTP V2', what: 'Withdraw: burn on Arc, mint on Base or Ethereum.', address: a.tokenMessengerV2, state: config.features?.cctp ? `domain ${a.cctpDomain}, enabled` : 'switched off (FEATURE_CCTP)', ok: !!config.features?.cctp },
+    { piece: 'USYC', what: 'Idle USDC parked for yield (entitled wallets).', address: a.usyc, state: config.features?.usyc ? 'permissioned, enabled' : 'read-only (FEATURE_USYC off)', ok: !!config.features?.usyc },
     { piece: 'EURC', what: 'The FX desk; Peg Desk checks EURC against EUR/USD.', address: a.eurc, state: 'Uniswap USDC/EURC', ok: true },
   ];
   return (

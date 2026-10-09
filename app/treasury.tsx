@@ -23,7 +23,8 @@ export default function Treasury() {
   const cfg = config.arc;
   const a = account.data;
   const u = a?.usyc;
-  const entitled = !!u && 'entitled' in u && u.entitled;
+  const writes = !!config.features?.usyc; // subscribe/redeem is untested without a Circle-entitled wallet: off until the operator turns it on
+  const entitled = writes && !!u && 'entitled' in u && u.entitled;
   const eurc = a?.balances.tokens.find((t) => t.sym === 'EURC')?.amount ?? 0;
 
   async function park() {
@@ -64,7 +65,9 @@ export default function Treasury() {
         ) : u ? (
           <Text variant="secondary">USYC unreadable: {u.error}</Text>
         ) : null}
-        {!entitled ? (
+        {!writes ? (
+          <Note>Parking is switched off on this executor (FEATURE_USYC=on, and the wallet must be entitled by Circle). Reading your entitlement and the USYC price stays on.</Note>
+        ) : !entitled ? (
           <Note tone="warn">
             USYC is permissioned: Circle (Hashnote) entitles each wallet in the Entitlements contract ({cfg.usycEntitlements.slice(0, 10)}…). Ask Circle Support to allowlist this address; until then XORR leaves idle USDC in your wallet.
           </Note>

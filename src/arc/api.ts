@@ -25,7 +25,7 @@ export type Config = {
   executor: Address | null;
   memoLive: boolean;
   maxRoundUsd: number;
-  features: { gateway: boolean; cctp: boolean };
+  features: { gateway: boolean; cctp: boolean; usyc: boolean };
   block: string | null;
 };
 
