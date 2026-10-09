@@ -21,12 +21,12 @@ case "$NET" in
 esac
 FORGE=${ARC_FOUNDRY:+$ARC_FOUNDRY/}forge
 CAST=${ARC_FOUNDRY:+$ARC_FOUNDRY/}cast
-[ "$($CAST chain-id --rpc-url "$RPC")" = "$CHAIN" ] || { echo "$RPC is not chain $CHAIN"; exit 1; }
+[ "$("$CAST" chain-id --rpc-url "$RPC")" = "$CHAIN" ] || { echo "$RPC is not chain $CHAIN"; exit 1; }
 [ "$NET" = testnet ] && eval "$(sh scripts/mainnet-prices.sh)" && export MIRROR_ETH MIRROR_BTC MIRROR_EURC MIRROR_USDC MIRROR_AT
 VERIFY_ARGS=""
 [ -n "$VERIFY" ] && VERIFY_ARGS="--verify --verifier blockscout --verifier-url $EXPLORER/api/"
-(cd contracts && $FORGE build)
+(cd contracts && "$FORGE" build)
 if [ -n "$DEPLOY_LOCK" ]; then until mkdir "$DEPLOY_LOCK" 2>/dev/null; do sleep 3; done; trap 'rmdir "$DEPLOY_LOCK"' EXIT; fi
 set -a; . "$DEPLOYER_ENV"; set +a
-(cd contracts && DEPLOYER_PRIVATE_KEY="$DEPLOYER_PRIVATE_KEY" $FORGE script script/Deploy.s.sol --rpc-url "$RPC" --broadcast --slow $VERIFY_ARGS)
+(cd contracts && DEPLOYER_PRIVATE_KEY="$DEPLOYER_PRIVATE_KEY" "$FORGE" script script/Deploy.s.sol --rpc-url "$RPC" --broadcast --slow $VERIFY_ARGS)
 echo "deployed: $ROOT/deployments/arc-$NET.json"
