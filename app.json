@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "XORR on Arc",
+    "slug": "xorr-arc",
+    "scheme": "xorr",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#000000",
+    "newArchEnabled": true,
+    "icon": "./assets/icon.png",
+    "splash": { "image": "./assets/splash.png", "resizeMode": "contain", "backgroundColor": "#000000" },
+    "ios": { "bundleIdentifier": "finance.xorr.arc", "supportsTablet": false },
+    "android": { "package": "finance.xorr.arc", "adaptiveIcon": { "foregroundImage": "./assets/adaptive-icon.png", "backgroundColor": "#000000" } },
+    "plugins": [["expo-router", { "sitemap": false }], ["expo-splash-screen", { "backgroundColor": "#000000", "image": "./assets/splash.png", "imageWidth": 180 }], "expo-font"],
+    "experiments": { "typedRoutes": false },
+    "web": { "favicon": "./assets/favicon.png", "output": "single" }
+  }
+}
