@@ -13,18 +13,18 @@ import { delegationAbi } from '@/arc/abis';
 import { amt, usd, when } from '@/arc/format';
 import { useConfig, usePoll } from '@/arc/hooks';
 import { Bar, Card, KV, NetworkBadge, Note, TxLink } from '@/arc/ui';
-import { recoverOwnerTransaction, sendTx, useWallet } from '@/arc/wallet';
+import { hasPendingOwnerTransaction, recoverOwnerTransaction, sendTx, useWallet } from '@/arc/wallet';
 
 const WORDMARK = require('../assets/brand/xorr-wordmark.png');
 
 const TILES = [
-  { href: '/council', title: 'Council', sub: 'Five agents vote; trades carry their decision id' },
+  { href: '/council', title: 'Council', sub: 'Five rule-based agents vote; trades carry their decision id' },
   { href: '/permission', title: 'Permission', sub: 'Daily cap, venue, end date, kill switch' },
   { href: '/markets', title: 'Markets', sub: 'Chainlink on Arc beside Uniswap' },
   { href: '/agents', title: 'Agents', sub: 'ERC-8004 identity and reputation' },
-  { href: '/fund', title: 'Fund & withdraw', sub: 'Gateway and CCTP V2, any chain' },
+  { href: '/fund', title: 'Fund & withdraw', sub: 'Gateway and CCTP V2 (switched off unless enabled)' },
   { href: '/treasury', title: 'Treasury', sub: 'USYC yield and EURC' },
-  { href: '/arc', title: 'Built on Arc', sub: 'Every Arc piece, checked live' },
+  { href: '/arc', title: 'Built on Arc', sub: 'Every Arc piece, with what has run live' },
 ] as const;
 
 export default function Home() {
@@ -59,16 +59,32 @@ export default function Home() {
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Image source={WORDMARK} style={{ width: 104, height: 21 }} resizeMode="contain" accessibilityLabel="XORR" />
           <NetworkBadge />
-          {address?<Button label="Check original transaction" onPress={async()=>{setErr(null);try{const r=await recoverOwnerTransaction();setErr(`Original call finalized: ${r.transactionHash}. No new transaction was sent.`);await account.refresh();}catch(e){setErr(e instanceof Error?e.message:String(e));}}}/>:null}
           <Press onPress={() => setBalancesHidden(!balancesHidden)} testID="toggle-balances" accessibilityLabel={balancesHidden ? 'Show balances' : 'Hide balances'}>
             <Text variant="control">{balancesHidden ? 'Show balances' : 'Hide balances'}</Text>
           </Press>
         </View>
 
+        {address && hasPendingOwnerTransaction() ? (
+          <Button
+            label="Check the unconfirmed transaction"
+            variant="secondary"
+            onPress={async () => {
+              setErr(null);
+              try {
+                const r = await recoverOwnerTransaction();
+                setErr(`Original call finalized: ${r.transactionHash}. No new transaction was sent.`);
+                await account.refresh();
+              } catch (e) {
+                setErr(e instanceof Error ? e.message : String(e));
+              }
+            }}
+          />
+        ) : null}
+
         <View style={{ gap: space.s6 }}>
           <Text variant="onboardingTitle">A council of agents trades for you, inside a permission Arc enforces.</Text>
           <Text variant="body" color={colors.ink65}>
-            Capped per day, one venue, an end date, every fill floored at Chainlink’s price. You hold only USDC, and it pays the gas. Revoke in one hold.
+            Capped per day, one venue, an end date, every fill floored at Chainlink’s price. You hold only USDC, and it pays the gas. Revoke in one hold. The five agents are deterministic rules, not an LLM: every vote names the numbers it rests on.
           </Text>
         </View>
 
@@ -127,7 +143,7 @@ export default function Home() {
           <View style={{ gap: space.s8 }}>
             <HoldButton label="Hold to stop every agent" accessibilityHint="Hold to stop" onCommit={stop} testID="hold-stop" />
             <Text variant="secondarySm" align="center">
-              One transaction to XorrDelegation.revoke(). Final in under a second; no server involved.
+              One transaction to XorrDelegation.revoke(). No server involved; Arc finalizes it deterministically.
             </Text>
           </View>
         ) : null}

@@ -39,6 +39,8 @@ const mins = (s: number) => (s < 5400 ? `${Math.round(s / 60)} min` : `${(s / 36
 export const POSITION_CAP_MULTIPLE = 2;
 /** A stablecoin more than this far from its reference is treated as off peg. */
 export const PEG_TOLERANCE_BPS = 75;
+/** Below this a held position is dust: there is nothing worth a sale (Arc gas costs cents at most). */
+export const SELL_DUST_USD = 0.02;
 
 export function priceDesk(i: RoundInputs): Ballot {
   const seat = 'price-desk' as const;
@@ -63,7 +65,7 @@ export function riskKeeper(i: RoundInputs): Ballot {
   if (!p.venueAllowed) return { seat, vote: 'veto', confidence: 1, reason: 'The venue is not on the owner\'s allowlist.' };
   if (proposal.side === 'sell') {
     if (!i.holding.ok) return { seat, vote: 'abstain', confidence: 0, reason: `Holdings unreadable: ${i.holding.error}.` };
-    if (i.holding.assetUsd < 0.5) return { seat, vote: 'veto', confidence: 1, reason: `Nothing to sell: ${proposal.label} held is worth ${usd(i.holding.assetUsd)}.` };
+    if (i.holding.assetUsd < SELL_DUST_USD) return { seat, vote: 'veto', confidence: 1, reason: `Nothing to sell: ${proposal.label} held is worth ${usd(i.holding.assetUsd)}.` };
     return { seat, vote: 'yes', confidence: 0.8, reason: `A sale reduces exposure (${usd(i.holding.assetUsd)} of ${proposal.label} held); closing is outside the daily cap by design.` };
   }
   if (proposal.usd > p.remainingUsd) {
@@ -150,8 +152,10 @@ export function convene(i: RoundInputs): { ballots: Ballot[]; decision: Decision
   const no = ballots.filter((b) => b.vote === 'no').length;
   const decision: Decision = veto ? 'vetoed' : yes >= 2 && yes > no ? 'approved' : 'rejected';
   const name = (id: SeatId) => SEATS.find((s) => s.id === id)!.name;
+  const vetoes = ballots.filter((b) => b.vote === 'veto');
+  const alsoVetoed = vetoes.length > 1 ? ` (also vetoed by the ${vetoes.slice(1).map((b) => name(b.seat)).join(' and the ')})` : '';
   const summary = veto
-    ? `Vetoed by the ${name(veto.seat)}: ${veto.reason}`
+    ? `Vetoed by the ${name(veto.seat)}: ${veto.reason}${alsoVetoed}`
     : decision === 'approved'
       ? `Approved ${yes}–${no}.`
       : `Rejected ${yes}–${no}: not enough of the council agreed.`;

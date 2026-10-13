@@ -91,7 +91,7 @@ app.get('/markets', async (c) => {
       let venue: { venue: string; price: number; gapBps: number } | { error: string } | null = null;
       if (sym !== 'USDC') {
         try {
-          const q = await quote(dep, 'USDC', sym, 10_000_000n);
+          const q = await quote(dep, 'USDC', sym, PROBE_USDC);
           venue = { venue: q.venue, price: q.price, gapBps: ((q.price - feed.price) / feed.price) * 10_000 };
         } catch (e) {
           venue = { error: explain(e) };
@@ -102,8 +102,11 @@ app.get('/markets', async (c) => {
       rows.push({ sym, label: labelOf(sym, NETWORK), error: explain(e) });
     }
   }
-  return c.json(json({ network: NETWORK, mirror: dep.mirrorFeeds, rows, cirBtcReserve: await cirBtcReserve(), readAt: Date.now() }));
+  return c.json(json({ network: NETWORK, mirror: dep.mirrorFeeds, probeUsd: Number(PROBE_USDC) / 1e6, rows, cirBtcReserve: await cirBtcReserve(), readAt: Date.now() }));
 });
+
+/** The size the markets table quotes. XORR's testnet pools hold ~5 USDC each, so a $10 probe would only show the pool's price impact. */
+const PROBE_USDC = NETWORK === 'arc-mainnet' ? 10_000_000n : 20_000n;
 
 const DEPOSIT_SIG = toFunctionSelector('deposit(uint256,address)');
 

@@ -1,7 +1,7 @@
 # Deploying XORR to Arc mainnet (chain 5042)
 
-Nothing here has been run against the public network: the deployer is unfunded. The same deploy script was run in full on a
-local fork of mainnet (21 transactions, 10,202,761 gas).
+Nothing here has been run against Arc mainnet. The same deploy script was run in full on a local fork of mainnet (21
+transactions, 10,202,761 gas) and, with testnet differences, on Arc testnet (`deployments/arc-testnet.json`).
 
 ## 1. Money
 

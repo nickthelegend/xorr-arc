@@ -49,7 +49,7 @@ function keyFromFile(): Hex | undefined {
   const f = process.env.XORR_EXECUTOR_KEY_FILE;
   if (!f) return undefined;
   const text = readFileSync(resolve(ROOT, f), 'utf8');
-  const m = /^(?:XORR_EXECUTOR_KEY|FORK_EXECUTOR_KEY)=(0x[0-9a-fA-F]{64})/m.exec(text);
+  const m = /^(?:XORR_EXECUTOR_KEY|XORR_EXECUTOR_PRIVATE_KEY|FORK_EXECUTOR_KEY)=(0x[0-9a-fA-F]{64})/m.exec(text);
   return m?.[1] as Hex | undefined;
 }
 export const EXECUTOR_KEY: Hex | undefined = (process.env.XORR_EXECUTOR_KEY as Hex | undefined) ?? keyFromFile();

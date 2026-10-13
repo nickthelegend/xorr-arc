@@ -38,7 +38,7 @@ export type MarketRow = {
   venue?: { venue: string; price: number; gapBps: number } | { error: string } | null;
   error?: string;
 };
-export type Markets = { network: string; mirror: boolean; rows: MarketRow[]; cirBtcReserve: { reserve: number; supply: number; ratio: number; ageSec: number } | { error: string }; readAt: number };
+export type Markets = { network: string; mirror: boolean; probeUsd: number; rows: MarketRow[]; cirBtcReserve: { reserve: number; supply: number; ratio: number; ageSec: number } | { error: string }; readAt: number };
 
 export type Account = {
   owner: Address;

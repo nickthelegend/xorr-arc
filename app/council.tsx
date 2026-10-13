@@ -2,7 +2,7 @@
  * The council. Propose a trade (or let autopilot propose them), and watch five agents vote on Arc's numbers. An
  * approved round is carried out inside your permission, sent through Arc's Memo with the round's decision id.
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { router } from 'expo-router';
 import { AgentOrb, Button, Eyebrow, Press, Text, colors, radius, space } from '@/ui';
@@ -97,6 +97,16 @@ export default function Council() {
   const [busy, setBusy] = useState(false);
   const [last, setLast] = useState<Round | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const testnet = config?.network === 'arc-testnet';
+  // XORR's testnet pools hold ~5 USDC each: rounds are cents there, and cirBTC/EURC have no usable pool.
+  const amounts = testnet ? [0.02, 0.04, 0.05] : [5, 10, 20];
+  const autoUsd = testnet ? 0.04 : 5;
+  useEffect(() => {
+    if (testnet) {
+      setSym('WETH');
+      setAmount(0.04);
+    }
+  }, [testnet]);
   if (!address || !config) return <Page title="Council">{<Note>Connect a wallet on the home screen first.</Note>}</Page>;
   const net = config.network;
 
@@ -116,7 +126,7 @@ export default function Council() {
 
   async function autopilot(on: boolean) {
     try {
-      await postSigned('/autopilot', 'autopilot', address!, { on, usd: 5 }, signMessage);
+      await postSigned('/autopilot', 'autopilot', address!, { on, usd: autoUsd }, signMessage);
       await account.refresh();
     } catch (e) {
       setErr(e instanceof Error ? e.message : String(e));
@@ -128,8 +138,9 @@ export default function Council() {
       <Card title="Propose a trade">
         <Choice options={(['CBTC', 'WETH', 'EURC'] as Sym[]).map((s) => ({ label: labelOf(s, net), value: s }))} value={sym} onChange={setSym} testID="sym" />
         <Choice options={[{ label: 'Buy', value: 'buy' as const }, { label: 'Sell', value: 'sell' as const }]} value={side} onChange={setSide} testID="side" />
-        <Choice options={[5, 10, 20].filter((n) => n <= config.maxRoundUsd).map((n) => ({ label: usd(n, 0), value: n }))} value={amount} onChange={setAmount} testID="usd" />
-        <Text variant="secondarySm">You sign the request (no gas); the executor runs the round. It can never exceed the permission on chain.</Text>
+        <Choice options={amounts.filter((n) => n <= config.maxRoundUsd).map((n) => ({ label: usd(n, n < 1 ? 2 : 0), value: n }))} value={amount} onChange={setAmount} testID="usd" />
+        <Text variant="secondarySm">You sign the request (no gas); the executor runs the round. It can never exceed the permission on chain. The five votes are deterministic rules over what was read this round, not an LLM.</Text>
+        {testnet ? <Note tone="warn">Testnet: XORR’s own ~5 USDC pools, so rounds are cents. Only the xWETH pool is deep enough to fill; cirBTC is dust and the EURC pool is not seeded.</Note> : null}
         <Button label={busy ? 'The council is voting…' : 'Convene the council'} loading={busy} onPress={convene} testID="convene" />
       </Card>
       {err ? <Note tone="down">{err}</Note> : null}
@@ -137,7 +148,7 @@ export default function Council() {
 
       <Card title="Autopilot" eyebrow="The keeper proposes, the council decides">
         <Text variant="secondary">
-          Every ten minutes the keeper proposes a $5 buy, rotating cirBTC, WETH and EURC. Each round still needs the council and still fits inside the permission.
+          Every ten minutes the keeper proposes a {usd(autoUsd, autoUsd < 1 ? 2 : 0)} buy, rotating cirBTC, WETH and EURC. Each round still needs the council and still fits inside the permission.
         </Text>
         <Choice options={[{ label: 'On', value: 1 }, { label: 'Off', value: 0 }]} value={account.data?.autopilot.on ? 1 : 0} onChange={(v) => autopilot(v === 1)} testID="autopilot" />
       </Card>

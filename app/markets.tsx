@@ -11,9 +11,9 @@ export default function Markets() {
   const m = usePoll(() => api.markets(), 15_000);
   const data = m.data;
   return (
-    <Page title="Markets" eyebrow="Chainlink on Arc · Uniswap on Arc">
+    <Page title="Markets" eyebrow={data?.mirror ? 'Mirror of Chainlink mainnet · XORR test pools' : 'Chainlink on Arc · Uniswap on Arc'}>
       {data?.mirror ? (
-        <Note tone="warn">Arc testnet has no Chainlink feeds. These are XORR mirror feeds, posted by the keeper from Chainlink’s Arc mainnet answers, and the pools are XORR’s own test pools.</Note>
+        <Note tone="warn">XORR-seeded testnet market. Arc testnet has no Chainlink feeds and no Uniswap: the prices are XORR mirror feeds, posted by the keeper from Chainlink’s Arc mainnet answers, and the pools are XORR’s own ~5 USDC Uniswap v2 pools for test tokens (xWETH, xcirBTC; the USDC/EURC pool is not seeded). Pools this thin move about 1% per $0.04, so quotes are for cents. Mainnet trades the real Uniswap v3 pools against real Chainlink feeds.</Note>
       ) : null}
       {m.error ? <Note tone="down">{m.error}</Note> : null}
       {(data?.rows ?? []).map((r) => (
@@ -29,7 +29,7 @@ export default function Markets() {
           )}
           {r.venue && 'price' in r.venue ? (
             <>
-              <KV figure="market" k={`$10 on ${r.venue.venue}`} v={px(r.venue.price)} />
+              <KV figure="market" k={`$${data?.probeUsd ?? 10} on ${r.venue.venue}`} v={px(r.venue.price)} />
               <KV k="From Chainlink" v={bps(r.venue.gapBps)} tone={Math.abs(r.venue.gapBps) > 100 ? colors.warn : undefined} />
             </>
           ) : r.venue && 'error' in r.venue ? (

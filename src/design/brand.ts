@@ -17,11 +17,11 @@ export const brand = {
   /** Revised for the pivot — PLAN.md §1.1 "the bot is the product". */
   TAGLINE: 'A bot that trades while you get on with your life',
   /**
-   * What it trades and the thing that makes it different, in one line: tokenized US stocks, agents a person can stop in
-   * one tap, and never holding the money. No chain is named — the main screens are chain-agnostic, and the network is
+   * What it trades and the thing that makes it different, in one line: a council of rule-based agents, a permission a
+   * person can stop in one tap, and never holding the money. No chain is named — the main screens are chain-agnostic, and the network is
    * named only where money moves.
    */
-  SUBLINE: 'A council of AI agents trades your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.',
+  SUBLINE: 'Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.',
   /** screens.md screen 1 terms line. */
   TERMS: 'By continuing you agree to the Terms and Privacy Policy.',
 } as const;

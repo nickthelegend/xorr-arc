@@ -1,4 +1,4 @@
-import {submitCall,recoverCall} from "./durable-call";
+import {submitCall,recoverCall, readCall} from "./durable-call";
 /**
  * The owner's wallet in the app. Two kinds, both self-custodial — XORR never holds a key that can move your money:
  *
@@ -134,4 +134,6 @@ export async function signMessage(message: string): Promise<Hex> {
 }
 
 /** Read-only original-call recovery; never signs or automatically resubmits. */
+/** True when an owner transaction was journaled but never confirmed (the tab closed mid-send): only then is the recovery button shown. */
+export function hasPendingOwnerTransaction(){const {wallet,address}=useWallet.getState();const store=storage();if(!wallet?.chain||!address||!store)return false;try{return !!readCall(store,wallet.chain.id,address);}catch{return false;}}
 export async function recoverOwnerTransaction(){const {pub,wallet,address}=useWallet.getState();const store=storage();if(!pub||!wallet?.chain||!address||!store)throw Error('Restore the original wallet and durable storage.');return recoverCall(pub,store,wallet.chain.id,address);}

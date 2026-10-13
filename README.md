@@ -1,26 +1,40 @@
 # XORR on Arc
 
-**A council of five agents trades for you inside an on-chain permission you can revoke in one tap.** You hold only USDC.
-You grant a daily cap, a venue allowlist and an end date; every fill is floored at Chainlink's price on chain; a stop
-sent from Base or Ethereum over Chainlink CCIP kills the permission. Arc settles each action in under a second and takes
-its gas in the same USDC.
+**A council of five rule-based agents trades for you inside an on-chain permission you can revoke in one tap.** You hold
+only USDC. You grant a daily cap, a venue allowlist and an end date; every fill is floored at Chainlink's price on chain;
+the CCIP receiver can take a stop sent from Base or Ethereum (not yet run over a live lane, see below). Arc takes its gas
+in the same USDC and finalizes deterministically.
 
-The council seats (Price Desk, Risk Keeper, Trend Reader, Peg Desk, Strategist) are deterministic rules over what was read
-that round, not an LLM: every vote names the numbers it rests on, so you can check it against the stored inputs. Each seat
-is an ERC-8004 agent on Arc that earns reputation from how its votes turned out against Chainlink.
+The council seats (Price Desk, Risk Keeper, Trend Reader, Peg Desk, Strategist) are **deterministic rules over what was read
+that round, not an LLM and not machine learning**: every vote names the numbers it rests on, so you can check it against
+the stored inputs. Each seat is an ERC-8004 agent on Arc that earns reputation from how its votes turned out against
+Chainlink.
+
+**What has actually run** (labels used everywhere below: **Live** = real transactions on Arc testnet, **Fork** = a local
+fork of Arc mainnet, **Not run**):
+
+- **Live, Arc testnet:** the contracts are deployed (`deployments/arc-testnet.json`) and the core loop ran with real
+  transactions (`docs/E2E-TESTNET.md`): grant, council, a Memo-tagged trade inside the cap with the price floor, an
+  over-cap round vetoed, a mined over-cap revert, a mined price-floor revert, revoke, a mined post-revoke revert.
+- **Fork, Arc mainnet:** the same loop on the real Uniswap v3 pools and real Chainlink feeds (`docs/E2E-FORK.md`).
+- **Not run:** Circle Gateway, CCTP V2, USYC, and a CCIP stop sent from another chain.
+- **Testnet is XORR-seeded.** Arc testnet has no Uniswap and no Chainlink feeds. The testnet build deploys Uniswap v2 from
+  published bytecode with about 5 USDC per pool for test tokens (xWETH, xcirBTC), and prices them with mirror feeds of
+  Chainlink's Arc mainnet answers. Trades there are cents. The USDC/EURC pool is not seeded (no testnet EURC). Mainnet
+  uses none of this: real Uniswap v3 pools and real Chainlink feeds.
 
 ## Arc stack
 
-| Piece | What it does in XORR | Where | How verified |
+| Piece | What it does in XORR | Where | Status |
 |---|---|---|---|
-| USDC as gas, sub-second finality | One token pays for trades and gas; a round is final in under a second | everywhere | fork e2e (gas read in USDC; fills in ~0.6 s) |
-| Chainlink Data Feeds on Arc | Council prices, and the **on-chain floor under every fill** | `XorrPriceGuard`, `XorrDelegation` | unit tests (stale feed, exact boundary, far-below-oracle fill refused), fork e2e on the real feeds |
-| Uniswap v3 on Arc mainnet | The only venue; USDC/cirBTC, USDC/EURC, thin USDC/WETH pools | `XorrVenueRegistry`, `docs/VENUES.md` | fork e2e fills on the real pools |
-| ERC-8004 identity + reputation | Five council seats registered; `settle` writes each seat's score | `XorrCouncil` | fork e2e step 8 on the real registries |
-| Chainlink CCIP | Cross-chain kill switch: a Base/Ethereum transaction reaches your Arc permission | `XorrStopSender`, `XorrStopReceiver` | Chainlink Local tests; guardian wiring in e2e. Not run over a live lane |
-| Arc Memo | Each agent trade is sent through Memo with the council decision id as memo id | `server/src/chain.ts` | probed at runtime; live on testnet read. **Not exercised in the fork run** (needs Arc Foundry), trades fall back to untagged |
-| EURC | FX desk (USDC/EURC pool, EUR/USD feed) | council, `app/markets` | fork e2e buys EURC |
-| Circle Gateway, CCTP V2, USYC | Fund from any chain, withdraw to Base/Ethereum, park idle USDC | `server/src/gateway.ts`, `app/fund`, `app/treasury` | **Default off** (`FEATURE_GATEWAY`, `FEATURE_CCTP`, `FEATURE_USYC`): they need Circle's live services or an entitled wallet and were not run |
+| USDC as gas, deterministic finality | One token pays for trades and gas | everywhere | **Live** (testnet buys confirmed in 1.6-2.6 s end to end, gas estimate and receipt polling included); **Fork** (~0.6 s). Sub-second finality is Arc's documented property, not something XORR measured |
+| Chainlink Data Feeds on Arc | Council prices and the **on-chain floor under every fill** | `XorrPriceGuard`, `XorrDelegation` | **Fork**: the real mainnet feeds; unit tests (stale feed, exact boundary, far-below-oracle fill refused). **Live**: on testnet the feeds are XORR **mirrors** of the mainnet answers, and the floor refused a fill on chain (`BelowOracleFloor`) |
+| Uniswap | The venue | `XorrVenueRegistry`, `docs/VENUES.md` | **Fork**: real Uniswap v3 pools on mainnet (USDC/cirBTC, USDC/EURC, thin USDC/WETH). **Live**: XORR-seeded Uniswap v2 test pools on testnet |
+| ERC-8004 identity + reputation | Five council seats registered; `settle` writes each seat's score | `XorrCouncil` | **Live**: five seats registered on testnet. **Fork**: reputation writes. Testnet settlement is possible one hour after a round (`docs/E2E-TESTNET.md` says whether it ran) |
+| Chainlink CCIP | Cross-chain kill switch: a Base/Ethereum transaction reaches your Arc permission | `XorrStopSender`, `XorrStopReceiver` | Receiver **Live** on testnet; the cross-chain path is **Not run** over a live lane (Chainlink Local tests only) |
+| Arc Memo | Each agent trade is sent through Memo with the council decision id as memo id | `server/src/chain.ts` | **Live** on testnet (trade tagged, see `docs/E2E-TESTNET.md`); **Fork** with Arc Foundry |
+| EURC | FX desk (USDC/EURC pool, EUR/USD feed) | council, `app/markets` | **Fork**: bought on the real pool. Testnet: pool not seeded, **not traded** |
+| Circle Gateway, CCTP V2, USYC | Fund from any chain, withdraw to Base/Ethereum, park idle USDC | `server/src/gateway.ts`, `app/fund`, `app/treasury` | **Not run.** Default off (`FEATURE_GATEWAY`, `FEATURE_CCTP`, `FEATURE_USYC`): they need Circle's live services or an entitled wallet |
 
 ## The permission
 
@@ -45,6 +59,7 @@ npm run typecheck && npm --prefix server run typecheck
 npm test                      # app + executor unit tests (vitest)
 (cd contracts && forge test)  # contracts: unit, fuzz, invariant, Chainlink Local CCIP
 npm run e2e:fork              # the whole loop on a local fork of Arc mainnet; writes docs/E2E-FORK.md
+npm run e2e:testnet           # the loop on live Arc testnet (needs a funded throwaway owner, see the script header); writes docs/E2E-TESTNET.md
 npm run build:web             # static web export to dist-web
 ```
 
@@ -64,6 +79,8 @@ Deploying to mainnet: `MAINNET.md`. Hackathon text: `SUBMISSION.md`.
 
 ## Status
 
-Contracts are not yet deployed to a public network (the deployer is unfunded); `deployments/arc-mainnet.json` is written
-by `scripts/deploy.sh`. Signed round and autopilot requests are replay-protected (`signed-requests.json` under the data
-dir; keep it on persistent storage and run one executor writer per data directory). Not audited.
+Deployed on **Arc testnet** (`deployments/arc-testnet.json`: XorrDelegation, price guard with mirror feeds, venue registry,
+council ledger, five ERC-8004 seats, CCIP stop receiver). Not deployed to mainnet yet: `deployments/arc-mainnet.json` is
+written by `scripts/deploy.sh mainnet` and `MAINNET.md` lists the steps and caps. Signed round and autopilot requests are
+replay-protected (`signed-requests.json` under the data dir; keep it on persistent storage and run one executor writer per
+data directory). Not audited. See `docs/JUDGE-REPORT.md` for the claims audit.

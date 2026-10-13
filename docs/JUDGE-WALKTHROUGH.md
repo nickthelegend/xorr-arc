@@ -1,5 +1,10 @@
 # Two-minute walkthrough
 
+**Live on Arc testnet, no setup:** open `docs/E2E-TESTNET.md`: every step has an explorer link on explorer.testnet.arc.io (grant, a Memo-tagged
+trade, an over-cap veto, mined over-cap and price-floor reverts, revoke, a mined post-revoke revert). The testnet market is
+XORR-seeded (about 5 USDC Uniswap v2 pools, mirror feeds of Chainlink mainnet), so those trades are cents; the numbers below
+are the mainnet-fork run.
+
 **Fastest, no wallet needed (about 2 minutes):** `npm run e2e:fork`. It forks Arc mainnet locally, deploys XORR with the
 real deploy script, starts the executor, and drives the whole loop with real signed transactions. Output is recorded in
 `docs/E2E-FORK.md`.

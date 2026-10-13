@@ -17,7 +17,7 @@
  *
  *   - **Android** does not synthesise weights for a custom family. `fontFamily: 'Inter'`
  *     with `fontWeight: '700'` renders Regular, silently. The family has to name the weight.
- *   - **Web** — where the demo is shown, and where Privy's auth SDK runs — matches on family
+ *   - **Web** — where the demo is shown, and where the browser wallet runs — matches on family
  *     *and* weight through `react-native-web`'s CSS. Leaving the weight off asks the browser
  *     to pick one for a family whose name already encodes it, which engines do differently.
  *

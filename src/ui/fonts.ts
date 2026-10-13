@@ -15,7 +15,7 @@
  *
  * ## Why `fontWeight` is still set alongside it
  *
- * This app runs on the web too — that is how the demo is shown, and Privy's auth is a web
+ * This app runs on the web too — that is how the demo is shown, and the wallet runs as a web
  * SDK. `react-native-web` emits the family name AND the weight into CSS, and the browser
  * matches on both. Dropping `fontWeight` there would leave the browser to pick a weight for
  * a family whose name already encodes one, which it does inconsistently across engines.
