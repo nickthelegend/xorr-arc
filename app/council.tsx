@@ -35,13 +35,41 @@ export function BallotRow({ b }: { b: Ballot }) {
   );
 }
 
+/** Each seat's vote as a chip; the reasons are one tap away, and in full on the round's audit (the readability rule). */
+function VoteChips({ ballots }: { ballots: Ballot[] }) {
+  const [why, setWhy] = useState(false);
+  return (
+    <View style={{ gap: space.s8 }}>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.s8 }}>
+        {ballots.map((b) => {
+          const seat = SEATS.find((s) => s.id === b.seat)!;
+          return (
+            <View key={b.seat} style={{ flexDirection: 'row', alignItems: 'center', gap: space.s6 }}>
+              <Text variant="footnote" color={colors.ink70}>
+                {seat.name}
+              </Text>
+              <Text variant="footnote" color={VOTE_TONE[b.vote]}>
+                {b.vote.toUpperCase()}
+              </Text>
+            </View>
+          );
+        })}
+      </View>
+      <Press onPress={() => setWhy(!why)} accessibilityRole="button" accessibilityState={{ expanded: why }} hitHeight={44} testID="council-why" style={{ alignSelf: 'flex-start' }}>
+        <Text variant="footnote" color={colors.ink55}>
+          {why ? 'Hide why' : 'Why'}
+        </Text>
+      </Press>
+      {why ? ballots.map((b) => <BallotRow key={b.seat} b={b} />) : null}
+    </View>
+  );
+}
+
 export function RoundResult({ r }: { r: Round }) {
   const t = r.trade;
   return (
     <Card tone={r.decision === 'approved' ? 'accent' : undefined} eyebrow={`${r.inputs.proposal.side} ${r.inputs.proposal.label} ${usd(r.inputs.proposal.usd)}`} title={r.summary} testID="round-result">
-      {r.ballots.map((b) => (
-        <BallotRow key={b.seat} b={b} />
-      ))}
+      <VoteChips ballots={r.ballots} />
       <View style={{ gap: 4, marginTop: space.s6 }}>
         {r.record && 'hash' in r.record ? <TxLink hash={r.record.hash} label="Votes recorded on XorrCouncil" /> : r.record ? <Note tone="down">Not recorded: {r.record.error}</Note> : null}
         {t && 'hash' in t ? (
@@ -115,6 +143,9 @@ export default function Council() {
       </Card>
 
       <Eyebrow>Rounds</Eyebrow>
+      {rounds.data && rounds.data.rounds.length === 0 ? (
+        <Note>No rounds yet. Convene the council above, or switch autopilot on: each round lands here with its votes and its audit.</Note>
+      ) : null}
       {(rounds.data?.rounds ?? []).map((r) => (
         <Press key={r.id} onPress={() => router.push(`/round/${r.id}`)}>
           <View style={{ backgroundColor: colors.surface, borderRadius: radius.tile, padding: space.s12, gap: 2 }}>

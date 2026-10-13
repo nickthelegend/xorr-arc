@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { Text, colors, space } from '@/ui';
 import { api } from '@/arc/api';
 import { useConfig, usePoll } from '@/arc/hooks';
-import { AddressLink, Card, Note, Page } from '@/arc/ui';
+import { AddressLink, Card, Details, Note, Page } from '@/arc/ui';
 
 export default function BuiltOnArc() {
   const config = useConfig((s) => s.config);
@@ -40,8 +40,10 @@ export default function BuiltOnArc() {
               {r.state}
             </Text>
           </View>
-          <Text variant="secondary">{r.what}</Text>
           {r.address ? <AddressLink address={r.address} /> : null}
+          <Details testID={`arc-details-${r.piece.split(' ')[0]?.toLowerCase()}`}>
+            <Text variant="secondary">{r.what}</Text>
+          </Details>
         </Card>
       ))}
     </Page>

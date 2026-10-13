@@ -3,7 +3,7 @@ import type { FigureKind } from "../ui/mask";
 import React from 'react';
 import { Linking, Platform, ScrollView, View, type StyleProp, type ViewStyle } from 'react-native';
 import { router } from 'expo-router';
-import { Eyebrow, Press, SheetCard, Text, colors, radius, space } from '@/ui';
+import { Eyebrow, Press, SheetCard, Text, colors, radius, size, space } from '@/ui';
 import { useConfig } from './hooks';
 import { short } from './format';
 
@@ -89,6 +89,21 @@ export function Card({ title, eyebrow, children, tone, style, testID }: { title?
         {children}
       </View>
     </SheetCard>
+  );
+}
+
+/** A line of explanation behind a "Details" tap: the reading stays on the card, the why is one tap away. */
+export function Details({ children, testID }: { children: React.ReactNode; testID?: string }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <View style={{ gap: space.s6 }}>
+      <Press onPress={() => setOpen(!open)} accessibilityRole="button" accessibilityState={{ expanded: open }} hitHeight={size.hit} testID={testID} style={{ alignSelf: 'flex-start' }}>
+        <Text variant="footnote" color={colors.ink40}>
+          {open ? 'Hide details' : 'Details'}
+        </Text>
+      </Press>
+      {open ? children : null}
+    </View>
   );
 }
 
