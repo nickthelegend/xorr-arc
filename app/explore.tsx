@@ -60,7 +60,7 @@ type Story = {
   detail: string;
   icon: IconName;
 };
-/** The story, first: what xorr is about on Monad, each a screen that shows it rather than says it. */
+/** The story, first: what xorr is about on Arc, each a screen that shows it rather than says it. */
 const STORY: Story[] = [
   {
     route: "/arc",

@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-14T08:52:09.099Z",
+  "owner": "0x224fbbcd10DFC08A51875c094E129EC27cE7DDD6",
+  "transactions": [
+    {
+      "step": "approve",
+      "hash": "0xec6acc859a70a9fbf8ce63b581af158bd91e01e3754a9999036f3ac5bfea0b0a",
+      "status": "success",
+      "feeUsdc": "0.000972111"
+    },
+    {
+      "step": "approve",
+      "hash": "0x7c5e86ea2fd2114473275918ceb0e8d5b74f0c58cdb4189536268128144b09a4",
+      "status": "success",
+      "feeUsdc": "0.001171485"
+    },
+    {
+      "step": "grant",
+      "hash": "0x19337ce37101e9701a200b8fc59177633d4600a4c634eb6c43edfd732ae12a4c",
+      "status": "success",
+      "feeUsdc": "0.001194165"
+    },
+    {
+      "step": "revoke",
+      "hash": "0x8434be907bcfe71596bb324e17c496748fa4e40e688e31de61eb5799002ab3e2",
+      "status": "success",
+      "feeUsdc": "0.000959784"
+    }
+  ],
+  "signatures": 1
+}

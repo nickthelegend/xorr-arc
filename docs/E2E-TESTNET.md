@@ -50,3 +50,30 @@ owner transactions: 6; passed 11/11
   it on testnet, start the executor (`npm run server` with the testnet deployment); its keeper settles due rounds.
 - No EURC trade (pool not seeded), no cirBTC trade (the xcirBTC pool is 5,997 units deep), no Gateway/CCTP/USYC, and no CCIP stop sent from another chain.
 - The live trade went through the Uniswap **v2** test pool; the mainnet venue is Uniswap **v3** (fork run only).
+
+
+## Frontend browser rehearsal — 14 October 2026
+
+The exported Expo app was driven with Playwright locators in Chrome against the deployment above. A loopback-only
+EIP-1193 test signer used the existing owner key; real receipts and council records were read from Arc testnet.
+No key, wallet storage or trace was saved in the repository. The keeper was off to bound the rehearsal cost.
+
+- [Owner top-up: 0.12 USDC](https://explorer.testnet.arc.io/tx/0x4aa53b1c23b7f8c5fced5409d132055aa09289785d0a85d10f193b8ed2799ece).
+- [Grant: 0.10 USDC/day, one day, 2% floor](https://explorer.testnet.arc.io/tx/0x19337ce37101e9701a200b8fc59177633d4600a4c634eb6c43edfd732ae12a4c).
+- [Council: approved 4–0](https://explorer.testnet.arc.io/tx/0xe89b69567d8504d25baf58f5eac0b61811b8fd60a39a2d0f7b8926d40f0de233).
+- [Trade: 0.04 USDC → 0.000015778031771014 xWETH](https://explorer.testnet.arc.io/tx/0x18d0ece826a79f1eb523929aa10b21bca7961a868e93d403feeaac08addf0a0a),
+  XORR-seeded v2 pool; Chainlink mirror floor enforced; Arc Memo tagged. 1498 ms send-to-receipt, 0.007723225 USDC gas.
+- [Revoke: hold-to-stop from Home](https://explorer.testnet.arc.io/tx/0x8434be907bcfe71596bb324e17c496748fa4e40e688e31de61eb5799002ab3e2).
+  The subsequent account read returned `stopped: true` and `remainingToday: 0`.
+
+Two token approvals also completed. All owner and executor hashes/fees are in `UI-OWNER-TRANSACTIONS.json` and
+`UI-BROWSER-TESTNET.json`. Total gas, including funding: **0.015956345 USDC**. Trade plus gas: **0.055956345 USDC**.
+Even counting the 0.12 USDC top-up again, gross flow plus fees was **0.175956345 USDC**, below the **0.5 USDC** limit.
+The owner retained about 0.080876 USDC and the purchased test token; the permission is stopped.
+
+The RPC finalized tag briefly lagged two mined owner receipts. Home's original-call recovery confirmed each without
+resubmitting. The frontend now waits briefly for the tag while retaining every exact-call and canonical-block check;
+191 unit tests pass, including both lag regressions. No further live transaction was needed to test that read-only wait.
+
+Gateway, CCTP, USYC and a CCIP stop from another chain remain **Not run**. This rehearsal did not settle the one-hour
+reputation horizon, sell the test token, run native mobile apps or broadcast to mainnet.

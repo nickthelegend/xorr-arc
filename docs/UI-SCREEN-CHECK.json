@@ -1,0 +1,224 @@
+{
+  "date": "2026-10-14T09:06:19.670Z",
+  "screens": [
+    {
+      "name": "home-disconnected",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "explore",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "council",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "round",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "rooms",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "runs",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "runs",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "explore",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "permission",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "permission",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "arc",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "arc",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "arc-end",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "arc-end",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "fund",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "fund",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "history",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "history",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "how",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "how",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "markets",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "markets",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "treasury",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "treasury",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "agents",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "agents",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "rooms",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "council",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "round",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "name": "home",
+      "brokenImages": 0,
+      "height": 900,
+      "overflow": false,
+      "width": 1280
+    },
+    {
+      "name": "home",
+      "brokenImages": 0,
+      "height": 844,
+      "overflow": false,
+      "width": 390
+    }
+  ],
+  "applicationErrors": [],
+  "notes": "One 402px source phone frame at desktop; responsive 390px mobile. Screenshots use actual testnet records. Entry animations settled before final captures."
+}

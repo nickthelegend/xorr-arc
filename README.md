@@ -36,6 +36,23 @@ fork of Arc mainnet, **Not run**):
 | EURC | FX desk (USDC/EURC pool, EUR/USD feed) | council, `app/markets` | **Fork**: bought on the real pool. Testnet: pool not seeded, **not traded** |
 | Circle Gateway, CCTP V2, USYC | Fund from any chain, withdraw to Base/Ethereum, park idle USDC | `server/src/gateway.ts`, `app/fund`, `app/treasury` | **Not run.** Default off (`FEATURE_GATEWAY`, `FEATURE_CCTP`, `FEATURE_USYC`): they need Circle's live services or an entitled wallet |
 
+## The app
+
+The finished XORR Expo interface is now on Arc: a balance-led home, round quick actions, an agent sheet,
+Explore story tiles, council voting and replay, agent rooms, history and timed receipts. Rooms show recorded
+rule-based ballots, not LLM conversations. Perps and the source chain's strategy gauntlet are omitted because
+this deployment has no supporting Arc venue or backtest dataset. [Port and verification notes](docs/UI-PORT.md).
+
+| Home | Explore | Timed fills |
+|---|---|---|
+| ![Home on Arc](docs/screens/testnet/home-390.jpg) | ![Explore Arc](docs/screens/testnet/explore-390.jpg) | ![Arc receipt](docs/screens/testnet/runs-390.jpg) |
+
+[Desktop view](docs/screens/testnet/home-1280.jpg) · [All screens at 1280 and 390px](docs/screens/testnet/)
+
+The browser rehearsal granted a 0.10 USDC daily limit, convened the council, bought 0.04 USDC of xWETH in the
+XORR-seeded testnet pool, and revoked the permission. The trade's measured send-to-receipt time was 1.50 s;
+its on-chain gas fee was 0.007723 USDC. [Transactions and budget](docs/UI-BROWSER-TESTNET.json).
+
 ## The permission
 
 `XorrDelegation.grant(agent, dailyCapUsdc, expires, slippageBps, venues[])`, owner only. The agent can call
@@ -61,6 +78,7 @@ npm test                      # app + executor unit tests (vitest)
 npm run e2e:fork              # the whole loop on a local fork of Arc mainnet; writes docs/E2E-FORK.md
 npm run e2e:testnet           # the loop on live Arc testnet (needs a funded throwaway owner, see the script header); writes docs/E2E-TESTNET.md
 npm run build:web             # static web export to dist-web
+npm --prefix server run build # compiled executor under server/dist
 ```
 
 Local app: `sh scripts/arc-fork.sh mainnet` (fork + deploy), then
