@@ -126,7 +126,7 @@ export default function Permission() {
           ))}
         </Card>
       ) : null}
-      {err ? <Note tone="down">{err}</Note> : null}
+      {err ? <View testID="permission-error"><Note tone="down">{err}</Note></View> : null}
     </Page>
   );
 }

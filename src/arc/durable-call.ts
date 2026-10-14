@@ -137,33 +137,28 @@ export async function recoverCall(
     );
   if ((await client.getChainId()) !== p.chainId)
     throw Error("Receipt RPC network differs from the original transaction.");
-  const [r, tx, final] = await Promise.all([
+  const [r, tx] = await Promise.all([
     client.getTransactionReceipt({ hash: p.hash }),
-    client.getTransaction({ hash: p.hash }),
-    client.getBlock({ blockTag: "finalized" }),
+    readMinedTransaction(client, p.hash),
   ]);
-  if (
-    r.transactionHash.toLowerCase() !== p.hash.toLowerCase() ||
-    tx.hash.toLowerCase() !== p.hash.toLowerCase() ||
-    tx.from.toLowerCase() !== p.from.toLowerCase() ||
-    r.from.toLowerCase() !== p.from.toLowerCase() ||
-    tx.to?.toLowerCase() !== p.to.toLowerCase() ||
-    r.to?.toLowerCase() !== p.to.toLowerCase() ||
-    keccak256(tx.input).toLowerCase() !== p.dataHash.toLowerCase() ||
-    tx.value !== BigInt(p.value) ||
-    tx.gas !== BigInt(p.gas) ||
-    tx.nonce !== p.nonce ||
-    (p.maxFeePerGas !== undefined &&
-      tx.maxFeePerGas !== BigInt(p.maxFeePerGas)) ||
-    (p.maxPriorityFeePerGas !== undefined &&
-      tx.maxPriorityFeePerGas !== BigInt(p.maxPriorityFeePerGas)) ||
-    tx.blockHash !== r.blockHash ||
-    final.number === null ||
-    final.number < r.blockNumber
-  )
-    throw Error(
-      "Original transaction has no exact canonical finalized call proof.",
-    );
+  const checks = {
+    receiptHash: r.transactionHash.toLowerCase() === p.hash.toLowerCase(),
+    transactionHash: tx.hash.toLowerCase() === p.hash.toLowerCase(),
+    sender: tx.from.toLowerCase() === p.from.toLowerCase(),
+    receiptSender: r.from.toLowerCase() === p.from.toLowerCase(),
+    recipient: tx.to?.toLowerCase() === p.to.toLowerCase(),
+    receiptRecipient: r.to?.toLowerCase() === p.to.toLowerCase(),
+    calldata: keccak256(tx.input).toLowerCase() === p.dataHash.toLowerCase(),
+    value: tx.value === BigInt(p.value),
+    gas: tx.gas === BigInt(p.gas),
+    nonce: tx.nonce === p.nonce,
+    maxFeePerGas: p.maxFeePerGas === undefined || tx.maxFeePerGas === BigInt(p.maxFeePerGas),
+    maxPriorityFeePerGas: p.maxPriorityFeePerGas === undefined || tx.maxPriorityFeePerGas === BigInt(p.maxPriorityFeePerGas),
+    receiptBlock: tx.blockHash === r.blockHash && tx.blockNumber === r.blockNumber,
+  };
+  const mismatches = Object.entries(checks).filter(([, matches]) => !matches).map(([name]) => name);
+  if (mismatches.length) throw Error(`Original transaction proof differs: ${mismatches.join(', ')}. Check the original transaction on Home.`);
+  await waitForFinalized(client, r.blockNumber);
   const canonical = await client.getBlock({ blockNumber: r.blockNumber });
   if (canonical.hash !== r.blockHash)
     throw Error("Original receipt block is not canonical.");
@@ -205,17 +200,34 @@ export async function submitCall(
     const hash = await submit(nonce);
     p = { ...p, hash };
     saveCall(s, p);
-    const mined = await client.waitForTransactionReceipt({
+    await client.waitForTransactionReceipt({
       hash,
       timeout: 60000,
     });
-    // Arc RPC nodes can report a mined receipt before their finalized tag catches up. Keep the exact-call proof;
-    // wait briefly for that tag instead of presenting a successful grant/revoke as an unexplained failure.
-    await waitForFinalized(client, mined.blockNumber);
+    // Both transaction indexing and the finalized tag can trail a mined receipt on Arc.
+    // Recovery waits for those reads, verifies the exact call and only then clears the journal.
     return await recoverCall(client, s, input.chainId, input.from);
   } finally {
     busy.delete(id);
   }
+}
+
+/** A receipt can be mined while Arc's transaction lookup still returns the pending transaction.
+ * Retry only missing inclusion metadata. A different mined block or altered call still fails the proof below.
+ * This is read-only: an indexing delay must never request another signature or send another approval.
+ */
+export async function readMinedTransaction(
+  client: Pick<PublicClient, "getTransaction">,
+  hash: Hex,
+  tries = 30,
+  pause = () => new Promise<void>((resolve) => setTimeout(resolve, 500)),
+) {
+  for (let i = 0; i < tries; i++) {
+    const tx = await client.getTransaction({ hash });
+    if (tx.blockHash !== null && tx.blockNumber !== null) return tx;
+    if (i + 1 < tries) await pause();
+  }
+  throw Error("Transaction receipt found; RPC transaction indexing is still pending. Check the unconfirmed transaction on Home. No new transaction was sent.");
 }
 
 export async function waitForFinalized(

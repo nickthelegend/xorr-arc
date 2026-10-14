@@ -5,12 +5,29 @@ cd '/Volumes/Extreme SSD/Projects/arc/xorr-arc'
 npm run e2e:browser -- --trade
 ```
 
-Run outside the Codex sandbox. If Chromium is missing, run `npx playwright install chromium` first.
-Read-only alternative: `npm run e2e:browser` (do not run concurrently).
-The command owns ports 9120/9130, writes screenshots to `docs/screens/testnet/round2/`, saves the throwaway key in
-`.keys/round2-owner.env`, funds ≤0.20 testnet USDC under the shared lock, revokes and sweeps back on exit, and stops its PIDs.
-Budget ceiling is <1 USDC including executor maintenance. Do not share the executor key with a running keeper during it.
-No server or fork was left running by this pass. Browser checks below are prepared, **Not run** in round 2.
+# Grant fix acceptance — 14 October 2026
+
+**Live (testnet), PASS:** fresh device wallet; approvals, grant, council, Memo buy, over-cap refusal, sell-back, browser revoke, next-trade refusal. The final command exited 0. All 14 routes at 1440/390, control interactions and outage recovery passed with no browser errors. `docs/ROUND2-BROWSER-TESTNET.json` and screenshots are current evidence; historical pending-browser statements below are superseded.
+
+| Criterion | Before this fix | After | Reason |
+|---|---:|---:|---|
+| Arc relevance | 8 | 8 | Actual Memo events, USDC gas and bounded delegation on testnet; external lanes still Not run. |
+| Technical credibility | 7 | 8 | Reproduced pending transaction metadata after successful receipt; bounded read-only indexing recovery preserves exact-call/finality/canonical checks. |
+| Build quality | 7 | 8 | Grant succeeds; web expansion/selection/busy states exposed correctly; desktop/mobile checks pass. |
+| Worth taking further | 8 | 8 | Permission primitive works; shallow seeded markets and public backend remain limitations. |
+| Cold judge can complete a trade | 6 | 7 | Complete local one-command flow verified; an updated public executor is still a release gap. |
+
+Checks: 222/222 unit tests; app typecheck, lint and web export PASS. No contract changes; contract/fork suites Not rerun. Both refusal rounds were vetoed and recorded without a trade or balance/spend change; these browser checks do not claim new mined revert transactions.
+
+[Grant](https://explorer.testnet.arc.io/tx/0xc9a378421779027406d07ea67edb8f9f7ddf2e26cb0f5d1b8499c70dbe213cdc) · [Memo buy](https://explorer.testnet.arc.io/tx/0x9f211d3815fa5995a023cf6982333f3bb45ee99e9c65dd36a1241440ae5294e1) · [Over-cap record](https://explorer.testnet.arc.io/tx/0x75cbb9bf57d5b44f219826f2f986dfbb1bf5dc7752118a8ff683c884176b992b) · [Revoke](https://explorer.testnet.arc.io/tx/0x63605bd15000f9fc86f2e26e5cfa54f1ba131b706a06f443209423aada62f78c) · [Post-revoke record](https://explorer.testnet.arc.io/tx/0x2b9b302728fda94bcc34f6a38df80828b1e274b0d05973241737b4ef20f83b46).
+
+Whole-task net cost **0.332065649 testnet USDC**, including failed attempts, maintenance and recovery; limit 0.5. Unused owner funds/executor top-up swept back, partial-run test tokens recovered to deployer, keys retained only in gitignored recovery files. See `GRANT-FIX-BUDGET.json` and `E2E-TESTNET.md`. All owned server/browser processes stopped.
+
+Still weak: this is local frontend + on-demand executor against live testnet; no public release was performed. The executor still needs durable history/replay/nonce coordination for serverless hosting. No paid resources created. Seeded pool depth and persisted maintenance quota can refuse later runs. CCIP/Gateway/CCTP/USYC and one-hour reputation settlement remain Not run live; mainnet undeployed, unaudited.
+
+---
+
+Historical report follows (before grant/ARIA fixes):
 
 # Round 2 — product judge + fixes, 2026-10-14
 

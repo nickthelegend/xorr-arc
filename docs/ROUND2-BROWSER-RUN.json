@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-14T14:07:15.068Z",
+  "chainId": 5042002,
+  "owner": "0x65C6Bc1604534Badc43B58aA696D075A5e28Afc2",
+  "ownerKeyFile": ".keys/round2-owner-1791986835066.env",
+  "transactions": [
+    {
+      "hash": "0xe0b6c6880440bd0279dbacf40ea4bc40194cd9b72b2dc02f239acf53bdc8de6e",
+      "from": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+      "to": "0x65C6Bc1604534Badc43B58aA696D075A5e28Afc2",
+      "valueUsdc": "0.2",
+      "status": "success",
+      "gasUsdc": "0.000441"
+    },
+    {
+      "hash": "0x4e0c24c1b372cc5c27d795ffdb4cbc262b7b0224c589f0c364505f801787c873",
+      "from": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+      "to": "0x9AFa02F2BF4df7740e0Ad6a4f68163E0f48E7ada",
+      "valueUsdc": "0.1391513375",
+      "status": "success",
+      "gasUsdc": "0.000441"
+    },
+    {
+      "hash": "0xb3bd51ad35bfe0358badcd0cd446f3178ab26aa78c530f01b07712896bbbda41",
+      "from": "0x65C6Bc1604534Badc43B58aA696D075A5e28Afc2",
+      "to": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+      "valueUsdc": "0.187389043",
+      "status": "success",
+      "gasUsdc": "0.000441"
+    },
+    {
+      "hash": "0xa9a321d19c3653f3374a7d5e7fab5c4984be23f8f4b3a94333de2bfd0aa8998c",
+      "from": "0x9AFa02F2BF4df7740e0Ad6a4f68163E0f48E7ada",
+      "to": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+      "valueUsdc": "0.0635585375",
+      "status": "success",
+      "gasUsdc": "0.000441"
+    }
+  ],
+  "passed": true,
+  "executorUsdcReduction": 0.0750258,
+  "executorFundingUsdc": "0.1391513375",
+  "executorSweptUsdc": "0.0635585375",
+  "budgetUpperBoundUsdc": 0.3150258,
+  "netCostUsdc": 0.08795175700000005,
+  "ownerRemainingUsdc": "0.000567"
+}

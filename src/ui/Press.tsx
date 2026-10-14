@@ -16,6 +16,7 @@
 import React from 'react';
 import {
   Pressable,
+  Platform,
   type GestureResponderEvent,
   type PressableProps,
   type StyleProp,
@@ -24,6 +25,7 @@ import {
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { easeOut, useReducedMotion } from './motion';
 import { duration, size } from './tokens';
+import { webAccessibilityState } from './webAccessibilityState';
 
 /** The pressed opacity. One value, everywhere. */
 export const PRESSED_OPACITY = 0.85;
@@ -81,6 +83,7 @@ export const Press = React.forwardRef<React.ComponentRef<typeof Pressable>, Pres
           onPressOut?.(e);
         }}
         style={[style, give]}
+        {...(Platform.OS === 'web' ? webAccessibilityState(rest.accessibilityState) : {})}
         {...rest}
       />
     );

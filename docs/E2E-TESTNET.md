@@ -1,5 +1,35 @@
 # End-to-end on Arc testnet (live)
 
+## Grant fix acceptance — 14 October 2026 (Live: testnet)
+
+LEAD: RUN THESE
+
+```sh
+cd '/Volumes/Extreme SSD/Projects/arc/xorr-arc'
+npm run e2e:browser -- --trade
+```
+
+**PASS:** the same exported app/device-wallet browser command now completes approvals → grant → council → Memo-tagged buy → over-cap refusal → sell-back → revoke → next-trade refusal. No mocks, injected signer bypass, mainnet broadcasts or paid resources.
+
+The root cause was Arc transaction-index lag: a successful receipt existed while transaction lookup still returned null block hash/number. See `grant-failure/BLOCK-RACE-BROWSER.json`. Confirmation now polls only missing inclusion metadata, then checks the exact original call, receipt block hash/number, finality and canonical block. It never automatically signs again. Existing receipt/browser timeouts and the 60 gwei owner fee cap are unchanged.
+
+- Owner: `0x65C6Bc1604534Badc43B58aA696D075A5e28Afc2`; four approvals completed in order, followed by [grant: 0.05 USDC/day, one day, 2% floor](https://explorer.testnet.arc.io/tx/0xc9a378421779027406d07ea67edb8f9f7ddf2e26cb0f5d1b8499c70dbe213cdc) and the guardian setting.
+- [Council: approved 4–0](https://explorer.testnet.arc.io/tx/0xc9cbfc7fb315c9cc0bb74109fbd1bdc90dd2a54c8f71ea9fe858921d917e9734); [0.04 USDC buy](https://explorer.testnet.arc.io/tx/0x9f211d3815fa5995a023cf6982333f3bb45ee99e9c65dd36a1241440ae5294e1). Actual receipt Memo event matches the council decision id.
+- [Over-cap refusal recorded](https://explorer.testnet.arc.io/tx/0x75cbb9bf57d5b44f219826f2f986dfbb1bf5dc7752118a8ff683c884176b992b): 0.02 requested with 0.01 remaining; Risk Keeper veto, no trade and unchanged owner holdings/spend.
+- [Sell all purchased xWETH back](https://explorer.testnet.arc.io/tx/0x7776cd33d67af12181419cb6a23d5a236580f2d6bed43683257d411c5fd488d2); actual Memo event verified.
+- [Browser hold-to-stop revoke](https://explorer.testnet.arc.io/tx/0x63605bd15000f9fc86f2e26e5cfa54f1ba131b706a06f443209423aada62f78c); [next trade refused and recorded](https://explorer.testnet.arc.io/tx/0x2b9b302728fda94bcc34f6a38df80828b1e274b0d05973241737b4ef20f83b46) with unchanged holdings/spend.
+- [Owner USDC sweep](https://explorer.testnet.arc.io/tx/0xb3bd51ad35bfe0358badcd0cd446f3178ab26aa78c530f01b07712896bbbda41). Unused executor top-up was also returned; pre-existing executor funds retained.
+
+All 14 routes passed at 1440 and 390 px (28 route/viewport checks): no overflow, broken images, stale-chain copy or browser errors. Cold navigation, Explore links, agent rooms, proof disclosures, balance privacy, keeper-off and API-outage recovery passed. The route checks also found and fixed missing ARIA state: React Native Web ignores native `accessibilityState`; Press now maps it to individual web ARIA properties.
+
+Evidence: `ROUND2-BROWSER-TESTNET.json` (17 successful receipts, including both Memo events), `ROUND2-BROWSER-RUN.json`, and `screens/testnet/round2/`. Failed/diagnostic runs remain separately labelled in `grant-failure/`. Each funded rerun saves a fresh recovery key under gitignored `.keys/`, avoiding earlier daily spend. Ports 9120/9130; all owned processes stopped.
+
+Final run net cost: **0.087951757 USDC**. Whole task including failed attempts and token recovery: **0.332065649 USDC**, below **0.5** (`GRANT-FIX-BUDGET.json`). Native gas dust remains; no new mainnet transactions.
+
+Validation: **222/222 unit tests**, app typecheck, lint and web export passed. Contract code is unchanged; the contract/fork suites were not rerun. This proves the local browser against live testnet, not an updated public release. Seeded liquidity/mirror feeds, live cross-chain integrations, the one-hour reputation horizon and public executor hosting remain limitations.
+
+---
+
 Produced by `node scripts/e2e-testnet.mjs` (scripts/e2e-testnet.mjs + server/scripts/e2e.ts) on 2026-10-13.
 
 - Network: **Arc testnet** (chain id 5042002, https://rpc.testnet.arc.io). Real transactions; explorer links below open on https://explorer.testnet.arc.io.
@@ -79,7 +109,7 @@ Gateway, CCTP, USYC and a CCIP stop from another chain remain **Not run**. This 
 reputation horizon, sell the test token, run native mobile apps or broadcast to mainnet.
 
 
-## Round 2 — live pool maintenance, browser run pending (2026-10-14)
+## Historical round-2 maintenance before the grant fix (2026-10-14)
 
 `docs/ROUND2-REPEG-TESTNET.json` records real testnet reads and three successful maintenance transactions:
 [faucet](https://explorer.testnet.arc.io/tx/0xf23ab47bd54c0caa5184fe06fc3d1a72a3aef8f7d56b7866938f0b15bec38e7b),
@@ -90,7 +120,4 @@ The executor spent **0.004617375 USDC**, all gas, and no owner/deployer funding 
 fresh; the $0.04 quote finished at **109.64 bps** from it, inside the 150 bps Price Desk guard.
 This is a live maintenance/quote check, **not a new browser trade**. No mainnet broadcast, anvil or dev server was used.
 
-Lead outside the sandbox: `npm run e2e:browser -- --trade`. It prepares a funded throwaway key in gitignored
-`.keys/round2-owner.env`, clicks grant → buy → repeat buy → sell back → hold-stop, checks every route at 1440/390,
-writes `docs/screens/testnet/round2/`, and cleans up with revoke + USDC sweep. Its JSON reports and screenshots have
-not been generated in round 2. Earlier browser evidence above is preserved, not relabelled as fresh.
+The original round-2 runner later failed at grant. Its original artifacts and the subsequent investigation are preserved in `grant-failure/`; the current passing browser evidence is described at the top of this document.

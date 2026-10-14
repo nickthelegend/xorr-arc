@@ -1,0 +1,32 @@
+{
+  "chainId": 5042002,
+  "owner": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+  "transactions": [
+    {
+      "hash": "0x5a339ddb4dc710338c4aa10a0a227cfbc5523c556efbc42e1a7a9b0b30524e87",
+      "status": "success",
+      "from": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+      "to": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+      "valueUsdc": "0.004",
+      "gasUsdc": "0.000441"
+    },
+    {
+      "hash": "0xf08d10b838eeaf03cf92b967f278e9b66fa230a0a48a5c787584550bf62a6a07",
+      "status": "success",
+      "from": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+      "to": "0x9604C6d6D48b448c91420a5F885f1dE136dBC131",
+      "valueUsdc": "0",
+      "gasUsdc": "0.000976626"
+    },
+    {
+      "hash": "0x15c626ff5032f5580ca10b7edeb5c963123872863fee09e75d05c191bf9da6bd",
+      "status": "success",
+      "from": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+      "to": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+      "valueUsdc": "0.002540374",
+      "gasUsdc": "0.000441"
+    }
+  ],
+  "sweptWethRaw": "11776061447113",
+  "passed": true
+}

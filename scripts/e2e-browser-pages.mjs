@@ -4,13 +4,14 @@ import { chromium } from "playwright";
 import { createServer } from "node:http";
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { resolve, extname } from "node:path";
-import { createPublicClient, http, formatEther } from "viem";
+import { createPublicClient, http, formatEther, decodeEventLog, parseAbi } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
 const root = resolve(import.meta.dirname, "..");
 const api = "http://127.0.0.1:9120";
 const origin = "http://127.0.0.1:9130";
 const trade = process.argv.includes("--trade");
+const recoveryCall = process.env.XORR_RECOVER_REPORT ? JSON.parse(readFileSync(resolve(root, process.env.XORR_RECOVER_REPORT), 'utf8')).pendingCalls[0] : null;
 const key = /^OWNER_KEY=(0x[0-9a-fA-F]{64})/m.exec(
   readFileSync(
     resolve(
@@ -81,8 +82,22 @@ const context = await browser.newContext({
 await context.addInitScript((k) => {
   localStorage.setItem("xorr.arc.deviceKey", k);
 }, key);
+if (recoveryCall) await context.addInitScript(p => localStorage.setItem(`arc:durable-call:v1:${p.chainId}:${p.from.toLowerCase()}`, JSON.stringify(p)), recoveryCall);
 const page = await context.newPage();
 const errors = [];
+const rpcCalls = [];
+const ownerHashes = [];
+page.on('response', async response => {
+  if (response.url().replace(/\/$/, '') !== cfg.rpcUrl.replace(/\/$/, '')) return;
+  try {
+    const request = response.request().postDataJSON();
+    const body = await response.json();
+    // Record methods and RPC errors only; never persist signed payloads or wallet storage.
+    const proof = ['eth_getTransactionByHash', 'eth_getTransactionReceipt'].includes(request.method) && body.result ? Object.fromEntries(['hash','transactionHash','from','to','value','gas','nonce','maxFeePerGas','maxPriorityFeePerGas','blockHash','blockNumber','status'].filter(k => k in body.result).map(k => [k,body.result[k]])) : undefined;
+    rpcCalls.push({method: request.method, status: response.status(), ...(body.error ? {error: body.error.message} : {}), ...(proof?{proof}:{})});
+    if (['eth_sendRawTransaction', 'eth_sendTransaction'].includes(request.method) && typeof body.result === 'string') ownerHashes.push(body.result);
+  } catch { /* a navigation can cancel a response */ }
+});
 let expectedOutage = false;
 page.on('requestfailed', request => { if (!expectedOutage && !request.failure()?.errorText.includes('ERR_ABORTED')) errors.push(`Request failed: ${request.url()}`); });
 page.on('response', response => { if (response.status() >= 400 && response.url().startsWith(api)) errors.push(`HTTP ${response.status()}: ${response.url()}`); });
@@ -102,6 +117,8 @@ const result = {
   transactions: [],
   screens: [],
   errors,
+  rpcCalls,
+  ownerHashes,
 };
 const account = () => fetch(`${api}/account/${owner}`).then((r) => r.json());
 async function ready(route) {
@@ -114,12 +131,52 @@ async function ready(route) {
 }
 async function until(fn, what) {
   for (let n = 0; n < 50; n++) {
+    const error = page.getByTestId('permission-error');
+    if (await error.count()) throw Error(`${what}: ${await error.innerText()}`);
     if (await fn()) return;
     await page.waitForTimeout(1000);
   }
   throw Error(`Timed out: ${what}`);
 }
+async function submitRound(step, side, amount) {
+  await page.getByTestId(`side-${side}`).click();
+  await page.getByTestId(`usd-${amount}`).click();
+  const response = page.waitForResponse(r => r.url() === `${api}/rounds` && r.request().method() === 'POST', {timeout:120000});
+  await page.getByTestId('convene').click();
+  const payload = await (await response).json();
+  if (!payload.round) throw Error(payload.error ?? `No ${step} round`);
+  const round = payload.round;
+  (result.followupRounds ??= []).push({step, round});
+  if (round.record?.hash) result.transactions.push({step:`${step}-council`,hash:round.record.hash});
+  if (round.trade?.hash) result.transactions.push({step,hash:round.trade.hash});
+  for (const hash of round.maintenance?.hashes ?? []) result.transactions.push({step:'repeg',hash});
+  await page.getByTestId('round-result').getByText(round.summary, {exact:true}).waitFor();
+  return round;
+}
+async function expectRefused(step, reason) {
+  const before = await account();
+  const round = await submitRound(step, 'buy', 0.02);
+  const after = await account();
+  const risk = round.ballots.find(b => b.seat === 'risk-keeper');
+  if (round.decision !== 'vetoed' || round.trade || risk?.vote !== 'veto' || !reason.test(risk.reason) || !round.record?.hash)
+    throw Error(`${step} did not refuse and record the round: ${round.summary}`);
+  if (JSON.stringify(before.balances) !== JSON.stringify(after.balances) || before.permission.spentToday !== after.permission.spentToday)
+    throw Error(`${step} changed owner holdings or spend`);
+  (result.refusals ??= []).push({step,reason:risk.reason,unchangedHoldings:true,spentToday:after.permission.spentToday});
+  await page.getByTestId('round-result').scrollIntoViewIfNeeded();
+  await page.screenshot({path:resolve(out, `${step}-1440.png`)});
+  console.log(`PASS ${step}: ${risk.reason}`);
+}
 try {
+  if (recoveryCall) {
+    await ready('/');
+    await page.getByRole('button', {name:'Check the unconfirmed transaction', exact:true}).click();
+    await page.waitForTimeout(5000);
+    result.recoveryPage = await page.locator('body').innerText();
+    result.recovered = await page.evaluate(() => !Object.keys(localStorage).some(k => k.startsWith('arc:durable-call:')));
+    if (!result.recovered) throw Error(`Read-only recovery failed: ${result.recoveryPage}`);
+    console.log('PASS read-only recovery of original approval; no new signature');
+  }
   const cold = await browser.newContext({reducedMotion:'reduce'});
   try {
     const coldPage = await cold.newPage();
@@ -139,6 +196,7 @@ try {
         "Owner needs at least 0.15 USDC for capped browser rehearsal",
       );
     await ready("/permission");
+    await page.getByTestId('cap-0.05').click();
     await page.getByTestId("grant").click();
     await until(async () => {
       const a = await account();
@@ -146,17 +204,22 @@ try {
         a.permission.granted &&
         !a.permission.revoked &&
         !a.permission.stopped &&
-        a.permission.dailyCap === 0.1
+        a.permission.dailyCap === 0.05
       );
     }, "grant");
-    console.log("PASS browser grant confirmed: 0.10 USDC/day, 1 day, 2% floor");
+    // Grant is followed by the optional guardian transaction. Do not navigate away mid-sequence.
+    await until(async () => await page.getByTestId('grant').innerText() === 'Save the permission', 'grant sequence');
+    console.log("PASS browser grant confirmed: 0.05 USDC/day, 1 day, 2% floor");
     const txs = await page
       .locator('[data-testid^="tx-"]')
       .evaluateAll((es) => es.map((e) => e.textContent));
     result.grantLinks = txs;
+    await page.getByText('Now, on chain', {exact:true}).scrollIntoViewIfNeeded();
     await page.screenshot({
       path: resolve(out, "permission-granted-1440.png"),
     });
+    await page.getByText('Signed and final on Arc', {exact:true}).scrollIntoViewIfNeeded();
+    await page.screenshot({path:resolve(out, 'permission-receipts-1440.png')});
     await ready("/council");
     const response = page.waitForResponse(
       (r) => r.url() === `${api}/rounds` && r.request().method() === "POST",
@@ -172,22 +235,17 @@ try {
     if (round.trade?.hash)
       result.transactions.push({ step: "trade", hash: round.trade.hash });
     await page.getByTestId("round-result").waitFor();
+    await page.getByTestId('round-result').scrollIntoViewIfNeeded();
     await page.screenshot({ path: resolve(out, "council-result-1440.png") });
     console.log(
       `Browser council: ${round.summary}; trade ${round.trade?.hash ?? "not filled"}`,
     );
     if (round.trade?.hash) {
-      for (const side of ['buy', 'sell', 'sell']) {
-        await page.getByTestId(`side-${side}`).click();
-        await page.getByTestId(side === 'buy' ? 'usd-0.02' : 'usd-0.05').click();
-        const next = page.waitForResponse(r => r.url() === `${api}/rounds` && r.request().method() === 'POST', {timeout: 120000});
-        await page.getByTestId('convene').click();
-        const payload = await (await next).json();
-        const follow = payload.round;
-        if (!follow?.trade?.hash) throw Error(`Follow-up ${side} did not fill: ${follow?.summary ?? payload.error}`);
-        result.transactions.push({step: side, hash: follow.trade.hash});
-        for (const hash of follow.maintenance?.hashes ?? []) result.transactions.push({step:'repeg',hash});
-        console.log(`PASS browser ${side} https://explorer.testnet.arc.io/tx/${follow.trade.hash}`);
+      await expectRefused('over-cap', /more than.*left of today's.*cap/);
+      for (let n=0;n<1;n++) {
+        const follow = await submitRound(`sell-${n+1}`, 'sell', 0.05);
+        if (!follow.trade?.hash) throw Error(`Follow-up sell did not fill: ${follow.summary}`);
+        console.log(`PASS browser sell https://explorer.testnet.arc.io/tx/${follow.trade.hash}`);
       }
     }
     for (const hash of round.maintenance?.hashes ?? []) result.transactions.push({step:'repeg',hash});
@@ -205,12 +263,15 @@ try {
       const a = await account();
       return a.permission.stopped;
     }, "revoke");
+    await page.getByText(/Stopped on Arc in/).first().waitFor();
     console.log("PASS browser hold-to-stop confirmed on chain");
     await page.waitForTimeout(500);
     result.revokeLinks = await page
       .locator('[data-testid^="tx-"]')
       .evaluateAll((es) => es.map((e) => e.textContent));
     await page.screenshot({ path: resolve(out, "home-revoked-1440.png") });
+    await ready('/council');
+    await expectRefused('post-revoke', /owner stopped the agents/i);
     if (!round.trade?.hash)
       throw Error(
         `Council did not fill: ${round.summary} ${round.trade?.error ?? ""}`,
@@ -294,7 +355,7 @@ try {
       if (route === '/explore') {
         const more = page.getByTestId('explore-everything');
         await more.click();
-        if (await more.getAttribute('aria-expanded') !== 'true') throw Error('Explore catalog did not expand');
+        await until(async () => await more.getAttribute('aria-expanded') === 'true', 'Explore catalog expansion');
         await more.click();
         const stories = await page.locator('[data-testid^="explore-story-"]').evaluateAll(es => es.map(e => e.getAttribute('data-testid')));
         for (const id of stories) {
@@ -308,7 +369,7 @@ try {
         const details = page.locator('[data-testid^="arc-details-"]');
         for (let i=0; i<await details.count(); i++) {
           await details.nth(i).click();
-          if (await details.nth(i).getAttribute('aria-expanded') !== 'true') throw Error('Arc details did not expand');
+          await until(async () => await details.nth(i).getAttribute('aria-expanded') === 'true', 'Arc details expansion');
         }
         console.log(`PASS Arc proof disclosures at ${width}`);
       }
@@ -316,7 +377,7 @@ try {
         for (const seat of cfg.seats) {
           const button = page.getByLabel(seat.name,{exact:true});
           await button.click();
-          if (await button.getAttribute('aria-selected') !== 'true') throw Error(`Dead agent room ${seat.name}`);
+          await until(async () => await button.getAttribute('aria-selected') === 'true', `agent room ${seat.name}`);
         }
         console.log(`PASS five agent rooms at ${width}`);
       }
@@ -324,7 +385,7 @@ try {
         const toggle = page.getByTestId('toggle-balances');
         const label = await toggle.getAttribute('aria-label');
         await toggle.click();
-        if (await toggle.getAttribute('aria-label') === label) throw Error('Balance visibility did not change');
+        await until(async () => await toggle.getAttribute('aria-label') !== label, 'balance visibility');
         await toggle.click();
         console.log(`PASS balance privacy toggle at ${width}`);
       }
@@ -346,6 +407,24 @@ try {
     formatEther(before[0] + before[1] - after[0] - after[1]),
   );
   if (result.totalUsdcReduction > 0.5) throw Error("Budget exceeded");
+  const memoAbi = parseAbi(['event Memo(address indexed sender, address indexed target, bytes32 callDataHash, bytes32 indexed memoId, bytes memo, uint256 memoIndex)']);
+  result.receipts = [];
+  const roundsToCheck = [result.round, ...(result.followupRounds ?? []).map(x => x.round)].filter(Boolean);
+  const hashes = [...new Set([...ownerHashes, ...result.transactions.map(t => t.hash)])];
+  for (const hash of hashes) {
+    const receipt = await pub.getTransactionReceipt({hash});
+    if (receipt.status !== 'success') throw Error(`Receipt reverted: ${hash}`);
+    const round = roundsToCheck.find(r => r.trade?.hash === hash);
+    let memoId;
+    if (round) {
+      const memoLog = receipt.logs.filter(l => l.address.toLowerCase() === cfg.deployment.memo.toLowerCase()).map(l => {
+        try { return decodeEventLog({abi:memoAbi,data:l.data,topics:l.topics}); } catch { return null; }
+      }).find(l => l?.args.memoId === round.id && l.args.target.toLowerCase() === cfg.deployment.delegation.toLowerCase() && l.args.sender.toLowerCase() === cfg.executor.toLowerCase());
+      if (!memoLog || !round.trade.memo.tagged) throw Error(`Missing actual Arc Memo event: ${hash}`);
+      memoId = memoLog.args.memoId;
+    }
+    result.receipts.push({hash,status:receipt.status,blockNumber:String(receipt.blockNumber),gasUsdc:formatEther(receipt.gasUsed*receipt.effectiveGasPrice),...(memoId?{memoId}: {})});
+  }
   for (const tx of result.transactions) console.log(`PASS ${tx.step} https://explorer.testnet.arc.io/tx/${tx.hash}`);
   if (errors.length) throw Error(`Browser errors: ${errors.length}`);
   // An API outage must offer recovery, and retry must restore the app.
@@ -362,6 +441,9 @@ try {
 } catch (e) {
   result.passed = false;
   result.failure = e.message;
+  result.failurePage = await page.locator('body').innerText();
+  result.pendingCalls = await page.evaluate(() => Object.keys(localStorage).filter(k => k.startsWith('arc:durable-call:')).map(k => JSON.parse(localStorage.getItem(k))));
+  await page.screenshot({path: resolve(out, 'failure.png'), fullPage: true});
   console.error(`FAIL ${e.message}`);
   process.exitCode = 1;
 } finally {

@@ -107,7 +107,7 @@ Arc Foundry for the real precompiles.
 
 Fork-only Solidity tests (`contracts/test/fork`, opt-in `ARC_FORK_TESTS=1`) need Arc Foundry's `forge --network arc`.
 
-## Round-2 browser rehearsal — lead runs outside the sandbox
+## Round-2 browser rehearsal — Arc testnet
 
 ```sh
 cd '/Volumes/Extreme SSD/Projects/arc/xorr-arc'
@@ -117,17 +117,17 @@ npm run e2e:browser -- --trade
 Requires installed Playwright Chromium (`npx playwright install chromium` if missing), the existing executor key file
 `../.deployer/xorr-roles.env`, and deployer funding file `../.deployer/deployer.env`. The command builds the frontend,
 starts one executor on 9120 and one static server on 9130, funds a throwaway owner with at most 0.20 testnet USDC
-under the shared deployer lock, and saves its key to gitignored `.keys/round2-owner.env` with mode 0600.
-It clicks grant, a $0.04 buy, a repeated $0.02 buy, two sell-back rounds, and hold-to-stop. It then checks all 14 routes
+under the shared deployer lock, tops the executor up to 0.20 USDC only if needed, and saves the owner key to gitignored `.keys/round2-owner-<timestamp>.env` with mode 0600 (the run report records the path).
+It clicks grant ($0.05/day), a $0.04 buy, an over-cap $0.02 refusal, sell-back, hold-to-stop, and a post-revoke refusal. It then checks all 14 routes
 at 1440 and 390 px, cold Home, Explore links, agent rooms, disclosures, privacy and executor recovery.
-On exit it revokes if necessary, sweeps remaining owner USDC to the deployer (gas dust remains), and stops only its PIDs.
-Executor gas reservations are capped at 0.25 USDC; re-peg donations retain their own persisted daily 0.25 cap.
-Gross owner funding, executor balance reduction and cleanup/funding allowance must stay below 1 USDC.
+On exit it revokes if necessary, sweeps remaining owner USDC and unused executor top-up to the deployer (gas dust remains), and stops only its PIDs. Existing executor funds are retained.
+Executor gas reservations are capped at 0.15 USDC; re-peg donations retain their own persisted daily 0.25 cap.
+Gross owner funding, executor balance reduction and cleanup/funding allowance must stay below 0.5 USDC.
 Do not run another process with the same executor key during the rehearsal. Do not run both commands concurrently.
 
 `npm run e2e:browser` performs read-only screen checks without funding or trades. Screenshots go to
 `docs/screens/testnet/round2/`; results to `docs/ROUND2-{BROWSER-TESTNET,SCREEN-CHECK,BROWSER-RUN}.json`.
-Round-2 browser execution is **Not run** until the lead returns these results. Earlier screenshots/receipts are historical.
+See `docs/E2E-TESTNET.md` for the latest run, transaction evidence, measured cost and limits.
 
 ## Hosting
 

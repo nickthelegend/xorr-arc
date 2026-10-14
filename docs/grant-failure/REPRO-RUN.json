@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-14T13:43:40.931Z",
+  "chainId": 5042002,
+  "owner": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+  "transactions": [
+    {
+      "hash": "0xc9fa81afbf74132e9782c6f8fd0826e919e4bb119730d32293c1d7c003d58e60",
+      "status": "success",
+      "gasUsdc": "0.000441"
+    },
+    {
+      "hash": "0xb35c8be3989983967c17de9164005b5da8ea73166ed02bf9cfe32b65c0727cda",
+      "status": "success",
+      "gasUsdc": "0.000441"
+    }
+  ],
+  "passed": false,
+  "failure": "Child exited 1",
+  "executorUsdcReduction": 0,
+  "budgetUpperBoundUsdc": 0.24
+}

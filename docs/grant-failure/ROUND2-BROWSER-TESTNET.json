@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-14T12:42:49.847Z",
+  "owner": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+  "executor": "0x9AFa02F2BF4df7740e0Ad6a4f68163E0f48E7ada",
+  "chainId": 5042002,
+  "trade": true,
+  "round2": true,
+  "transactions": [],
+  "screens": [],
+  "errors": [],
+  "passed": false,
+  "failure": "Timed out: grant"
+}

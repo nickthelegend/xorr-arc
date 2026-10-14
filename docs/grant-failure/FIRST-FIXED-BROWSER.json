@@ -1,0 +1,1634 @@
+{
+  "date": "2026-10-14T13:54:55.304Z",
+  "owner": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+  "executor": "0x9AFa02F2BF4df7740e0Ad6a4f68163E0f48E7ada",
+  "chainId": 5042002,
+  "trade": true,
+  "round2": true,
+  "transactions": [
+    {
+      "step": "council",
+      "hash": "0x0f6e1abf42e5a54a0679df64482f76c89635b74d5cf6504639ed2cc4d1d67e59"
+    },
+    {
+      "step": "trade",
+      "hash": "0x2f482d90f08c1b4b670215bf1366ec36b0cb185873148a8996436e0734ee021c"
+    },
+    {
+      "step": "repeat-buy-council",
+      "hash": "0x8ac43ea2509cf5578009782eae31ed4cdb1609bfbe7fb0a7b03e0cad3eafc971"
+    },
+    {
+      "step": "repeat-buy",
+      "hash": "0x37bc872cfa4564aba3f6959126a7e90d11b2fc85ff2c26bede2d8e2406ec418a"
+    },
+    {
+      "step": "repeg",
+      "hash": "0x16c64af6ce566185277265ace6b501ab0a7acc7f883430f32adeee70c95c6c00"
+    },
+    {
+      "step": "repeg",
+      "hash": "0xd1c0e24cf180669f784fc7c04d23c5f593c8fe8f8bbc6798590f54c7e25d1248"
+    },
+    {
+      "step": "over-cap-council",
+      "hash": "0xc7b4993f18129b9c5078ef6bfd12d3212841438439f3c808b7fc51a576d3ceea"
+    },
+    {
+      "step": "sell-1-council",
+      "hash": "0x2b2303b9e74c50e7622ae027d71c2d4935282a83e93137306076d9bd0472e5ec"
+    },
+    {
+      "step": "sell-1",
+      "hash": "0xb7e37dd25227d427b98817ebad1c5a79374a72f14ade92ce7b5eeb15c77b5e03"
+    },
+    {
+      "step": "repeg",
+      "hash": "0x86a6622713c273e934e08959cab0784beeed8be9a894c9937389215002d55074"
+    },
+    {
+      "step": "repeg",
+      "hash": "0x07b3cf3911e8a3b75e94927ead0fc2f33c67aa646e509c037a5d13d25a1bd447"
+    },
+    {
+      "step": "repeg",
+      "hash": "0xc035a416e2b5c7757e3f40fb92479b3eae9ad46414de4e6e52eb105a7019927e"
+    },
+    {
+      "step": "repeg",
+      "hash": "0x75a58a4b2129cc442331de8ee02b49d4eaffb1c5c88169847b75ab00bce46dc8"
+    }
+  ],
+  "screens": [],
+  "errors": [],
+  "rpcCalls": [
+    {
+      "method": "eth_estimateGas",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionCount",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_fillTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_sendRawTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200
+    },
+    {
+      "method": "eth_blockNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "value": "0x0",
+        "gas": "0xb0fe",
+        "nonce": "0xd",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_blockNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200,
+      "proof": {
+        "transactionHash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "blockHash": "0x37968fb656e55ea012ddb7286ac970415cd603aed57b4963dcca2fd26fa01a31",
+        "blockNumber": "0x400ecb9",
+        "status": "0x1"
+      }
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "value": "0x0",
+        "gas": "0xb0fe",
+        "nonce": "0xd",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200,
+      "proof": {
+        "transactionHash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "blockHash": "0x37968fb656e55ea012ddb7286ac970415cd603aed57b4963dcca2fd26fa01a31",
+        "blockNumber": "0x400ecb9",
+        "status": "0x1"
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "value": "0x0",
+        "gas": "0xb0fe",
+        "nonce": "0xd",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "value": "0x0",
+        "gas": "0xb0fe",
+        "nonce": "0xd",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "value": "0x0",
+        "gas": "0xb0fe",
+        "nonce": "0xd",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "value": "0x0",
+        "gas": "0xb0fe",
+        "nonce": "0xd",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "value": "0x0",
+        "gas": "0xb0fe",
+        "nonce": "0xd",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "value": "0x0",
+        "gas": "0xb0fe",
+        "nonce": "0xd",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "value": "0x0",
+        "gas": "0xb0fe",
+        "nonce": "0xd",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "value": "0x0",
+        "gas": "0xb0fe",
+        "nonce": "0xd",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x3600000000000000000000000000000000000000",
+        "value": "0x0",
+        "gas": "0xb0fe",
+        "nonce": "0xd",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": "0x37968fb656e55ea012ddb7286ac970415cd603aed57b4963dcca2fd26fa01a31",
+        "blockNumber": "0x400ecb9"
+      }
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_estimateGas",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionCount",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_fillTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_sendRawTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200
+    },
+    {
+      "method": "eth_blockNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200,
+      "proof": {
+        "transactionHash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "blockHash": "0x6f01d1109aae6e76a0a35603666988c5194f2c10019f0292d8f27f6367f8f470",
+        "blockNumber": "0x400ecd2",
+        "status": "0x1"
+      }
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200,
+      "proof": {
+        "transactionHash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "blockHash": "0x6f01d1109aae6e76a0a35603666988c5194f2c10019f0292d8f27f6367f8f470",
+        "blockNumber": "0x400ecd2",
+        "status": "0x1"
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": null,
+        "blockNumber": null
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0xc0f78d4b8a830e85d8c299aa2ebb258c9bd8b08a",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xe",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": "0x6f01d1109aae6e76a0a35603666988c5194f2c10019f0292d8f27f6367f8f470",
+        "blockNumber": "0x400ecd2"
+      }
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_estimateGas",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionCount",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_fillTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_sendRawTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200
+    },
+    {
+      "method": "eth_blockNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0xe9476c4072fd1c3937c468163397aadf5b5f4a150b320196fc6b35bfa897e14b",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x9604c6d6d48b448c91420a5f885f1de136dbc131",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xf",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": "0xf8b43686722c5c924a94ab194894041d1301eedbfd5e981c44855826fd4cf6cd",
+        "blockNumber": "0x400ecea"
+      }
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200,
+      "proof": {
+        "transactionHash": "0xe9476c4072fd1c3937c468163397aadf5b5f4a150b320196fc6b35bfa897e14b",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x9604c6d6d48b448c91420a5f885f1de136dbc131",
+        "blockHash": "0xf8b43686722c5c924a94ab194894041d1301eedbfd5e981c44855826fd4cf6cd",
+        "blockNumber": "0x400ecea",
+        "status": "0x1"
+      }
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200,
+      "proof": {
+        "transactionHash": "0xe9476c4072fd1c3937c468163397aadf5b5f4a150b320196fc6b35bfa897e14b",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x9604c6d6d48b448c91420a5f885f1de136dbc131",
+        "blockHash": "0xf8b43686722c5c924a94ab194894041d1301eedbfd5e981c44855826fd4cf6cd",
+        "blockNumber": "0x400ecea",
+        "status": "0x1"
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0xe9476c4072fd1c3937c468163397aadf5b5f4a150b320196fc6b35bfa897e14b",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x9604c6d6d48b448c91420a5f885f1de136dbc131",
+        "value": "0x0",
+        "gas": "0x8289",
+        "nonce": "0xf",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": "0xf8b43686722c5c924a94ab194894041d1301eedbfd5e981c44855826fd4cf6cd",
+        "blockNumber": "0x400ecea"
+      }
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_estimateGas",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionCount",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_fillTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_sendRawTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200
+    },
+    {
+      "method": "eth_blockNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x6386592de9272673abf1dbc3b99c0aca3a3349c78cdfec61e56fda5d72ed080f",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x89b50855aa3be2f677cd6303cec089b5f319d72a",
+        "value": "0x0",
+        "gas": "0xb0fc",
+        "nonce": "0x10",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": "0x8430a002a5de647f1303e906d8e7465cbb12abc4d136fd7ad98277b32495490d",
+        "blockNumber": "0x400ecef"
+      }
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200,
+      "proof": {
+        "transactionHash": "0x6386592de9272673abf1dbc3b99c0aca3a3349c78cdfec61e56fda5d72ed080f",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x89b50855aa3be2f677cd6303cec089b5f319d72a",
+        "blockHash": "0x8430a002a5de647f1303e906d8e7465cbb12abc4d136fd7ad98277b32495490d",
+        "blockNumber": "0x400ecef",
+        "status": "0x1"
+      }
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x6386592de9272673abf1dbc3b99c0aca3a3349c78cdfec61e56fda5d72ed080f",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x89b50855aa3be2f677cd6303cec089b5f319d72a",
+        "value": "0x0",
+        "gas": "0xb0fc",
+        "nonce": "0x10",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": "0x8430a002a5de647f1303e906d8e7465cbb12abc4d136fd7ad98277b32495490d",
+        "blockNumber": "0x400ecef"
+      }
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200,
+      "proof": {
+        "transactionHash": "0x6386592de9272673abf1dbc3b99c0aca3a3349c78cdfec61e56fda5d72ed080f",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x89b50855aa3be2f677cd6303cec089b5f319d72a",
+        "blockHash": "0x8430a002a5de647f1303e906d8e7465cbb12abc4d136fd7ad98277b32495490d",
+        "blockNumber": "0x400ecef",
+        "status": "0x1"
+      }
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_estimateGas",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionCount",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_fillTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_sendRawTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200
+    },
+    {
+      "method": "eth_blockNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x0d5c9279caa10b82cc3be41a84d0e5427d14b72a966ad2a02499fee74d65d811",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x0cdb99a17ebe31d6179cef0963856fc06c7267f0",
+        "value": "0x0",
+        "gas": "0x43153",
+        "nonce": "0x11",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": "0x1bb48f003fdadc1e8b41d55f00cd471ddda26cfd5ff840ba120bb11ba347ff89",
+        "blockNumber": "0x400ecf4"
+      }
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200,
+      "proof": {
+        "transactionHash": "0x0d5c9279caa10b82cc3be41a84d0e5427d14b72a966ad2a02499fee74d65d811",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x0cdb99a17ebe31d6179cef0963856fc06c7267f0",
+        "blockHash": "0x1bb48f003fdadc1e8b41d55f00cd471ddda26cfd5ff840ba120bb11ba347ff89",
+        "blockNumber": "0x400ecf4",
+        "status": "0x1"
+      }
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200,
+      "proof": {
+        "transactionHash": "0x0d5c9279caa10b82cc3be41a84d0e5427d14b72a966ad2a02499fee74d65d811",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x0cdb99a17ebe31d6179cef0963856fc06c7267f0",
+        "blockHash": "0x1bb48f003fdadc1e8b41d55f00cd471ddda26cfd5ff840ba120bb11ba347ff89",
+        "blockNumber": "0x400ecf4",
+        "status": "0x1"
+      }
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200,
+      "proof": {
+        "hash": "0x0d5c9279caa10b82cc3be41a84d0e5427d14b72a966ad2a02499fee74d65d811",
+        "from": "0x2edc03ed668704e2428ce788c52f3e374b94a20f",
+        "to": "0x0cdb99a17ebe31d6179cef0963856fc06c7267f0",
+        "value": "0x0",
+        "gas": "0x43153",
+        "nonce": "0x11",
+        "maxFeePerGas": "0xdf8475800",
+        "maxPriorityFeePerGas": "0x3b9aca00",
+        "blockHash": "0x1bb48f003fdadc1e8b41d55f00cd471ddda26cfd5ff840ba120bb11ba347ff89",
+        "blockNumber": "0x400ecf4"
+      }
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_estimateGas",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionCount",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_fillTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_sendRawTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200
+    },
+    {
+      "method": "eth_blockNumber",
+      "status": 200
+    }
+  ],
+  "ownerHashes": [
+    "0x5a12d109f70af4f515d588b760be8342e20e8a30a548944821fb9277e66cb0eb",
+    "0x70f8589a3764f91bb9a466b4f68428daaf7d6ee3f4581e341d30a39908d29776",
+    "0xe9476c4072fd1c3937c468163397aadf5b5f4a150b320196fc6b35bfa897e14b",
+    "0x6386592de9272673abf1dbc3b99c0aca3a3349c78cdfec61e56fda5d72ed080f",
+    "0x0d5c9279caa10b82cc3be41a84d0e5427d14b72a966ad2a02499fee74d65d811",
+    "0x4eb0797c03a80c6d60f082d3d21da5e8fe2a1786338e9e8195d6d7aace4cfca0"
+  ],
+  "grantLinks": [
+    "0x5a12d109…b0eb ↗",
+    "0x70f8589a…9776 ↗",
+    "0xe9476c40…e14b ↗",
+    "0x6386592d…080f ↗",
+    "0x0d5c9279…d811 ↗"
+  ],
+  "round": {
+    "id": "0xf411429b5e94e28cfb415eb4487562d3297a2048a084df82117459b58127c60e",
+    "owner": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+    "createdAt": 1791986154816,
+    "trigger": "owner",
+    "inputs": {
+      "proposal": {
+        "sym": "WETH",
+        "side": "buy",
+        "usd": 0.04,
+        "label": "xWETH"
+      },
+      "price": {
+        "ok": true,
+        "chainlink": 2474.071905,
+        "ageSec": 1491,
+        "maxAgeSec": 90000,
+        "mirror": true,
+        "fill": 2501.198487432609,
+        "venue": "Uniswap v2 (XORR testnet pool)",
+        "gapBps": 109.64346823464378,
+        "maxGapBps": 150
+      },
+      "permission": {
+        "ok": true,
+        "dailyCapUsd": 0.1,
+        "expiresAt": 1792072528,
+        "slippageBps": 200,
+        "revoked": false,
+        "stopped": false,
+        "remainingUsd": 0.1,
+        "venueAllowed": true
+      },
+      "holding": {
+        "ok": true,
+        "assetUsd": 0
+      },
+      "trend": {
+        "ok": true,
+        "rounds": [
+          {
+            "price": 2474.071905,
+            "at": 1791984660
+          }
+        ]
+      },
+      "peg": {
+        "ok": true,
+        "usdc": 0.99986,
+        "eurc": 1.11455748,
+        "eur": null,
+        "por": {
+          "ratio": 1
+        }
+      },
+      "now": 1791986150
+    },
+    "ballots": [
+      {
+        "seat": "price-desk",
+        "vote": "yes",
+        "confidence": 0.6345217725511874,
+        "reason": "Prices agree: Chainlink $2,474.07 (mirror of Arc mainnet), 25 min old; fill $2,501.20 on Uniswap v2 (XORR testnet pool); 109.6 bps apart (limit 150)."
+      },
+      {
+        "seat": "risk-keeper",
+        "vote": "yes",
+        "confidence": 0.8,
+        "reason": "Fits: $0.04 of $0.10 left today; xWETH goes to $0.04 of a $0.20 limit; slippage limit 200 bps, enforced on chain against Chainlink."
+      },
+      {
+        "seat": "trend-reader",
+        "vote": "abstain",
+        "confidence": 0,
+        "reason": "One Chainlink round only ($2,474.07): no direction to read yet."
+      },
+      {
+        "seat": "peg-desk",
+        "vote": "yes",
+        "confidence": 0.7,
+        "reason": "On peg: USDC $0.9999 (1 bps off)."
+      },
+      {
+        "seat": "strategist",
+        "vote": "yes",
+        "confidence": 0.9,
+        "reason": "Weighted by confidence the desks lean yes (2.13 for, 0.00 against)."
+      }
+    ],
+    "decision": "approved",
+    "summary": "Approved 4–0.",
+    "maintenance": {
+      "status": "repegged",
+      "hashes": [
+        "0xacbec9db8bc5e5ee8d7db9b962556ec1c3d35b2317ede934c2812e66d4211927",
+        "0x396243cf2e01cc7dfb106c649bfab7ff1d76290570bf389fd9b19ab90c95827d"
+      ],
+      "gapBps": 135,
+      "addedUsdc": "0",
+      "note": "Testnet only: seeded xWETH pool aligned to the unchanged mainnet mirror; normal price floor still enforced."
+    },
+    "record": {
+      "hash": "0x0f6e1abf42e5a54a0679df64482f76c89635b74d5cf6504639ed2cc4d1d67e59",
+      "ms": 1481
+    },
+    "trade": {
+      "hash": "0x2f482d90f08c1b4b670215bf1366ec36b0cb185873148a8996436e0734ee021c",
+      "ms": 1526,
+      "gasUsed": "308905",
+      "memo": {
+        "tagged": true,
+        "line": "xorr buy xWETH 0.04 USDC decision 0xf411429b"
+      },
+      "amountIn": "40000",
+      "received": "15992333355782",
+      "floor": "15842107062768",
+      "venue": "Uniswap v2 (XORR testnet pool)"
+    }
+  },
+  "followupRounds": [
+    {
+      "step": "repeat-buy",
+      "round": {
+        "id": "0x63596c9993909f50e7ebe6a3d4b80d6fd5541340281d224e6bdacfafefaa77b2",
+        "owner": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+        "createdAt": 1791986173988,
+        "trigger": "owner",
+        "inputs": {
+          "proposal": {
+            "sym": "WETH",
+            "side": "buy",
+            "usd": 0.04,
+            "label": "xWETH"
+          },
+          "price": {
+            "ok": true,
+            "chainlink": 2474.071905,
+            "ageSec": 1510,
+            "maxAgeSec": 90000,
+            "mirror": true,
+            "fill": 2501.0431463544046,
+            "venue": "Uniswap v2 (XORR testnet pool)",
+            "gapBps": 109.01559206867438,
+            "maxGapBps": 150
+          },
+          "permission": {
+            "ok": true,
+            "dailyCapUsd": 0.1,
+            "expiresAt": 1792072528,
+            "slippageBps": 200,
+            "revoked": false,
+            "stopped": false,
+            "remainingUsd": 0.06,
+            "venueAllowed": true
+          },
+          "holding": {
+            "ok": true,
+            "assetUsd": 0.03956618265093461
+          },
+          "trend": {
+            "ok": true,
+            "rounds": [
+              {
+                "price": 2474.071905,
+                "at": 1791984660
+              }
+            ]
+          },
+          "peg": {
+            "ok": true,
+            "usdc": 0.99986,
+            "eurc": 1.11455748,
+            "eur": null,
+            "por": {
+              "ratio": 1
+            }
+          },
+          "now": 1791986170
+        },
+        "ballots": [
+          {
+            "seat": "price-desk",
+            "vote": "yes",
+            "confidence": 0.6366146931044188,
+            "reason": "Prices agree: Chainlink $2,474.07 (mirror of Arc mainnet), 25 min old; fill $2,501.04 on Uniswap v2 (XORR testnet pool); 109.0 bps apart (limit 150)."
+          },
+          {
+            "seat": "risk-keeper",
+            "vote": "yes",
+            "confidence": 0.602169086745327,
+            "reason": "Fits: $0.04 of $0.06 left today; xWETH goes to $0.08 of a $0.20 limit; slippage limit 200 bps, enforced on chain against Chainlink."
+          },
+          {
+            "seat": "trend-reader",
+            "vote": "abstain",
+            "confidence": 0,
+            "reason": "One Chainlink round only ($2,474.07): no direction to read yet."
+          },
+          {
+            "seat": "peg-desk",
+            "vote": "yes",
+            "confidence": 0.7,
+            "reason": "On peg: USDC $0.9999 (1 bps off)."
+          },
+          {
+            "seat": "strategist",
+            "vote": "yes",
+            "confidence": 0.9,
+            "reason": "Weighted by confidence the desks lean yes (1.94 for, 0.00 against)."
+          }
+        ],
+        "decision": "approved",
+        "summary": "Approved 4–0.",
+        "maintenance": {
+          "status": "repegged",
+          "hashes": [
+            "0x16c64af6ce566185277265ace6b501ab0a7acc7f883430f32adeee70c95c6c00",
+            "0xd1c0e24cf180669f784fc7c04d23c5f593c8fe8f8bbc6798590f54c7e25d1248"
+          ],
+          "gapBps": 159,
+          "addedUsdc": "0",
+          "note": "Testnet only: seeded xWETH pool aligned to the unchanged mainnet mirror; normal price floor still enforced."
+        },
+        "record": {
+          "hash": "0x8ac43ea2509cf5578009782eae31ed4cdb1609bfbe7fb0a7b03e0cad3eafc971",
+          "ms": 1527
+        },
+        "trade": {
+          "hash": "0x37bc872cfa4564aba3f6959126a7e90d11b2fc85ff2c26bede2d8e2406ec418a",
+          "ms": 1456,
+          "gasUsed": "274729",
+          "memo": {
+            "tagged": true,
+            "line": "xorr buy xWETH 0.04 USDC decision 0x63596c99"
+          },
+          "amountIn": "40000",
+          "received": "15993326647845",
+          "floor": "15842107062768",
+          "venue": "Uniswap v2 (XORR testnet pool)"
+        }
+      }
+    },
+    {
+      "step": "over-cap",
+      "round": {
+        "id": "0x07598a6cfce3c72b12558e2750f8d10a4c0a746277b3c35f4089e51b447d4b16",
+        "owner": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+        "createdAt": 1791986188557,
+        "trigger": "owner",
+        "inputs": {
+          "proposal": {
+            "sym": "WETH",
+            "side": "buy",
+            "usd": 0.05,
+            "label": "xWETH"
+          },
+          "price": {
+            "ok": true,
+            "chainlink": 2474.071905,
+            "ageSec": 1525,
+            "maxAgeSec": 90000,
+            "mirror": true,
+            "fill": 2545.383140596672,
+            "venue": "Uniswap v2 (XORR testnet pool)",
+            "gapBps": 288.2342887955486,
+            "maxGapBps": 150
+          },
+          "permission": {
+            "ok": true,
+            "dailyCapUsd": 0.1,
+            "expiresAt": 1792072528,
+            "slippageBps": 200,
+            "revoked": false,
+            "stopped": false,
+            "remainingUsd": 0.02,
+            "venueAllowed": true
+          },
+          "holding": {
+            "ok": true,
+            "assetUsd": 0.07913482277785575
+          },
+          "trend": {
+            "ok": true,
+            "rounds": [
+              {
+                "price": 2474.071905,
+                "at": 1791984660
+              }
+            ]
+          },
+          "peg": {
+            "ok": true,
+            "usdc": 0.99986,
+            "eurc": 1.11455748,
+            "eur": null,
+            "por": {
+              "ratio": 1
+            }
+          },
+          "now": 1791986184
+        },
+        "ballots": [
+          {
+            "seat": "price-desk",
+            "vote": "veto",
+            "confidence": 1,
+            "reason": "The fill is too far from Chainlink: Chainlink $2,474.07 (mirror of Arc mainnet), 25 min old; fill $2,545.38 on Uniswap v2 (XORR testnet pool); 288.2 bps apart (limit 150)."
+          },
+          {
+            "seat": "risk-keeper",
+            "vote": "veto",
+            "confidence": 1,
+            "reason": "$0.05 is more than the $0.02 left of today's $0.10 cap; the contract would refuse it."
+          },
+          {
+            "seat": "trend-reader",
+            "vote": "abstain",
+            "confidence": 0,
+            "reason": "One Chainlink round only ($2,474.07): no direction to read yet."
+          },
+          {
+            "seat": "peg-desk",
+            "vote": "yes",
+            "confidence": 0.7,
+            "reason": "On peg: USDC $0.9999 (1 bps off)."
+          },
+          {
+            "seat": "strategist",
+            "vote": "abstain",
+            "confidence": 0,
+            "reason": "A desk vetoed; there is nothing to weigh."
+          }
+        ],
+        "decision": "vetoed",
+        "summary": "Vetoed by the Price Desk: The fill is too far from Chainlink: Chainlink $2,474.07 (mirror of Arc mainnet), 25 min old; fill $2,545.38 on Uniswap v2 (XORR testnet pool); 288.2 bps apart (limit 150). (also vetoed by the Risk Keeper)",
+        "record": {
+          "hash": "0xc7b4993f18129b9c5078ef6bfd12d3212841438439f3c808b7fc51a576d3ceea",
+          "ms": 1453
+        }
+      }
+    },
+    {
+      "step": "sell-1",
+      "round": {
+        "id": "0xedae327766a7716f08959eb97bc20364d8b5eaed64b13c0b59b55514dd590e41",
+        "owner": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+        "createdAt": 1791986207907,
+        "trigger": "owner",
+        "inputs": {
+          "proposal": {
+            "sym": "WETH",
+            "side": "sell",
+            "usd": 0.05,
+            "label": "xWETH"
+          },
+          "price": {
+            "ok": true,
+            "chainlink": 2474.071905,
+            "ageSec": 1544,
+            "maxAgeSec": 90000,
+            "mirror": true,
+            "fill": 2442.799636120808,
+            "venue": "Uniswap v2 (XORR testnet pool)",
+            "gapBps": 126.39999999996715,
+            "maxGapBps": 150
+          },
+          "permission": {
+            "ok": true,
+            "dailyCapUsd": 0.1,
+            "expiresAt": 1792072528,
+            "slippageBps": 200,
+            "revoked": false,
+            "stopped": false,
+            "remainingUsd": 0.02,
+            "venueAllowed": true
+          },
+          "holding": {
+            "ok": true,
+            "assetUsd": 0.07913482277785575
+          },
+          "trend": {
+            "ok": true,
+            "rounds": [
+              {
+                "price": 2474.071905,
+                "at": 1791984660
+              }
+            ]
+          },
+          "peg": {
+            "ok": true,
+            "usdc": 0.99986,
+            "eurc": 1.11455748,
+            "eur": null,
+            "por": {
+              "ratio": 1
+            }
+          },
+          "now": 1791986203
+        },
+        "ballots": [
+          {
+            "seat": "price-desk",
+            "vote": "yes",
+            "confidence": 0.5786666666667761,
+            "reason": "Prices agree: Chainlink $2,474.07 (mirror of Arc mainnet), 26 min old; fill $2,442.80 on Uniswap v2 (XORR testnet pool); 126.4 bps apart (limit 150)."
+          },
+          {
+            "seat": "risk-keeper",
+            "vote": "yes",
+            "confidence": 0.8,
+            "reason": "A sale reduces exposure ($0.08 of xWETH held); closing is outside the daily cap by design."
+          },
+          {
+            "seat": "trend-reader",
+            "vote": "abstain",
+            "confidence": 0,
+            "reason": "One Chainlink round only ($2,474.07): no direction to read yet."
+          },
+          {
+            "seat": "peg-desk",
+            "vote": "yes",
+            "confidence": 0.7,
+            "reason": "On peg: USDC $0.9999 (1 bps off)."
+          },
+          {
+            "seat": "strategist",
+            "vote": "yes",
+            "confidence": 0.9,
+            "reason": "Weighted by confidence the desks lean yes (2.08 for, 0.00 against)."
+          }
+        ],
+        "decision": "approved",
+        "summary": "Approved 4–0.",
+        "maintenance": {
+          "status": "repegged",
+          "hashes": [
+            "0x86a6622713c273e934e08959cab0784beeed8be9a894c9937389215002d55074",
+            "0x07b3cf3911e8a3b75e94927ead0fc2f33c67aa646e509c037a5d13d25a1bd447"
+          ],
+          "gapBps": 158,
+          "addedUsdc": "0",
+          "note": "Testnet only: seeded xWETH pool aligned to the unchanged mainnet mirror; normal price floor still enforced."
+        },
+        "record": {
+          "hash": "0x2b2303b9e74c50e7622ae027d71c2d4935282a83e93137306076d9bd0472e5ec",
+          "ms": 1459
+        },
+        "trade": {
+          "hash": "0xb7e37dd25227d427b98817ebad1c5a79374a72f14ade92ce7b5eeb15c77b5e03",
+          "ms": 1478,
+          "gasUsed": "250977",
+          "memo": {
+            "tagged": true,
+            "line": "xorr sell xWETH 0.000020209598556514 xWETH decision 0xedae3277"
+          },
+          "amountIn": "20209598556514",
+          "received": "49368",
+          "floor": "49006",
+          "venue": "Uniswap v2 (XORR testnet pool)"
+        }
+      }
+    },
+    {
+      "step": "sell-2",
+      "round": {
+        "id": "0x1c3d2b9bf29320d6611498e73d4e7c789029dc5bc7500d0d0214394ba0b54323",
+        "owner": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+        "createdAt": 1791986227282,
+        "trigger": "owner",
+        "inputs": {
+          "proposal": {
+            "sym": "WETH",
+            "side": "sell",
+            "usd": 0.05,
+            "label": "xWETH"
+          },
+          "price": {
+            "ok": true,
+            "chainlink": 2474.071905,
+            "ageSec": 1564,
+            "maxAgeSec": 90000,
+            "mirror": true,
+            "fill": 2452.7725275313637,
+            "venue": "Uniswap v2 (XORR testnet pool)",
+            "gapBps": 86.09037362895913,
+            "maxGapBps": 150
+          },
+          "permission": {
+            "ok": true,
+            "dailyCapUsd": 0.1,
+            "expiresAt": 1792072528,
+            "slippageBps": 200,
+            "revoked": false,
+            "stopped": false,
+            "remainingUsd": 0.02,
+            "venueAllowed": true
+          },
+          "holding": {
+            "ok": true,
+            "assetUsd": 0.029134822777855913
+          },
+          "trend": {
+            "ok": true,
+            "rounds": [
+              {
+                "price": 2474.071905,
+                "at": 1791984660
+              }
+            ]
+          },
+          "peg": {
+            "ok": true,
+            "usdc": 0.99986,
+            "eurc": 1.11455748,
+            "eur": null,
+            "por": {
+              "ratio": 1
+            }
+          },
+          "now": 1791986222
+        },
+        "ballots": [
+          {
+            "seat": "price-desk",
+            "vote": "yes",
+            "confidence": 0.7130320879034695,
+            "reason": "Prices agree: Chainlink $2,474.07 (mirror of Arc mainnet), 26 min old; fill $2,452.77 on Uniswap v2 (XORR testnet pool); 86.1 bps apart (limit 150)."
+          },
+          {
+            "seat": "risk-keeper",
+            "vote": "yes",
+            "confidence": 0.8,
+            "reason": "A sale reduces exposure ($0.03 of xWETH held); closing is outside the daily cap by design."
+          },
+          {
+            "seat": "trend-reader",
+            "vote": "abstain",
+            "confidence": 0,
+            "reason": "One Chainlink round only ($2,474.07): no direction to read yet."
+          },
+          {
+            "seat": "peg-desk",
+            "vote": "yes",
+            "confidence": 0.7,
+            "reason": "On peg: USDC $0.9999 (1 bps off)."
+          },
+          {
+            "seat": "strategist",
+            "vote": "yes",
+            "confidence": 0.9,
+            "reason": "Weighted by confidence the desks lean yes (2.21 for, 0.00 against)."
+          }
+        ],
+        "decision": "approved",
+        "summary": "Approved 4–0.",
+        "maintenance": {
+          "status": "repegged",
+          "hashes": [
+            "0xc035a416e2b5c7757e3f40fb92479b3eae9ad46414de4e6e52eb105a7019927e",
+            "0x75a58a4b2129cc442331de8ee02b49d4eaffb1c5c88169847b75ab00bce46dc8"
+          ],
+          "gapBps": 192,
+          "addedUsdc": "99369",
+          "note": "Testnet only: seeded xWETH pool aligned to the unchanged mainnet mirror; normal price floor still enforced."
+        },
+        "record": {
+          "error": "Executor rehearsal gas budget reached"
+        },
+        "trade": {
+          "error": "Executor rehearsal gas budget reached"
+        }
+      }
+    }
+  ],
+  "refusals": [
+    {
+      "step": "over-cap",
+      "reason": "$0.05 is more than the $0.02 left of today's $0.10 cap; the contract would refuse it.",
+      "unchangedHoldings": true,
+      "spentToday": 0.08
+    }
+  ],
+  "passed": false,
+  "failure": "Follow-up sell did not fill: Approved 4–0.",
+  "failurePage": "A bot that trades while you get on with your life\nFive rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\nA daily USDC cap, a venue list and an end date, enforced by Arc.\nEvery fill floored at Chainlink’s price, on chain.\nOne hold stops every agent on Arc.\nThe council\nArc Testnet\nFive ERC-8004 agents on Arc\nFive desks. Every vote explained. Rule-based, not an LLM.\nPrice Desk\nRisk Keeper\nTrend Reader\nPeg Desk\nStrategist\nPropose a trade\nxWETH\nBuy\nSell\n$0.02\n$0.04\n$0.05\nYou sign the request (no gas); the executor runs the round. It can never exceed the permission on chain. The five votes are deterministic rules over what was read this round, not an LLM.\nTestnet: XORR’s own ~5 USDC pools, so rounds are cents. Before a valid round, the executor re-pegs xWETH to the unchanged mirror price using faucet tokens or at most 0.10 executor USDC (0.25/day). The price floor still applies. Only xWETH is offered; cirBTC is dust and the EURC pool is not seeded.\nConvene the council\nSELL XWETH $0.05\nApproved 4–0.\nPrice Desk\nYES\nRisk Keeper\nYES\nTrend Reader\nABSTAIN\nPeg Desk\nYES\nStrategist\nYES\nWhy\nTestnet only: seeded xWETH pool aligned to the unchanged mainnet mirror; normal price floor still enforced.\nTestnet pool maintenance 0xc035a416…927e ↗\nTestnet pool maintenance 0x75a58a4b…6dc8 ↗\nNot recorded: Executor rehearsal gas budget reached\nRefused on chain: Executor rehearsal gas budget reached\nReplay this round\nTHE KEEPER PROPOSES, THE COUNCIL DECIDES\nAutopilot\nEvery ten minutes the keeper proposes a $0.04 buy, using only the seeded xWETH market. Each round still needs the council and still fits inside the permission.\nAutopilot is unavailable while the keeper is off. Use “Convene the council” for an on-demand round.\nROUNDS\nSell xWETH $0.05\napproved\n14 Oct, 19:27 · Approved 4–0.\nSell xWETH $0.05\napproved\n14 Oct, 19:26 · Approved 4–0.\nBuy xWETH $0.05\nvetoed\n14 Oct, 19:26 · Vetoed by the Price Desk: The fill is too far from Chainlink: Chainlink $2,474.07 (mirror of Arc mainnet), 25 min old; fill $2,545.38 on Uniswap v2 (XORR testnet pool); 288.2 bps apart (limit 150). (also vetoed by the Risk Keeper)\nBuy xWETH $0.04\napproved\n14 Oct, 19:26 · Approved 4–0.\nBuy xWETH $0.04\napproved\n14 Oct, 19:25 · Approved 4–0.",
+  "pendingCalls": [
+    {
+      "version": 1,
+      "chainId": 5042002,
+      "from": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+      "to": "0x0CDB99A17EBE31d6179cEF0963856Fc06C7267F0",
+      "dataHash": "0x8e930ea6da97f818aab5dfa0e1f744f52f529e499d40e3cebca7f1a2fcddd875",
+      "value": "0",
+      "gas": "58306",
+      "nonce": 18,
+      "maxFeePerGas": "60000000000",
+      "maxPriorityFeePerGas": "1000000000",
+      "hash": "0x4eb0797c03a80c6d60f082d3d21da5e8fe2a1786338e9e8195d6d7aace4cfca0"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "chainId": 5042002,
+  "costs": [
+    {
+      "step": "initial reproductions (gas only; principal swept)",
+      "usdc": 0.003271212
+    },
+    {
+      "step": "BLOCK-RACE-RUN",
+      "usdc": 0.004333413000000008
+    },
+    {
+      "step": "FIRST-FIXED-RUN",
+      "usdc": 0.187599084
+    },
+    {
+      "step": "FLOW-PASS-ARIA-FAIL-RUN",
+      "usdc": 0.04705155700000001
+    },
+    {
+      "step": "recover partial-run xWETH and USDC",
+      "usdc": 0.001858626
+    },
+    {
+      "step": "final passing run",
+      "usdc": 0.08795175700000005
+    }
+  ],
+  "totalNetCostUsdc": 0.3320656490000001,
+  "limitUsdc": 0.5,
+  "note": "Includes all new funded attempts and gas; principal swept back. Conservatively counts the partial-run xWETH purchase as spent even though its remaining tokens were transferred to the deployer. Original lead run excluded. Native gas dust is retained in recovery wallets."
+}

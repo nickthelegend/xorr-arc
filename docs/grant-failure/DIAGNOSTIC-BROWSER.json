@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-14T13:49:30.325Z",
+  "owner": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+  "executor": "0x9AFa02F2BF4df7740e0Ad6a4f68163E0f48E7ada",
+  "chainId": 5042002,
+  "trade": true,
+  "round2": true,
+  "transactions": [],
+  "screens": [],
+  "errors": [],
+  "rpcCalls": [
+    {
+      "method": "eth_estimateGas",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionCount",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_fillTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_sendRawTransaction",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200
+    },
+    {
+      "method": "eth_blockNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200
+    }
+  ],
+  "ownerHashes": [
+    "0xd8e5f1b919fad5415c5ef75177c2b6479ac09949b179cabb64bdb89ed9079a31"
+  ],
+  "passed": false,
+  "failure": "grant: Original transaction has no exact canonical finalized call proof.",
+  "failurePage": "A bot that trades while you get on with your life\nFive rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\nA daily USDC cap, a venue list and an end date, enforced by Arc.\nEvery fill floored at Chainlink’s price, on chain.\nOne hold stops every agent on Arc.\nThe permission\nArc Testnet\nXorrDelegation on Arc\nRESETS AT MIDNIGHT UTC\nDaily cap, in USDC\n$0.05\n$0.10\n$0.20\nThis deployment refuses any cap over $10,000 a day.\nEnds after\n1 day\n7 days\n30 days\nCHECKED AGAINST CHAINLINK ON CHAIN\nSlippage floor\n0.5%\n1%\n2%\nXorrDelegation refuses any fill that pays you less than Chainlink’s value of what was sold, minus this. The agent’s key does not choose the floor.\nVenue\nUniswap v2 (XORR testnet pools)\n0x13A41b…0Bf1 ↗\nOnly venues on XORR’s curated registry can be allowed (DEX routers that pull from the caller), and the output must reach your wallet.\nCHAINLINK CCIP\nStop from another chain\nArmed\nOff\nNot run over a live cross-chain lane. Lets XorrStopReceiver (0x52D364dF…) stop your agents when you send a stop from Base or Ethereum with CCIP (XorrStopSender.stopAll(), fee in ETH). It can only stop — never grant or trade.\nApprove and grant\nOriginal transaction has no exact canonical finalized call proof.",
+  "pendingCalls": [
+    {
+      "version": 1,
+      "chainId": 5042002,
+      "from": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+      "to": "0x3600000000000000000000000000000000000000",
+      "dataHash": "0xea6a24847b46b7a10d0106724a4cacbb71df8b08ad38de5f7f19c11caeace9fa",
+      "value": "0",
+      "gas": "45310",
+      "nonce": 6,
+      "maxFeePerGas": "60000000000",
+      "maxPriorityFeePerGas": "1000000000",
+      "hash": "0xd8e5f1b919fad5415c5ef75177c2b6479ac09949b179cabb64bdb89ed9079a31"
+    }
+  ]
+}

@@ -1,0 +1,250 @@
+{
+  "date": "2026-10-14T13:51:09.010Z",
+  "owner": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+  "executor": "0x9AFa02F2BF4df7740e0Ad6a4f68163E0f48E7ada",
+  "chainId": 5042002,
+  "trade": false,
+  "round2": true,
+  "transactions": [],
+  "screens": [
+    {
+      "route": "/",
+      "width": 1440,
+      "file": "home-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/explore",
+      "width": 1440,
+      "file": "explore-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/rooms",
+      "width": 1440,
+      "file": "rooms-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/council",
+      "width": 1440,
+      "file": "council-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/permission",
+      "width": 1440,
+      "file": "permission-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/markets",
+      "width": 1440,
+      "file": "markets-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/agents",
+      "width": 1440,
+      "file": "agents-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/fund",
+      "width": 1440,
+      "file": "fund-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/treasury",
+      "width": 1440,
+      "file": "treasury-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/arc",
+      "width": 1440,
+      "file": "arc-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/history",
+      "width": 1440,
+      "file": "history-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/runs",
+      "width": 1440,
+      "file": "runs-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/how",
+      "width": 1440,
+      "file": "how-1440.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "file": "home-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/explore",
+      "width": 390,
+      "file": "explore-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/rooms",
+      "width": 390,
+      "file": "rooms-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/council",
+      "width": 390,
+      "file": "council-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/permission",
+      "width": 390,
+      "file": "permission-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/markets",
+      "width": 390,
+      "file": "markets-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/agents",
+      "width": 390,
+      "file": "agents-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/fund",
+      "width": 390,
+      "file": "fund-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/treasury",
+      "width": 390,
+      "file": "treasury-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/arc",
+      "width": 390,
+      "file": "arc-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/history",
+      "width": 390,
+      "file": "history-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/runs",
+      "width": 390,
+      "file": "runs-390.png",
+      "overflow": false,
+      "broken": 0
+    },
+    {
+      "route": "/how",
+      "width": 390,
+      "file": "how-390.png",
+      "overflow": false,
+      "broken": 0
+    }
+  ],
+  "errors": [
+    "/explore 1440: Explore catalog did not expand",
+    "/rooms 1440: Dead agent room Price Desk",
+    "/arc 1440: Arc details did not expand",
+    "/explore 390: Explore catalog did not expand",
+    "/rooms 390: Dead agent room Price Desk",
+    "/arc 390: Arc details did not expand"
+  ],
+  "rpcCalls": [
+    {
+      "method": "eth_chainId",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "status": 200
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "status": 200
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "status": 200
+    }
+  ],
+  "ownerHashes": [],
+  "recoveryPage": "A bot that trades while you get on with your life\nFive rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\nA daily USDC cap, a venue list and an end date, enforced by Arc.\nEvery fill floored at Chainlink’s price, on chain.\nOne hold stops every agent on Arc.\nX\n0x2EdC…A20f\nArc Testnet · USDC\nUSDC balance\n$0.00\nYour money. Your permission. USDC pays gas too.\nFund\nTrade\nPermission\nHistory\nFund\nPermit\nTrade\nAgents are stopped\n$0.00 left today\nYour council\nLatest rounds\nPrice Desk\nRisk Keeper\nTrend Reader\nPeg Desk\nStrategist\nEach desk reads Arc, votes by fixed rules and records its reasons.\nExplore xorr",
+  "recovered": true,
+  "ownerBalanceBefore": "0.000567",
+  "executorBalanceBefore": "0.2424447375",
+  "ownerBalanceAfter": "0.000567",
+  "executorBalanceAfter": "0.2424447375",
+  "totalUsdcReduction": 0,
+  "receipts": [],
+  "passed": false,
+  "failure": "Browser errors: 6",
+  "failurePage": "How xorr works\nArc Testnet\n1\nFund your wallet\nUSDC is your trading balance and your gas on Arc. Your assets stay in your wallet.\n2\nGive it a limit\nChoose a daily cap, venue and expiry. XorrDelegation checks the permission and Chainlink price floor on every fill.\n3\nLet the council vote\nFive deterministic desks explain their votes. Approved rounds can trade inside your permission; one hold stops them.\nSet your permission\nSee what has run on Arc",
+  "pendingCalls": [
+    {
+      "version": 1,
+      "chainId": 5042002,
+      "from": "0x2EdC03ED668704E2428CE788C52F3E374B94A20f",
+      "to": "0x3600000000000000000000000000000000000000",
+      "dataHash": "0xea6a24847b46b7a10d0106724a4cacbb71df8b08ad38de5f7f19c11caeace9fa",
+      "value": "0",
+      "gas": "45310",
+      "nonce": 6,
+      "maxFeePerGas": "60000000000",
+      "maxPriorityFeePerGas": "1000000000",
+      "hash": "0xd8e5f1b919fad5415c5ef75177c2b6479ac09949b179cabb64bdb89ed9079a31"
+    }
+  ]
+}
