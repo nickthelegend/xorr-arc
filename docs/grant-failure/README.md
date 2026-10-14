@@ -16,3 +16,5 @@ Fix: poll transaction lookup only while inclusion metadata is null, then enforce
 value, gas, nonce, fee caps, receipt block hash/number, finalized height and canonical block. No automatic resubmission.
 
 `FLOW-PASS-ARIA-FAIL-*` records a complete successful trading flow, including both Memo events and both refusals, with three desktop ARIA failures. The web export was rebuilt during the subsequent read-only page checks, so mobile checks passed with the ARIA fix. This mixed-build diagnostic is not the final acceptance run.
+
+`previous-home-end-1440.png` belongs to the earlier diagnostic run. The final Home page did not need an end-of-scroll capture; this image is kept outside the current screenshot directory.
