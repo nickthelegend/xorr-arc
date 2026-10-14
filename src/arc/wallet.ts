@@ -27,7 +27,13 @@ import type { Config } from './api';
 const KEY = 'xorr.arc.deviceKey';
 
 type Eip1193 = { request: (a: { method: string; params?: unknown[] }) => Promise<unknown> };
-const injected = (): Eip1193 | null => (typeof window !== 'undefined' && (window as unknown as { ethereum?: Eip1193 }).ethereum) || null;
+const injected = (): Eip1193 | null => {
+  if (typeof window === 'undefined') return null;
+  const w = window as unknown as { ethereum?: Eip1193; xorrTestWallet?: Eip1193 };
+  // Explicit local browser rehearsal: keys remain in the test signer process. Never enabled in a normal build.
+  if (process.env.EXPO_PUBLIC_TEST_WALLET === 'on' && window.location.hostname === '127.0.0.1' && w.xorrTestWallet) return w.xorrTestWallet;
+  return w.ethereum ?? null;
+};
 
 function storage(): Storage | null {
   try {
@@ -85,6 +91,7 @@ export const useWallet = create<WalletState>((set, get) => ({
     });
   },
   async connectInjected(cfg) {
+    if (process.env.EXPO_PUBLIC_TEST_WALLET === 'on' && cfg.chainId !== 5042002) throw new Error('Browser rehearsal is restricted to Arc testnet.');
     const eth = injected();
     if (!eth) throw new Error('No browser wallet found. Use a device key, or install MetaMask/Rabby.');
     const chain = chainFor(cfg);
