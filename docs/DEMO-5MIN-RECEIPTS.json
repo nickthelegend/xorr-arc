@@ -1,0 +1,198 @@
+{
+  "project": "xorr",
+  "chainId": 5042,
+  "video": "video/out/xorr-5min.mp4",
+  "durationSeconds": 300,
+  "narrationWords": 667,
+  "voiceGenerated": false,
+  "checkedAt": "2026-10-14T18:35:25.725Z",
+  "successfulReceipts": 14,
+  "expectedRevertReceipts": 2,
+  "transactions": [
+    {
+      "action": "Fund Job A persona 0.35 USDC",
+      "hash": "0x4fb01fd56de2e03bf2c211bb28016927a968b0f0073b359bb92154f4d730102f",
+      "url": "https://explorer.arc.io/tx/0x4fb01fd56de2e03bf2c211bb28016927a968b0f0073b359bb92154f4d730102f",
+      "status": "success",
+      "from": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+      "to": "0x4f7ce633f0e598e6bd7f50d55d176015925fb3a6",
+      "blockNumber": "25960298",
+      "feeUSDC": "0.000441",
+      "feeWei": "441000000000000"
+    },
+    {
+      "action": "Approve $0.10 USDC",
+      "hash": "0xbdc2c0e8f7b17cb2ff8138068d670fdfd1c39b84a165de66cd23f8dceb9fc33a",
+      "url": "https://explorer.arc.io/tx/0xbdc2c0e8f7b17cb2ff8138068d670fdfd1c39b84a165de66cd23f8dceb9fc33a",
+      "status": "success",
+      "from": "0x4F7Ce633F0E598e6Bd7F50d55D176015925fb3a6",
+      "to": "0x3600000000000000000000000000000000000000",
+      "blockNumber": "25960315",
+      "feeUSDC": "0.001164198",
+      "feeWei": "1164198000000000"
+    },
+    {
+      "action": "Grant $0.10/day permission",
+      "hash": "0xbcd330baf8997cf883d52bfeac61f5544b9de53caab0b4b5de04cf4871e6dd6b",
+      "url": "https://explorer.arc.io/tx/0xbcd330baf8997cf883d52bfeac61f5544b9de53caab0b4b5de04cf4871e6dd6b",
+      "status": "success",
+      "from": "0x4F7Ce633F0E598e6Bd7F50d55D176015925fb3a6",
+      "to": "0x83d58219484eb94cfadfe4d975393c13051b36b1",
+      "blockNumber": "25960322",
+      "feeUSDC": "0.004546941",
+      "feeWei": "4546941000000000"
+    },
+    {
+      "action": "Fund Job A persona 0.12 USDC",
+      "hash": "0x00f33f0eb3f4e412ddee154d6aac01bd11bf181f2641c9ec502de2a0aa0d3e2b",
+      "url": "https://explorer.arc.io/tx/0x00f33f0eb3f4e412ddee154d6aac01bd11bf181f2641c9ec502de2a0aa0d3e2b",
+      "status": "success",
+      "from": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+      "to": "0x4f7ce633f0e598e6bd7f50d55d176015925fb3a6",
+      "blockNumber": "25961684",
+      "feeUSDC": "0.000441",
+      "feeWei": "441000000000000"
+    },
+    {
+      "action": "Council: Buy $0.05 cirBTC",
+      "hash": "0x5e47406014467850b2496953e8b3bc6dbb88e93f8cd1b728f6f6cf984f97dfce",
+      "url": "https://explorer.arc.io/tx/0x5e47406014467850b2496953e8b3bc6dbb88e93f8cd1b728f6f6cf984f97dfce",
+      "status": "success",
+      "from": "0xe1e25Ca9C432EC4942fb7ab78b7AFA5afB3F4F0F",
+      "to": "0x1d628d3c6588fe1ac7234c08eb2d4ea2a4a16e55",
+      "blockNumber": "25961789",
+      "feeUSDC": "0.002927640168778446",
+      "feeWei": "2927640168778446"
+    },
+    {
+      "action": "Buy $0.05 cirBTC",
+      "hash": "0xc58104e6e0beb5301b85e8e01662702f5fad2361df4fc88fe21415eb4c224bde",
+      "url": "https://explorer.arc.io/tx/0xc58104e6e0beb5301b85e8e01662702f5fad2361df4fc88fe21415eb4c224bde",
+      "status": "success",
+      "from": "0xe1e25Ca9C432EC4942fb7ab78b7AFA5afB3F4F0F",
+      "to": "0x83d58219484eb94cfadfe4d975393c13051b36b1",
+      "blockNumber": "25961810",
+      "feeUSDC": "0.006442080371385912",
+      "feeWei": "6442080371385912"
+    },
+    {
+      "action": "Council: Over-cap council veto",
+      "hash": "0x3a390b9d1a91cfb258996fdba296e41f9b23e6d5041ae3385f6f3bd0fda42c4e",
+      "url": "https://explorer.arc.io/tx/0x3a390b9d1a91cfb258996fdba296e41f9b23e6d5041ae3385f6f3bd0fda42c4e",
+      "status": "success",
+      "from": "0xe1e25Ca9C432EC4942fb7ab78b7AFA5afB3F4F0F",
+      "to": "0x1d628d3c6588fe1ac7234c08eb2d4ea2a4a16e55",
+      "blockNumber": "25961923",
+      "feeUSDC": "0.00292740016876461",
+      "feeWei": "2927400168764610"
+    },
+    {
+      "action": "EXPECTED REVERT DailyCapExceeded",
+      "hash": "0xaa4aaa37c39f6b3c96fb21908da3f7ca8b27ad845ae6b1bbb43f4fb09a0af684",
+      "url": "https://explorer.arc.io/tx/0xaa4aaa37c39f6b3c96fb21908da3f7ca8b27ad845ae6b1bbb43f4fb09a0af684",
+      "status": "reverted",
+      "from": "0xe1e25Ca9C432EC4942fb7ab78b7AFA5afB3F4F0F",
+      "to": "0x83d58219484eb94cfadfe4d975393c13051b36b1",
+      "blockNumber": "25962023",
+      "feeUSDC": "0.000839244",
+      "feeWei": "839244000000000"
+    },
+    {
+      "action": "Approve cirBTC close",
+      "hash": "0xd483367fc951973c9746c803a24ef203d434ac6b09cee79d3145b63d93ccc0fc",
+      "url": "https://explorer.arc.io/tx/0xd483367fc951973c9746c803a24ef203d434ac6b09cee79d3145b63d93ccc0fc",
+      "status": "success",
+      "from": "0x4F7Ce633F0E598e6Bd7F50d55D176015925fb3a6",
+      "to": "0x171a4217b86a807a64eb94757db6849fb4bdbaa0",
+      "blockNumber": "25962066",
+      "feeUSDC": "0.001163673",
+      "feeWei": "1163673000000000"
+    },
+    {
+      "action": "Council: Sell cirBTC back",
+      "hash": "0x24624df7913ac96b53e4afbfa02b70d06471277899b4fb5da7c4e23d034b2935",
+      "url": "https://explorer.arc.io/tx/0x24624df7913ac96b53e4afbfa02b70d06471277899b4fb5da7c4e23d034b2935",
+      "status": "success",
+      "from": "0xe1e25Ca9C432EC4942fb7ab78b7AFA5afB3F4F0F",
+      "to": "0x1d628d3c6588fe1ac7234c08eb2d4ea2a4a16e55",
+      "blockNumber": "25962097",
+      "feeUSDC": "0.002927160168750774",
+      "feeWei": "2927160168750774"
+    },
+    {
+      "action": "Revoke permission",
+      "hash": "0xf18e7739536c179e08031408d37a72736d16b22a45a7557095f9093769c656b4",
+      "url": "https://explorer.arc.io/tx/0xf18e7739536c179e08031408d37a72736d16b22a45a7557095f9093769c656b4",
+      "status": "success",
+      "from": "0x4F7Ce633F0E598e6Bd7F50d55D176015925fb3a6",
+      "to": "0x83d58219484eb94cfadfe4d975393c13051b36b1",
+      "blockNumber": "25962135",
+      "feeUSDC": "0.000959784",
+      "feeWei": "959784000000000"
+    },
+    {
+      "action": "Council: Revoked council veto",
+      "hash": "0xec628137e3a8d27f7e0fdf592f5055d0f0a5d1086143f8d945771ff69066d367",
+      "url": "https://explorer.arc.io/tx/0xec628137e3a8d27f7e0fdf592f5055d0f0a5d1086143f8d945771ff69066d367",
+      "status": "success",
+      "from": "0xe1e25Ca9C432EC4942fb7ab78b7AFA5afB3F4F0F",
+      "to": "0x1d628d3c6588fe1ac7234c08eb2d4ea2a4a16e55",
+      "blockNumber": "25962164",
+      "feeUSDC": "0.00292740016876461",
+      "feeWei": "2927400168764610"
+    },
+    {
+      "action": "EXPECTED REVERT PolicyRevoked",
+      "hash": "0xe739dd98287707cbe21169ffa6dc8cd7a32b00c0d96f4b1fe6f989ef75c771d5",
+      "url": "https://explorer.arc.io/tx/0xe739dd98287707cbe21169ffa6dc8cd7a32b00c0d96f4b1fe6f989ef75c771d5",
+      "status": "reverted",
+      "from": "0xe1e25Ca9C432EC4942fb7ab78b7AFA5afB3F4F0F",
+      "to": "0x83d58219484eb94cfadfe4d975393c13051b36b1",
+      "blockNumber": "25962171",
+      "feeUSDC": "0.000610743",
+      "feeWei": "610743000000000"
+    },
+    {
+      "action": "Owner approves cirBTC recovery",
+      "hash": "0xa81f1c791d98450d84e21844d12b8d990f186ff5c773b2b817fa06f298bf6efc",
+      "url": "https://explorer.arc.io/tx/0xa81f1c791d98450d84e21844d12b8d990f186ff5c773b2b817fa06f298bf6efc",
+      "status": "success",
+      "from": "0x4F7Ce633F0E598e6Bd7F50d55D176015925fb3a6",
+      "to": "0x171a4217b86a807a64eb94757db6849fb4bdbaa0",
+      "blockNumber": "25962180",
+      "feeUSDC": "0.001163673",
+      "feeWei": "1163673000000000"
+    },
+    {
+      "action": "Owner closes position after agent veto",
+      "hash": "0x5641287191b6a96d9dd08514d4e86d99421d4d34f8b5d7b4b8afa25e9b79847a",
+      "url": "https://explorer.arc.io/tx/0x5641287191b6a96d9dd08514d4e86d99421d4d34f8b5d7b4b8afa25e9b79847a",
+      "status": "success",
+      "from": "0x4F7Ce633F0E598e6Bd7F50d55D176015925fb3a6",
+      "to": "0x53bf6b0684ec7ef91e1387da3d1a1769bc5a6f77",
+      "blockNumber": "25962187",
+      "feeUSDC": "0.00253071",
+      "feeWei": "2530710000000000"
+    },
+    {
+      "action": "Sweep Job A persona to deployer",
+      "hash": "0xdffc5242c04076c24b6c1d757f14875538606623d2ba6326aecfc520866894c0",
+      "url": "https://explorer.arc.io/tx/0xdffc5242c04076c24b6c1d757f14875538606623d2ba6326aecfc520866894c0",
+      "status": "success",
+      "from": "0x4F7Ce633F0E598e6Bd7F50d55D176015925fb3a6",
+      "to": "0x0648adf1967692a0c991d7715b0b588452321fbd",
+      "blockNumber": "25962194",
+      "feeUSDC": "0.000441",
+      "feeWei": "441000000000000"
+    }
+  ],
+  "limitations": [
+    "Hosted UI forwards to local executor, real mainnet contracts.",
+    "Agent close vetoed by price guard; owner recovered directly.",
+    "Two expected mined reverts; remaining receipts successful.",
+    "No voice generated; captions and original instrumental only."
+  ],
+  "renderedAt": "2026-10-14T18:32:31.222Z",
+  "exactFees": true,
+  "decodedExplorerEventsShown": true
+}
