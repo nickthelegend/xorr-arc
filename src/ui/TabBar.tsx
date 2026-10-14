@@ -171,7 +171,7 @@ export function TabBar({ active, onHome, onSwap, onMessages, unread = 0, hidden 
         <Item label="Trade" onPress={onSwap}>
           <SwapGlyph color={colors.ink55} />
         </Item>
-        <Item label="Messages" onPress={onMessages} badge={unread > 0 ? (unread > 9 ? '9+' : String(unread)) : undefined}>
+        <Item label="Agent rooms" onPress={onMessages} badge={unread > 0 ? (unread > 9 ? '9+' : String(unread)) : undefined}>
           <ChatGlyph color={colors.ink55} />
         </Item>
       </View>

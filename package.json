@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "index.js",
-  "description": "XORR on Arc: a council of AI agents that trades for you inside an on-chain permission you can revoke in one tap.",
+  "description": "XORR on Arc: a rule-based council trades inside an on-chain permission you can revoke.",
   "scripts": {
     "start": "expo start",
     "web": "expo start --web --port 9130",

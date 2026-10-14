@@ -3,7 +3,7 @@ import type { FigureKind } from "../ui/mask";
 import React from 'react';
 import { Linking, Platform, ScrollView, View, type StyleProp, type ViewStyle } from 'react-native';
 import { router } from 'expo-router';
-import { Eyebrow, Press, SheetCard, Text, colors, radius, size, space } from '@/ui';
+import { Eyebrow, Press, SheetCard, Text, Screen, HeaderBar, colors, radius, size, space } from '@/ui';
 import { useConfig } from './hooks';
 import { short } from './format';
 
@@ -42,27 +42,17 @@ export function AddressLink({ address, label }: { address?: string | null; label
 
 export function Page({ title, eyebrow, children, back = true }: { title: string; eyebrow?: string; children: React.ReactNode; back?: boolean }) {
   return (
-    <View style={{ flex: 1, backgroundColor: colors.bg }}>
-      <ScrollView contentContainerStyle={{ padding: space.gutter, paddingBottom: 80, gap: space.s16 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          {back ? (
-            <Press onPress={() => (router.canGoBack() ? router.back() : router.replace('/'))} testID="back">
-              <Text variant="control" color={colors.ink70}>
-                ← Back
-              </Text>
-            </Press>
-          ) : (
-            <View />
-          )}
-          <NetworkBadge />
-        </View>
-        <View style={{ gap: space.s4 }}>
-          {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-          <Text variant="screenTitle">{title}</Text>
-        </View>
+    <Screen gutter="none">
+      <View style={{ paddingHorizontal: space.gutter }}>
+        <HeaderBar onBack={back ? () => (router.canGoBack() ? router.back() : router.replace('/')) : undefined}
+          title={<Text variant="screenTitle">{title}</Text>} />
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ padding: space.gutter, paddingBottom: 36, gap: space.s16 }}>
+        <NetworkBadge />
+        {eyebrow ? <Text variant="secondarySm">{eyebrow}</Text> : null}
         {children}
       </ScrollView>
-    </View>
+    </Screen>
   );
 }
 

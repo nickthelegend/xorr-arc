@@ -15,7 +15,7 @@ import type { Hex } from 'viem';
 import { ARC, type ArcConfig, type ArcNetwork, type XorrDeployment } from '../../shared/arc.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
-export const ROOT = resolve(here, '../..');
+export const ROOT = existsSync(resolve(here, '../../package.json')) ? resolve(here, '../..') : resolve(here, '../../../..');
 
 function loadDotEnv(file: string) {
   if (!existsSync(file)) return;

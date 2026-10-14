@@ -12,6 +12,7 @@ import { age, px, usd, when } from '@/arc/format';
 import { useConfig, usePoll } from '@/arc/hooks';
 import { AddressLink, Card, KV, Note, Page, TxLink } from '@/arc/ui';
 import { ASSETS } from '../../shared/arc';
+import { SpeedReceipt } from '@/arc/rounds';
 import { BallotRow } from '../council';
 
 export default function RoundAudit() {
@@ -29,6 +30,7 @@ export default function RoundAudit() {
   return (
     <Page title={`${p.side === 'buy' ? 'Buy' : 'Sell'} ${p.label} ${usd(p.usd)}`} eyebrow={`Round ${r.id.slice(0, 10)} · ${when(r.createdAt)}`}>
       <Note tone={r.decision === 'approved' ? 'up' : r.decision === 'vetoed' ? 'down' : undefined}>{r.summary}</Note>
+      <SpeedReceipt round={r} />
       <Card title="What the council read">
         {price.ok ? (
           <>
@@ -57,7 +59,7 @@ export default function RoundAudit() {
             <KV k="Paid" v={p.side === 'buy' ? `${formatUnits(BigInt(t.amountIn), 6)} USDC` : `${formatUnits(BigInt(t.amountIn), ASSETS[p.sym].decimals)} ${p.label}`} />
             {t.received ? <KV k="Received" v={`${formatUnits(BigInt(t.received), ASSETS[outSym].decimals)} ${outSym === 'USDC' ? 'USDC' : p.label}`} /> : null}
             <KV k="Chainlink floor (on chain)" v={`${formatUnits(BigInt(t.floor), ASSETS[outSym].decimals)} ${outSym === 'USDC' ? 'USDC' : p.label}`} />
-            <KV k="Final in" v={`${t.ms} ms · gas ${t.gasUsed} (paid in USDC)`} />
+            <KV k="Send to receipt" v={`${t.ms} ms · gas ${t.gasUsed} (paid in USDC)`} />
           </>
         ) : t ? (
           <Note tone="down">The contract refused the trade: {t.error}</Note>

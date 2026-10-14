@@ -40,7 +40,7 @@ const SIDE_COPY_FROM = 1100;
 const FACTS = [
   'A daily USDC cap, a venue list and an end date, enforced by Arc.',
   'Every fill floored at Chainlink’s price, on chain.',
-  'One hold stops every agent, from Arc, Base or Ethereum.',
+  'One hold stops every agent on Arc.',
 ] as const;
 
 export function PhoneFrame({ children }: { children: React.ReactNode }) {

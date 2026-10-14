@@ -16,7 +16,7 @@ export default function BuiltOnArc() {
   const fresh = markets.data?.rows.filter((r) => r.feed?.fresh).length ?? 0;
   const test = config.network === 'arc-testnet';
   const rows: { piece: string; what: string; address?: string | null; state: string; ok: boolean; proof: string }[] = [
-    { piece: 'USDC gas · sub-second finality', what: 'You hold one token; every signature is final in under a second.', address: a.usdc, state: `chain ${config.chainId}, block ${config.block ?? '—'}`, ok: !!config.block, proof: 'Live on testnet: a $0.04 buy confirmed in 1.6 to 2.6 s end to end (gas estimate and receipt polling included); sub-second finality is Arc’s documented property.' },
+    { piece: 'USDC gas · sub-second finality', what: 'You hold one token. Measured receipt time is shown per trade.', address: a.usdc, state: `chain ${config.chainId}, block ${config.block ?? '—'}`, ok: !!config.block, proof: 'Live on testnet: a $0.04 buy confirmed in 1.6 to 2.6 s end to end (gas estimate and receipt polling included); sub-second finality is Arc’s documented property.' },
     { piece: 'XorrDelegation', what: 'The permission: daily cap, venue, end date, Chainlink floor, one-tap revoke.', address: d?.delegation, state: d ? 'deployed' : 'not deployed', ok: !!d, proof: 'Live on testnet (grant, trade, over-cap and price-floor refusals, revoke: docs/E2E-TESTNET.md). Fork: mainnet.' },
     { piece: 'Chainlink Data Feeds', what: 'The council’s prices and the on-chain floor under every fill (XorrPriceGuard).', address: d?.priceGuard, state: d?.mirrorFeeds ? `${fresh}/4 fresh (testnet mirrors of mainnet)` : `${fresh}/4 fresh`, ok: fresh >= 4, proof: 'Testnet: live mirrors of Chainlink’s Arc mainnet answers (Arc testnet has no Chainlink feeds). Real feeds: proven on a mainnet fork only.' },
     { piece: d?.venueKind === 'uniswap-v3' ? 'Uniswap v3 on Arc' : 'Uniswap v2 (XORR-deployed, testnet)', what: d?.venueKind === 'uniswap-v3' ? 'The venue: real pools for cirBTC, EURC and WETH.' : 'Testnet has no Uniswap: published v2 bytecode, XORR-seeded pools.', address: d?.venue, state: 'venue registry', ok: !!d, proof: d?.venueKind === 'uniswap-v3' ? 'Fork: fills on the real Arc mainnet pools (docs/E2E-FORK.md).' : 'Live on testnet: XORR-seeded pools for test tokens (xWETH, xcirBTC) of about 5 USDC each; thin on purpose, labelled everywhere.' },
@@ -31,8 +31,9 @@ export default function BuiltOnArc() {
   return (
     <Page title="Built on Arc" eyebrow="State read from Arc now">
       {config.fork ? <Note tone="warn">This is a local fork of {a.name}: real contracts and state, transactions that never leave this machine.</Note> : null}
-      {rows.map((r) => (
+      {rows.map((r, i) => (
         <Card key={r.piece}>
+          <Text variant="footnote" color={colors.accentHi}>{i >= 6 && i <= 9 ? 'Not run' : i === 10 || config.fork ? 'Fork' : 'Live (testnet)'}</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: space.s8 }}>
             <Text variant="cardTitle" style={{ flexShrink: 1 }}>
               {r.piece}

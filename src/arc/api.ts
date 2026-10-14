@@ -92,6 +92,7 @@ export type AgentSeat = {
 };
 
 export const api = {
+  receipt: (hash: string) => get<{ block: string; gasUsed: string; feeUsdc: number }>(`/receipts/${hash}`),
   config: () => get<Config>('/config'),
   markets: () => get<Markets>('/markets'),
   account: (owner: string) => get<Account>(`/account/${owner}`),

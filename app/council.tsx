@@ -12,6 +12,8 @@ import { useConfig, usePoll } from '@/arc/hooks';
 import { Card, Choice, Note, Page, TxLink } from '@/arc/ui';
 import { signMessage, useWallet } from '@/arc/wallet';
 import { SEATS, labelOf, type Sym } from '../shared/arc';
+import { Rise } from '@/ui/Rise';
+import { SpeedReceipt } from '@/arc/rounds';
 import { agentGradient } from '@/design/gradients';
 
 const VOTE_TONE: Record<string, string> = { yes: colors.up, no: colors.ink55, veto: colors.down, abstain: colors.ink38 };
@@ -69,6 +71,7 @@ export function RoundResult({ r }: { r: Round }) {
   const t = r.trade;
   return (
     <Card tone={r.decision === 'approved' ? 'accent' : undefined} eyebrow={`${r.inputs.proposal.side} ${r.inputs.proposal.label} ${usd(r.inputs.proposal.usd)}`} title={r.summary} testID="round-result">
+      <View style={{flexDirection:"row",gap:4}}>{r.ballots.map(b=><View key={b.seat} style={{flex:1,height:5,borderRadius:3,backgroundColor:VOTE_TONE[b.vote]}} />)}</View>
       <VoteChips ballots={r.ballots} />
       <View style={{ gap: 4, marginTop: space.s6 }}>
         {r.record && 'hash' in r.record ? <TxLink hash={r.record.hash} label="Votes recorded on XorrCouncil" /> : r.record ? <Note tone="down">Not recorded: {r.record.error}</Note> : null}
@@ -81,7 +84,7 @@ export function RoundResult({ r }: { r: Round }) {
           <Note tone="down">Refused on chain: {t.error}</Note>
         ) : null}
       </View>
-      <Button label="Open the audit" variant="ghost" onPress={() => router.push(`/round/${r.id}`)} />
+      <Button label="Replay this round" variant="ghost" onPress={() => router.push(`/round/${r.id}`)} />
     </Card>
   );
 }
@@ -135,8 +138,10 @@ export default function Council() {
 
   return (
     <Page title="The council" eyebrow="Five ERC-8004 agents on Arc">
+      <Text variant="secondary">Five desks. Every vote explained. Rule-based, not an LLM.</Text>
+      <View style={{flexDirection:'row',justifyContent:'space-between'}}>{SEATS.map((s,i)=><Rise key={s.id} index={i} style={{width:'19%',alignItems:'center',gap:6}}><AgentOrb gradient={agentGradient(s.name)} size={52} face identity={s.name} bloom stage={busy?'thinking':undefined}/><Text variant="footnote" align="center">{s.name}</Text></Rise>)}</View>
       <Card title="Propose a trade">
-        <Choice options={(['CBTC', 'WETH', 'EURC'] as Sym[]).map((s) => ({ label: labelOf(s, net), value: s }))} value={sym} onChange={setSym} testID="sym" />
+        <Choice options={((testnet ? ['WETH'] : ['CBTC', 'WETH', 'EURC']) as Sym[]).map((s) => ({ label: labelOf(s, net), value: s }))} value={sym} onChange={setSym} testID="sym" />
         <Choice options={[{ label: 'Buy', value: 'buy' as const }, { label: 'Sell', value: 'sell' as const }]} value={side} onChange={setSide} testID="side" />
         <Choice options={amounts.filter((n) => n <= config.maxRoundUsd).map((n) => ({ label: usd(n, n < 1 ? 2 : 0), value: n }))} value={amount} onChange={setAmount} testID="usd" />
         <Text variant="secondarySm">You sign the request (no gas); the executor runs the round. It can never exceed the permission on chain. The five votes are deterministic rules over what was read this round, not an LLM.</Text>
@@ -144,7 +149,7 @@ export default function Council() {
         <Button label={busy ? 'The council is voting…' : 'Convene the council'} loading={busy} onPress={convene} testID="convene" />
       </Card>
       {err ? <Note tone="down">{err}</Note> : null}
-      {last ? <RoundResult r={last} /> : null}
+      {last ? <><RoundResult r={last} /><SpeedReceipt round={last}/></> : null}
 
       <Card title="Autopilot" eyebrow="The keeper proposes, the council decides">
         <Text variant="secondary">
@@ -153,6 +158,7 @@ export default function Council() {
         <Choice options={[{ label: 'On', value: 1 }, { label: 'Off', value: 0 }]} value={account.data?.autopilot.on ? 1 : 0} onChange={(v) => autopilot(v === 1)} testID="autopilot" />
       </Card>
 
+      {rounds.error ? <Note tone="down">{rounds.error}</Note> : null}
       <Eyebrow>Rounds</Eyebrow>
       {rounds.data && rounds.data.rounds.length === 0 ? (
         <Note>No rounds yet. Convene the council above, or switch autopilot on: each round lands here with its votes and its audit.</Note>

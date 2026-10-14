@@ -82,6 +82,14 @@ app.get('/config', async (c) => {
   );
 });
 
+/** Mined Arc receipt fees use 18-decimal native USDC. */
+app.get('/receipts/:hash', async (c) => {
+  const hash = c.req.param('hash');
+  if (!/^0x[0-9a-fA-F]{64}$/.test(hash)) return c.json({ error: 'invalid transaction hash' }, 400);
+  const r = await pub.getTransactionReceipt({ hash: hash as Hex });
+  return c.json({ block: r.blockNumber.toString(), gasUsed: r.gasUsed.toString(), feeUsdc: Number(formatUnits(r.gasUsed * r.effectiveGasPrice, 18)) });
+});
+
 app.get('/markets', async (c) => {
   const dep = need();
   const rows = [];

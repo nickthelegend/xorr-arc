@@ -70,6 +70,7 @@ import Svg, {
 } from 'react-native-svg';
 import { agentGlyph, pathData, type GlyphShape } from '../design/agentGlyph';
 import { timing, useReducedMotion } from './motion';
+import { Placeholder } from './States';
 import { Text, Value } from './Text';
 import { colors, duration, orbBloom, radius, size as metrics, space, type Gradient } from './tokens';
 
@@ -481,7 +482,12 @@ export function AssetMark({
   return (
     <View testID={testID} style={[{ width: size, height: size }, style]}>
       {waiting ? (
-        <View style={{ position: 'absolute', width: size, height: size, borderRadius: size / 2, backgroundColor: colors.switchOff }} />
+        <Placeholder
+          height={size}
+          width={size}
+          color={colors.switchOff}
+          style={{ position: 'absolute', borderRadius: size / 2 }}
+        />
       ) : (
         <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
           <Defs>

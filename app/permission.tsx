@@ -2,7 +2,7 @@
  * The permission: what XORR's agent may do with your USDC on Arc, written to XorrDelegation by your own wallet.
  * Every limit here is enforced by the contract on every trade — the executor cannot exceed it.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { encodeFunctionData, maxUint256, type Address } from 'viem';
 import { Button, Text, colors, space } from '@/ui';
@@ -19,13 +19,15 @@ export default function Permission() {
   const address = useWallet((s) => s.address);
   const account = usePoll(address ? () => api.account(address) : null, 0, [address]);
   const ceiling = d ? d.dailyCapCeiling / 1e6 : 250;
-  const [cap, setCap] = useState(25);
-  const [days, setDays] = useState(7);
-  const [slip, setSlip] = useState(100);
+  const [cap, setCap] = useState(0.1);
+  const [days, setDays] = useState(1);
+  const [slip, setSlip] = useState(200);
   const [guardian, setGuardian] = useState(true);
   const [busy, setBusy] = useState<string | null>(null);
   const [txs, setTxs] = useState<{ label: string; hash: string; ms: number }[]>([]);
   const [err, setErr] = useState<string | null>(null);
+
+  useEffect(() => { if(config?.network === 'arc-mainnet') setCap(25); }, [config?.network]);
 
   if (!d || !config?.executor) return <Page title="Permission">{<Note tone="warn">No deployment loaded.</Note>}</Page>;
   if (!address) return <Page title="Permission">{<Note>Connect a wallet on the home screen first.</Note>}</Page>;
@@ -88,7 +90,7 @@ export default function Permission() {
       ) : null}
 
       <Card title="Daily cap, in USDC" eyebrow="Resets at midnight UTC">
-        <Choice options={[5, 10, 25, 50, 100].filter((n) => n <= ceiling).map((n) => ({ label: usd(n, 0), value: n }))} value={cap} onChange={setCap} testID="cap" />
+        <Choice options={(config.network === 'arc-testnet' ? [0.05, 0.1, 0.2] : [5, 10, 25, 50, 100]).filter((n) => n <= ceiling).map((n) => ({ label: usd(n, n < 1 ? 2 : 0), value: n }))} value={cap} onChange={setCap} testID="cap" />
         <Text variant="secondarySm">This deployment refuses any cap over {usd(ceiling, 0)} a day{config.network === 'arc-mainnet' ? ' (mainnet is kept tiny on purpose)' : ''}.</Text>
       </Card>
       <Card title="Ends after">
@@ -105,12 +107,12 @@ export default function Permission() {
       <Card title="Stop from another chain" eyebrow="Chainlink CCIP">
         <Choice options={[{ label: 'Armed', value: 1 }, { label: 'Off', value: 0 }]} value={guardian ? 1 : 0} onChange={(v) => setGuardian(v === 1)} testID="guardian" />
         <Text variant="secondarySm">
-          Lets XorrStopReceiver ({d.stopReceiver.slice(0, 10)}…) stop your agents when you send a stop from Base or Ethereum with CCIP (XorrStopSender.stopAll(), fee in ETH). It can only stop — never grant or trade.
+          Not run over a live cross-chain lane. Lets XorrStopReceiver ({d.stopReceiver.slice(0, 10)}…) stop your agents when you send a stop from Base or Ethereum with CCIP (XorrStopSender.stopAll(), fee in ETH). It can only stop — never grant or trade.
         </Text>
       </Card>
 
       <Button label={busy ? `${busy}…` : p?.granted ? 'Save the permission' : 'Approve and grant'} loading={!!busy} onPress={grant} testID="grant" />
-      {p?.granted && !p.revoked ? <Button label="Revoke this agent" variant="ghost" onPress={revokeAgent} testID="revoke-agent" /> : null}
+      {p?.granted && !p.revoked ? <Button label="Revoke this agent" variant="ghost" loading={!!busy} onPress={revokeAgent} testID="revoke-agent" /> : null}
 
       {txs.length ? (
         <Card title="Signed and final on Arc">

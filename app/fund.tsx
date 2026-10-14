@@ -7,9 +7,9 @@ import {readGateway,saveGateway,clearGateway,publicIntent,recoverGateway,type Ga
 import React, { useState } from 'react';
 import { encodeFunctionData, pad, parseUnits,keccak256, type Hex } from 'viem';
 import { Button, Text, colors } from '@/ui';
-import { API_URL } from '@/arc/api';
+import { api, API_URL } from '@/arc/api';
 import { erc20Abi, tokenMessengerV2Abi } from '@/arc/abis';
-import { usd } from '@/arc/format';
+import { usd, amt } from '@/arc/format';
 import { useConfig, usePoll } from '@/arc/hooks';
 import { AddressLink, Card, Choice, KV, Note, Page, TxLink, open } from '@/arc/ui';
 import { sendTx, useWallet } from '@/arc/wallet';
@@ -19,6 +19,7 @@ type GatewayInfo = { wallet: string; minter: string; sources: { domain: number; 
 export default function Fund() {
   const config = useConfig((s) => s.config);
   const { address, wallet } = useWallet();
+  const account = usePoll(address ? () => api.account(address) : null, 10000, [address]);
   const gw = usePoll<GatewayInfo>(address && config?.features?.gateway ? () => fetch(`${API_URL}/gateway/${address}`).then((r) => r.json()) : null, 0, [address]);
   const [source, setSource] = useState(6);
   const [gwAmount, setGwAmount] = useState(5);
@@ -105,6 +106,9 @@ export default function Fund() {
     <Page title="Fund & withdraw" eyebrow="Circle Gateway · CCTP V2 · USDC gas">
       {config.fork ? <Note tone="warn">On a local fork Circle’s APIs cannot attest fork transactions: these flows need the real network.</Note> : null}
       <Card title="Your Arc address">
+        {account.data?.balances.tokens.map(t => <KV figure="units" key={t.sym} k={t.label} v={amt(t.amount, t.sym === 'CBTC' ? 8 : 6)} />)}
+        {account.data && account.data.balances.usyc > 0 ? <KV figure="units" k="USYC" v={amt(account.data.balances.usyc)} /> : null}
+        {account.error ? <Note tone="down">Balance read failed: {account.error}</Note> : null}
         <KV k="Address" v={<AddressLink address={address} />} />
         <Text variant="secondarySm">USDC is Arc’s gas token: this one balance pays for every transaction you sign.</Text>
         {cfg.faucet ? <Button label="Get testnet USDC / EURC (Circle faucet)" variant="secondary" onPress={() => open(cfg.faucet!)} /> : null}
