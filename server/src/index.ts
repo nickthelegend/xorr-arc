@@ -49,6 +49,10 @@ import { send } from './chain.js';
 
 const app = new Hono();
 app.use('*', cors({ origin: ALLOWED_ORIGINS.includes('*') ? '*' : ALLOWED_ORIGINS }));
+app.use('*', async (c, next) => {
+  if (process.env.VERCEL && c.req.method !== 'GET' && c.req.method !== 'HEAD' && c.req.method !== 'OPTIONS') return c.json({ error: 'Start the local executor to run council rounds. Hosted mode reads live Arc testnet only.' }, 503);
+  await next();
+});
 app.onError((e, c) => c.json({ error: explain(e) }, 500));
 
 const requests = createReplayGuard(resolve(DATA_DIR, 'signed-requests.json'));
@@ -65,6 +69,7 @@ app.get('/config', async (c) => {
   const block = await pub.getBlockNumber().catch(() => null);
   return c.json(
     json({
+      readOnly: Boolean(process.env.VERCEL),
       network: NETWORK,
       fork: IS_FORK,
       chainId: CFG.chainId,
@@ -308,7 +313,7 @@ app.get('/keeper', (c) => c.json({ log: keeperLog.slice(0, 50) }));
 
 app.get('/assets', (c) => c.json({ assets: ASSETS }));
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
   serve({ fetch: app.fetch, port: PORT }, () => {
     console.log(`XORR executor on ${NETWORK}${IS_FORK ? ' (local fork)' : ''} — http://localhost:${PORT}`);
     console.log(`  rpc ${RPC_URL}; deployment ${d ? d.delegation : 'NONE'}; executor ${executor?.address ?? 'NO KEY'}`);

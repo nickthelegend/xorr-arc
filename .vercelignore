@@ -1,0 +1,12 @@
+**/node_modules
+**/.env*
+**/.git
+**/.fork
+**/.run
+**/data
+**/broadcast
+**/cache
+**/out
+contracts/lib
+docs/screens
+dist-web

@@ -1,7 +1,22 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run build:web",
+  "buildCommand": "npm run build:web && node scripts/build-hosted-api.mjs",
   "outputDirectory": "dist-web",
   "framework": null,
-  "rewrites": [{ "source": "/((?!_expo/|assets/|favicon.ico).*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/index?route=:path*"
+    },
+    {
+      "source": "/((?!api/|_expo/|assets/|favicon.ico).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "functions": {
+    "api/index.mjs": {
+      "maxDuration": 60,
+      "includeFiles": "deployments/arc-testnet.json"
+    }
+  }
 }

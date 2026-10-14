@@ -15,6 +15,7 @@ async function get<T>(path: string): Promise<T> {
 }
 
 export type Config = {
+  readOnly?: boolean;
   network: 'arc-testnet' | 'arc-mainnet';
   fork: boolean;
   chainId: number;

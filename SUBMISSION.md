@@ -1,6 +1,6 @@
 # XORR on Arc: submission
 
-Live: https://app-production-0530.up.railway.app (Arc testnet)
+Live: https://xorr-arc.vercel.app (Arc testnet)
 
 
 ## Description (DoraHacks)

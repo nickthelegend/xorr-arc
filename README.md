@@ -1,7 +1,7 @@
 # XORR on Arc
 
 **Round 2:** contracts are live on Arc testnet; the updated frontend/executor have not been published.
-Use the on-demand browser rehearsal below. Frontend hosting target: Vercel (`vercel.json`).
+Use the on-demand browser rehearsal below. Hosted frontend: https://xorr-arc.vercel.app — live reads on Arc testnet, local executor required for council execution. [Hosting checks](docs/HOSTED.md).
 The previous Railway URL is not round-2 evidence; no paid resources are provisioned by this workflow.
 
 

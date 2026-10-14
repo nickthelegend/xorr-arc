@@ -1,0 +1,487 @@
+{
+  "at": "2026-10-14T14:38:06.722Z",
+  "base": "https://xorr-arc.vercel.app",
+  "results": [
+    {
+      "route": "/",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/arc",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/how",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/runs",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/treasury",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/fund",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/explore",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/rooms",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/permission",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/history",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/council",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/agents",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "route": "/markets",
+      "status": 200,
+      "consoleErrors": [],
+      "badImages": [],
+      "bodyPresent": true,
+      "ok": true
+    },
+    {
+      "firstStep": "Create a device key",
+      "ok": true
+    },
+    {
+      "api": "/api/config",
+      "status": 200,
+      "ok": true,
+      "data": {
+        "readOnly": true,
+        "network": "arc-testnet",
+        "fork": false,
+        "chainId": 5042002,
+        "rpcUrl": "https://rpc.testnet.arc.io",
+        "explorerUrl": "https://explorer.testnet.arc.io",
+        "arc": {
+          "network": "arc-testnet",
+          "chainId": 5042002,
+          "name": "Arc Testnet",
+          "rpcUrl": "https://rpc.testnet.arc.io",
+          "explorerUrl": "https://explorer.testnet.arc.io",
+          "usdc": "0x3600000000000000000000000000000000000000",
+          "eurc": "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a",
+          "usyc": "0xe9185F0c5F296Ed1797AaE4238D26CCaBEadb86C",
+          "usycTeller": "0x9fdF14c5B14173D74C08Af27AebFf39240dC105A",
+          "usycEntitlements": "0xcc205224862c7641930c87679e98999d23c26113",
+          "usycOracle": "0x52b56c7642E71dc54714d879127d97cd0B3D4581",
+          "memo": "0x5294E9927c3306DcBaDb03fe70b92e01cCede505",
+          "cctpDomain": 26,
+          "tokenMessengerV2": "0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA",
+          "messageTransmitterV2": "0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275",
+          "gatewayWallet": "0x0077777d7EBA4688BDeF3E311b846F25870A19B9",
+          "gatewayMinter": "0x0022222ABE238Cc2C7Bb1f21003F0a260052475B",
+          "gatewayApiUrl": "https://gateway-api-testnet.circle.com",
+          "irisApiUrl": "https://iris-api-sandbox.circle.com",
+          "fxEscrow": "0x867650F5eAe8df91445971f14d89fd84F0C9a9f8",
+          "erc8004": {
+            "identity": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+            "reputation": "0x8004B663056A597Dffe9eCcC1965A193B7388713"
+          },
+          "ccip": {
+            "selector": "3034092155422581607",
+            "router": "0xdE4E7FED43FAC37EB21aA0643d9852f75332eab8",
+            "link": "0x745827566D1EFb6B91632df0bFD5a9b5392F54E0"
+          },
+          "chainlink": {
+            "USDC": "0x84EA90AC252Dc437031461836DB5164219147905",
+            "EURC": "0x361b95c10b76Ca3f35C686d423e43A951755Bf23",
+            "EUR": "0xDd5B15443cd733D3966a50a3E48cB7DF9Fb5DE0D",
+            "ETH": "0x50FCDD99D6762D1C170DC6A9111db944AEE6D364",
+            "BTC": "0xa109B535C70C8Be9995be64Bb6751AcDB27e03De",
+            "LINK": "0xD37600AB06758356F0f5eE607299204785bF8c3a",
+            "CIRBTC_POR": "0xEB0884a871ea1f6483B5FC10fd3D7dC5806411fc"
+          },
+          "uniswap": {
+            "swapRouter02": null,
+            "quoterV2": null,
+            "v3Factory": null
+          },
+          "v3Fees": {
+            "WETH": 3000,
+            "CBTC": 100,
+            "EURC": 500
+          },
+          "faucet": "https://faucet.circle.com",
+          "remotes": [
+            {
+              "name": "Base Sepolia",
+              "chainId": 84532,
+              "cctpDomain": 6,
+              "usdc": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+              "tokenMessengerV2": "0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA",
+              "messageTransmitterV2": "0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275",
+              "ccipSelector": "10344971235874465080",
+              "ccipRouter": "0xD3b06cEbF099CE7DA4AcCf578aaebFDBd6e88a93",
+              "rpcUrl": "https://sepolia.base.org",
+              "explorerUrl": "https://sepolia.basescan.org"
+            },
+            {
+              "name": "Ethereum Sepolia",
+              "chainId": 11155111,
+              "cctpDomain": 0,
+              "usdc": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+              "tokenMessengerV2": "0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA",
+              "messageTransmitterV2": "0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275",
+              "ccipSelector": "16015286601757825753",
+              "ccipRouter": "0x0BF3dE8c5D3e8A2B34D2BEeB17ABfCeBaf363A59",
+              "rpcUrl": "https://ethereum-sepolia-rpc.publicnode.com",
+              "explorerUrl": "https://sepolia.etherscan.io"
+            }
+          ]
+        },
+        "deployment": {
+          "cbtc": "0xC0F78d4b8a830E85D8C299aA2Ebb258C9BD8b08A",
+          "ccipRouter": "0xdE4E7FED43FAC37EB21aA0643d9852f75332eab8",
+          "chainId": 5042002,
+          "council": "0xd8d1bCB584158b4d250d29b0E67d2e1b7a577C1b",
+          "dailyCapCeiling": 10000000000,
+          "delegation": "0x0CDB99A17EBE31d6179cEF0963856Fc06C7267F0",
+          "deployedAtBlock": 67017524,
+          "deployer": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+          "eurc": "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a",
+          "executor": "0x9AFa02F2BF4df7740e0Ad6a4f68163E0f48E7ada",
+          "feeds": [
+            "0x8Dde7Ef3c21F61DC3956CD563b71D44D14D5f524",
+            "0x6d5CeEe9966203Ca33eD94Db75D388e217F91caa",
+            "0xD8236B9BD4D141a3868B52a3Da01bA8e0074c2f1",
+            "0x40c4dAEDd743AE54c4aEe432636562Cc13e191a1"
+          ],
+          "identityRegistry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+          "memo": "0x5294E9927c3306DcBaDb03fe70b92e01cCede505",
+          "mirrorFeeds": true,
+          "network": "arc-testnet",
+          "priceGuard": "0x47139077467BE10ce30f336392A9b96E128Ae88C",
+          "quoter": "0x0000000000000000000000000000000000000000",
+          "reputationRegistry": "0x8004B663056A597Dffe9eCcC1965A193B7388713",
+          "seatAgentIds": [
+            897268,
+            897269,
+            897270,
+            897271,
+            897272
+          ],
+          "stopReceiver": "0x52D364dF075CEC807f854d2f7D7ff8485dedf641",
+          "usdc": "0x3600000000000000000000000000000000000000",
+          "usyc": "0xe9185F0c5F296Ed1797AaE4238D26CCaBEadb86C",
+          "v2Factory": "0xE4de2F7828d580954f8Ea36713Cf40766b37eDe1",
+          "venue": "0x13A41b4B6e8dC8Eb00e266139ECf18c07E4b0Bf1",
+          "venueKind": "uniswap-v2",
+          "venueRegistry": "0x0536A9e60d2707BB2861F4F0ba83a869a9A81BDD",
+          "weth": "0x9604C6d6D48b448c91420a5F885f1dE136dBC131"
+        },
+        "executor": null,
+        "memoLive": true,
+        "maxRoundUsd": 50,
+        "features": {
+          "gateway": false,
+          "cctp": false,
+          "usyc": false
+        },
+        "keeperEnabled": false,
+        "testnetRepeg": true,
+        "block": "67174561",
+        "seats": [
+          {
+            "id": "price-desk",
+            "name": "Price Desk",
+            "role": "Is Chainlink fresh on Arc, and does the Uniswap fill agree with it?",
+            "veto": true
+          },
+          {
+            "id": "risk-keeper",
+            "name": "Risk Keeper",
+            "role": "Does it fit the on-chain permission: cap left today, expiry, position limit?",
+            "veto": true
+          },
+          {
+            "id": "trend-reader",
+            "name": "Trend Reader",
+            "role": "Which way is Chainlink moving across the rounds XORR has read?",
+            "veto": false
+          },
+          {
+            "id": "peg-desk",
+            "name": "Peg Desk",
+            "role": "Are USDC and EURC on their pegs, and is cirBTC fully reserved?",
+            "veto": true
+          },
+          {
+            "id": "strategist",
+            "name": "Strategist",
+            "role": "Weighs the desks and decides split rounds; cannot veto.",
+            "veto": false
+          }
+        ]
+      }
+    },
+    {
+      "api": "/api/markets",
+      "status": 200,
+      "ok": true,
+      "data": {
+        "network": "arc-testnet",
+        "mirror": true,
+        "probeUsd": 0.02,
+        "rows": [
+          {
+            "sym": "USDC",
+            "label": "USDC",
+            "token": "0x3600000000000000000000000000000000000000",
+            "feed": {
+              "sym": "USDC",
+              "feed": "0x8Dde7Ef3c21F61DC3956CD563b71D44D14D5f524",
+              "price": 0.99986,
+              "updatedAt": 1791905052,
+              "ageSec": 83630,
+              "maxAgeSec": 90000,
+              "fresh": true,
+              "mirror": true,
+              "description": "USDC / USD (mirror of Chainlink Arc mainnet)"
+            },
+            "venue": null
+          },
+          {
+            "sym": "CBTC",
+            "label": "xcirBTC",
+            "token": "0xC0F78d4b8a830E85D8C299aA2Ebb258C9BD8b08A",
+            "feed": {
+              "sym": "CBTC",
+              "feed": "0x40c4dAEDd743AE54c4aEe432636562Cc13e191a1",
+              "price": 82441.2,
+              "updatedAt": 1791986299,
+              "ageSec": 2383,
+              "maxAgeSec": 90000,
+              "fresh": true,
+              "mirror": true,
+              "description": "BTC / USD (mirror of Chainlink Arc mainnet)"
+            },
+            "venue": {
+              "venue": "Uniswap v2 (XORR testnet pool)",
+              "price": 86956.52173913043,
+              "gapBps": 547.7020881707733
+            }
+          },
+          {
+            "sym": "WETH",
+            "label": "xWETH",
+            "token": "0x9604C6d6D48b448c91420a5F885f1dE136dBC131",
+            "feed": {
+              "sym": "WETH",
+              "feed": "0xD8236B9BD4D141a3868B52a3Da01bA8e0074c2f1",
+              "price": 2441.84338305,
+              "updatedAt": 1791986671,
+              "ageSec": 2011,
+              "maxAgeSec": 90000,
+              "fresh": true,
+              "mirror": true,
+              "description": "ETH / USD (mirror of Chainlink Arc mainnet)"
+            },
+            "venue": {
+              "venue": "Uniswap v2 (XORR testnet pool)",
+              "price": 2421.91203904644,
+              "gapBps": -81.62417025560613
+            }
+          },
+          {
+            "sym": "EURC",
+            "label": "EURC",
+            "token": "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a",
+            "feed": {
+              "sym": "EURC",
+              "feed": "0x6d5CeEe9966203Ca33eD94Db75D388e217F91caa",
+              "price": 1.11455748,
+              "updatedAt": 1791981681,
+              "ageSec": 7001,
+              "maxAgeSec": 90000,
+              "fresh": true,
+              "mirror": true,
+              "description": "EURC / USD (mirror of Chainlink Arc mainnet)"
+            },
+            "venue": {
+              "error": "The contract function \"getAmountsOut\" reverted."
+            }
+          }
+        ],
+        "cirBtcReserve": {
+          "error": "Proof of Reserve requires a local Arc mainnet fork; unavailable on hosted testnet."
+        },
+        "readAt": 1791988683289
+      }
+    },
+    {
+      "api": "/api/agents",
+      "status": 200,
+      "ok": true,
+      "data": {
+        "identityRegistry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+        "reputationRegistry": "0x8004B663056A597Dffe9eCcC1965A193B7388713",
+        "council": "0xd8d1bCB584158b4d250d29b0E67d2e1b7a577C1b",
+        "seats": [
+          {
+            "id": "price-desk",
+            "name": "Price Desk",
+            "role": "Is Chainlink fresh on Arc, and does the Uniswap fill agree with it?",
+            "veto": true,
+            "seat": 0,
+            "agentId": "897268",
+            "operator": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+            "uri": "data:application/json,{\"type\":\"https://eips.ethereum.org/EIPS/eip-8004#registration-v1\",\"name\":\"XORR Price Desk\",\"description\":\"Is Chainlink fresh on Arc, and does the Uniswap fill agree with it? A seat on XORR's trading council on arc-testnet. Reputation: tradeEdge (bps) from XorrCouncil.\",\"services\":[]}",
+            "reputation": {
+              "count": 1,
+              "value": 0,
+              "decimals": 2
+            },
+            "scored": 1,
+            "averageEdgeBps": 0
+          },
+          {
+            "id": "risk-keeper",
+            "name": "Risk Keeper",
+            "role": "Does it fit the on-chain permission: cap left today, expiry, position limit?",
+            "veto": true,
+            "seat": 1,
+            "agentId": "897269",
+            "operator": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+            "uri": "data:application/json,{\"type\":\"https://eips.ethereum.org/EIPS/eip-8004#registration-v1\",\"name\":\"XORR Risk Keeper\",\"description\":\"Does the trade fit the on-chain permission: cap left today, expiry, position limit? A seat on XORR's trading council on arc-testnet. Reputation: tradeEdge (bps) from XorrCouncil.\",\"services\":[]}",
+            "reputation": {
+              "count": 1,
+              "value": 0,
+              "decimals": 2
+            },
+            "scored": 1,
+            "averageEdgeBps": 0
+          },
+          {
+            "id": "trend-reader",
+            "name": "Trend Reader",
+            "role": "Which way is Chainlink moving across the rounds XORR has read?",
+            "veto": false,
+            "seat": 2,
+            "agentId": "897270",
+            "operator": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+            "uri": "data:application/json,{\"type\":\"https://eips.ethereum.org/EIPS/eip-8004#registration-v1\",\"name\":\"XORR Trend Reader\",\"description\":\"Which way have Chainlink's rounds been moving? A seat on XORR's trading council on arc-testnet. Reputation: tradeEdge (bps) from XorrCouncil.\",\"services\":[]}",
+            "reputation": {
+              "count": 0,
+              "value": 0,
+              "decimals": 0
+            },
+            "scored": 0,
+            "averageEdgeBps": 0
+          },
+          {
+            "id": "peg-desk",
+            "name": "Peg Desk",
+            "role": "Are USDC and EURC on their pegs, and is cirBTC fully reserved?",
+            "veto": true,
+            "seat": 3,
+            "agentId": "897271",
+            "operator": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+            "uri": "data:application/json,{\"type\":\"https://eips.ethereum.org/EIPS/eip-8004#registration-v1\",\"name\":\"XORR Peg Desk\",\"description\":\"Are USDC and EURC on their pegs, and is cirBTC fully reserved? A seat on XORR's trading council on arc-testnet. Reputation: tradeEdge (bps) from XorrCouncil.\",\"services\":[]}",
+            "reputation": {
+              "count": 1,
+              "value": 0,
+              "decimals": 2
+            },
+            "scored": 1,
+            "averageEdgeBps": 0
+          },
+          {
+            "id": "strategist",
+            "name": "Strategist",
+            "role": "Weighs the desks and decides split rounds; cannot veto.",
+            "veto": false,
+            "seat": 4,
+            "agentId": "897272",
+            "operator": "0x0648aDF1967692A0c991d7715b0b588452321FBd",
+            "uri": "data:application/json,{\"type\":\"https://eips.ethereum.org/EIPS/eip-8004#registration-v1\",\"name\":\"XORR Strategist\",\"description\":\"Weighs the desks and decides split rounds; cannot veto. A seat on XORR's trading council on arc-testnet. Reputation: tradeEdge (bps) from XorrCouncil.\",\"services\":[]}",
+            "reputation": {
+              "count": 0,
+              "value": 0,
+              "decimals": 0
+            },
+            "scored": 0,
+            "averageEdgeBps": 0
+          }
+        ]
+      }
+    },
+    {
+      "liveTestnetContract": "0x0CDB99A17EBE31d6179cEF0963856Fc06C7267F0",
+      "codeBytes": 10845,
+      "ok": true
+    },
+    {
+      "mobileOverflow": false,
+      "ok": true
+    }
+  ]
+}

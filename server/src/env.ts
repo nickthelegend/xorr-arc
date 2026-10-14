@@ -15,7 +15,7 @@ import type { Hex } from 'viem';
 import { ARC, type ArcConfig, type ArcNetwork, type XorrDeployment } from '../../shared/arc.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
-export const ROOT = existsSync(resolve(here, '../../package.json')) ? resolve(here, '../..') : resolve(here, '../../../..');
+export const ROOT = process.env.VERCEL ? process.cwd() : existsSync(resolve(here, '../../package.json')) ? resolve(here, '../..') : resolve(here, '../../../..');
 
 function loadDotEnv(file: string) {
   if (!existsSync(file)) return;
@@ -32,6 +32,7 @@ if (!(asked in ARC)) throw new Error(`XORR_NETWORK=${asked} is not arc-testnet o
 if (asked === 'arc-mainnet' && process.env.ALLOW_MAINNET !== 'yes' && !process.env.ARC_RPC_URL?.includes('127.0.0.1')) {
   throw new Error('XORR_NETWORK=arc-mainnet needs ALLOW_MAINNET=yes: real money, a deliberate decision.');
 }
+if (process.env.VERCEL && asked !== 'arc-testnet') throw new Error('Hosted reads require Arc testnet');
 export const NETWORK: ArcNetwork = asked;
 export const CFG: ArcConfig = ARC[NETWORK];
 export const RPC_URL = process.env.ARC_RPC_URL ?? CFG.rpcUrl;
@@ -57,7 +58,7 @@ export const EXECUTOR_KEY: Hex | undefined = (process.env.XORR_EXECUTOR_KEY as H
 export const PORT = Number(process.env.PORT ?? 9120);
 export const DATA_DIR = resolve(ROOT, process.env.XORR_DATA_DIR ?? 'server/data');
 export const KEEPER_MS = Number(process.env.KEEPER_TICK_MS ?? 30_000);
-export const KEEPER = process.env.KEEPER !== 'off';
+export const KEEPER = !process.env.VERCEL && process.env.KEEPER !== 'off';
 export const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ?? '*').split(',').map((s) => s.trim());
 /** Largest single council trade, USDC. The on-chain cap is the real limit; this keeps rounds small. */
 export const MAX_ROUND_USD = Number(process.env.MAX_ROUND_USD ?? (NETWORK === 'arc-mainnet' ? 25 : 50));

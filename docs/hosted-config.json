@@ -1,0 +1,30 @@
+{
+  "base": "https://xorr-arc.vercel.app",
+  "routes": [
+    "/",
+    "/arc",
+    "/how",
+    "/runs",
+    "/treasury",
+    "/fund",
+    "/explore",
+    "/rooms",
+    "/permission",
+    "/history",
+    "/council",
+    "/agents",
+    "/markets"
+  ],
+  "api": [
+    "/api/config",
+    "/api/markets",
+    "/api/agents"
+  ],
+  "contract": "0x0CDB99A17EBE31d6179cEF0963856Fc06C7267F0",
+  "waitMs": 4500,
+  "firstStep": {
+    "route": "/",
+    "name": "Create a device key",
+    "expect": "0.00"
+  }
+}

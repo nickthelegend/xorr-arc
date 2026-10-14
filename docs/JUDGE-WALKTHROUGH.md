@@ -1,6 +1,6 @@
 # Two-minute walkthrough
 
-Live: https://app-production-0530.up.railway.app (Arc testnet)
+Live: https://xorr-arc.vercel.app (Arc testnet)
 
 
 **Live on Arc testnet, no setup:** open `docs/E2E-TESTNET.md`: every step has an explorer link on explorer.testnet.arc.io (grant, a Memo-tagged

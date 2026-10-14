@@ -36,7 +36,7 @@ It builds, checks the RPC answers chain 5042, runs `contracts/script/Deploy.s.so
 `XorrCouncil`: venue and feed additions are 24 h timelocked, removals are immediate, and the council owner only registers
 seats and recorders. Move ownership to a multisig after deploy if you have one. Details: `contracts/README.md`.
 
-## 3. Executor (on demand locally; public hosting decision pending)
+## 3. Executor (on demand locally; Vercel hosts read APIs)
 
 The current implementation requires durable files and one writer for replay protection, maintenance quota and nonce sequencing.
 Use it locally for the demo. Do not create Railway or other paid resources. Public serverless deployment needs a durable
@@ -57,12 +57,12 @@ Liveness: `/health`. Full list: `server/.env.example`.
 
 ## 4. Frontend (Vercel)
 
-`EXPO_PUBLIC_API_URL=<executor URL> npm run build:web`, publish `dist-web`. The app reads chain, addresses and features
+Vercel sets `EXPO_PUBLIC_API_URL=/api`, exports `dist-web`, and builds the read API. For local execution, build with `EXPO_PUBLIC_API_URL=<local executor URL>`. The app reads chain, addresses and features
 from the executor's `/config`, so it needs no other variable.
 
-## 5. Services that must run
+## 5. Service classification
 
-The executor (API, council, keeper) is the only service. No indexer. Chainlink CRE is not used (Arc mainnet does not run
+The frontend is an Expo static export and public GET APIs run in Vercel functions. Signed council execution and the keeper remain one local Node process. A cron alone cannot preserve the current file-based replay claims, quota and nonce sequencing; hosting those writes needs a shared durable queue migration. Minimum external service would be one Node process (about 512 MiB RAM) with a persistent disk and one writer; none was provisioned. No indexer. Chainlink CRE is not used (Arc mainnet does not run
 it); the keeper does settlement. For the CCIP stop from another chain, deploy `XorrStopSender` on Base or Ethereum
 (`contracts/src/ccip`) and have users register the Arc `XorrStopReceiver` as a guardian; untested over a live lane.
 
