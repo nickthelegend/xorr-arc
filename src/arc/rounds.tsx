@@ -77,7 +77,7 @@ export function SpeedReceipt({ round }: { round: Round }) {
         {(t.ms / 1000).toFixed(2)} s
       </Text>
       <Text variant="secondarySm">
-        Send to receipt · {config?.fork ? "Fork" : "Live (testnet)"}
+        Send to receipt · {config?.fork ? "Fork" : config?.chainId === 5042 ? "Live (mainnet)" : "Live (testnet)"}
       </Text>
       <Text variant="secondarySm" style={{ marginTop: 6 }}>
         {receipt.data
