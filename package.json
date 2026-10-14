@@ -15,7 +15,8 @@
     "e2e:fork": "node scripts/e2e-fork.mjs",
     "e2e:testnet": "node scripts/e2e-testnet.mjs",
     "lint": "eslint app src shared server/src server/scripts scripts",
-    "e2e:browser": "node scripts/e2e-browser-xorr.mjs"
+    "e2e:browser": "node scripts/e2e-browser-xorr.mjs",
+    "dryrun:mainnet": "node --import ./scripts/dryrun-loader.mjs scripts/dryrun-mainnet.mjs"
   },
   "dependencies": {
     "@expo/metro-runtime": "~57.0.15",

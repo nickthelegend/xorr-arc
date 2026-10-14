@@ -1,0 +1,177 @@
+{
+  "project": "xorr",
+  "mode": "Fork",
+  "timestamp": "2026-10-14T17:22:53.374Z",
+  "chainId": 5042,
+  "remote": "https://rpc.mainnet.arc.io",
+  "transactions": [
+    {
+      "purpose": "approve 0x3600000000000000000000000000000000000000 to 0x83d58219484EB94cFaDFe4D975393c13051B36b1",
+      "to": "0x3600000000000000000000000000000000000000",
+      "selector": "0x095ea7b3",
+      "from": "0xaC6b69A7F30AbCF503691cD817710f36F33fcFa5",
+      "nonce": 0,
+      "chainId": 5042,
+      "signedHash": "0xaabc8f075ef5ae44de98074cc5257cbf81165c3ae04218c769f227f4ea513e70",
+      "calldataHash": "0x434d1879495a84d3d7e5aaf45994a900c06c14cbcf701cc59477278acb745eed",
+      "signedGas": "76984",
+      "decodedVerified": true,
+      "simulatedSignedFields": true,
+      "call": "ok",
+      "estimate": "ok",
+      "gas": "55820",
+      "usdcFeeAtBaseFee": "0.0011164",
+      "result": "ok",
+      "mode": "Fork",
+      "localGasUsed": "55438",
+      "localReceiptStatus": "success"
+    },
+    {
+      "purpose": "grant permission 4 USDC cap",
+      "to": "0x83d58219484EB94cFaDFe4D975393c13051B36b1",
+      "selector": "0x8318676a",
+      "from": "0xaC6b69A7F30AbCF503691cD817710f36F33fcFa5",
+      "nonce": 1,
+      "chainId": 5042,
+      "signedHash": "0xa7b1b5b07074979881136565bc686b4db53de2b844883804f0602f4bfe56d22b",
+      "calldataHash": "0xd276b6eaa5263a8e2666f4dafabaefcbeca53d8db1a31ceda9ae705209fd9c3d",
+      "signedGas": "269810",
+      "decodedVerified": true,
+      "simulatedSignedFields": true,
+      "call": "ok",
+      "estimate": "ok",
+      "gas": "216509",
+      "usdcFeeAtBaseFee": "0.00433018",
+      "result": "ok",
+      "mode": "Fork",
+      "localGasUsed": "216509",
+      "localReceiptStatus": "success"
+    },
+    {
+      "purpose": "Uniswap v3 trade inside cap + Chainlink floor",
+      "to": "0x83d58219484EB94cFaDFe4D975393c13051B36b1",
+      "selector": "0x4f655725",
+      "from": "0x4072A761271b18f808FBF39a126015A89C1987fA",
+      "nonce": 0,
+      "chainId": 5042,
+      "signedHash": "0x437705ca5191fd10e8f02745c8b66ce2b6f4153e619424e6be8dabe4cdc62aa2",
+      "calldataHash": "0x07107ad523a279e3cea4c3542cf08dc2bb0eff57cacc0223eb5458f21f87f650",
+      "signedGas": "369031",
+      "decodedVerified": true,
+      "simulatedSignedFields": true,
+      "call": "ok",
+      "estimate": "ok",
+      "gas": "299193",
+      "usdcFeeAtBaseFee": "0.00598386",
+      "result": "ok",
+      "mode": "Fork",
+      "localGasUsed": "279293",
+      "localReceiptStatus": "success"
+    },
+    {
+      "purpose": "over-cap must revert DailyCapExceeded",
+      "to": "0x83d58219484EB94cFaDFe4D975393c13051B36b1",
+      "selector": "0x4f655725",
+      "from": "0x4072A761271b18f808FBF39a126015A89C1987fA",
+      "nonce": 1,
+      "chainId": 5042,
+      "signedHash": "0x29d3e3a69100f8d68503d0e6f1b955a42c699ed1405c5a5b9b590f567e372b17",
+      "calldataHash": "0xbafc9009d3c8e887ab73ddaf2c9db86eb58265c67f802f26a6e24d22632924d0",
+      "signedGas": "15000000",
+      "decodedVerified": true,
+      "simulatedSignedFields": true,
+      "call": {
+        "name": "DailyCapExceeded",
+        "args": [
+          "5000000",
+          "3000000"
+        ],
+        "data": "0x3e81412700000000000000000000000000000000000000000000000000000000004c4b4000000000000000000000000000000000000000000000000000000000002dc6c0"
+      },
+      "estimate": {
+        "name": "DailyCapExceeded",
+        "args": [
+          "5000000",
+          "3000000"
+        ],
+        "data": "0x3e81412700000000000000000000000000000000000000000000000000000000004c4b4000000000000000000000000000000000000000000000000000000000002dc6c0"
+      },
+      "gas": null,
+      "usdcFeeAtBaseFee": null,
+      "result": "expected revert DailyCapExceeded",
+      "mode": "Fork"
+    },
+    {
+      "purpose": "revoke permission",
+      "to": "0x83d58219484EB94cFaDFe4D975393c13051B36b1",
+      "selector": "0xb6549f75",
+      "from": "0xaC6b69A7F30AbCF503691cD817710f36F33fcFa5",
+      "nonce": 2,
+      "chainId": 5042,
+      "signedHash": "0x1faebba76a2d38551ea170798111c2b2f58ecccb83d2e6471521aa51267c2f17",
+      "calldataHash": "0x7bd930fe9d60eaece05b4755d90a856d158e9584a1a56f9df87b755cda7a5aa3",
+      "signedGas": "64844",
+      "decodedVerified": true,
+      "simulatedSignedFields": true,
+      "call": "ok",
+      "estimate": "ok",
+      "gas": "45704",
+      "usdcFeeAtBaseFee": "0.00091408",
+      "result": "ok",
+      "mode": "Fork",
+      "localGasUsed": "45704",
+      "localReceiptStatus": "success"
+    },
+    {
+      "purpose": "post-revoke must revert PolicyRevoked",
+      "to": "0x83d58219484EB94cFaDFe4D975393c13051B36b1",
+      "selector": "0x4f655725",
+      "from": "0x4072A761271b18f808FBF39a126015A89C1987fA",
+      "nonce": 1,
+      "chainId": 5042,
+      "signedHash": "0x7ce6f48dc919434bc8ce8b0c0de13f0ca8f1e3693a3e714c8a289d2abf3c8b1d",
+      "calldataHash": "0x07107ad523a279e3cea4c3542cf08dc2bb0eff57cacc0223eb5458f21f87f650",
+      "signedGas": "15000000",
+      "decodedVerified": true,
+      "simulatedSignedFields": true,
+      "call": {
+        "name": "PolicyRevoked",
+        "data": "0x430f7460"
+      },
+      "estimate": {
+        "name": "PolicyRevoked",
+        "data": "0x430f7460"
+      },
+      "gas": null,
+      "usdcFeeAtBaseFee": null,
+      "result": "expected revert PolicyRevoked",
+      "mode": "Fork"
+    }
+  ],
+  "notes": {
+    "forkReason": "Sequential dependent flows require persisted approvals, deposits, new token addresses and spent authorization nonces. Only signer balances are overridden; contract code, oracle and pool state are unchanged.",
+    "mainnetPool": {
+      "router": "0x53BF6B0684Ec7eF91e1387Da3D1a1769bC5A6F77",
+      "tokenOut": "0xbEf5f6d51CB62b58e6A8f77868681825C6fe21c1",
+      "fee": 500,
+      "chainlinkFair": "897084",
+      "chainlinkFloor": "888113",
+      "uniswapQuote": "898203",
+      "minOut": "889220"
+    }
+  },
+  "verdict": "PASS",
+  "forkBlock": "25956983",
+  "forkBlockHash": "0xaaa6978418194cafc09d10b6e4a04866e0b329986b940ead9e044f2944769384",
+  "baseFeePerGas": "20000000000",
+  "remoteOverrideProbe": [
+    {
+      "status": "ok",
+      "value": "0x0000000000000000000000000000000000000000000000000000000000000001"
+    },
+    {
+      "status": "ok",
+      "value": "0xdb99"
+    }
+  ]
+}
