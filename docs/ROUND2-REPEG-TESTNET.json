@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-14T12:20:37.164Z",
+  "network": "Live (testnet)",
+  "chainId": 5042002,
+  "mirrors": 1,
+  "before": {
+    "feed": {
+      "sym": "WETH",
+      "feed": "0xD8236B9BD4D141a3868B52a3Da01bA8e0074c2f1",
+      "price": 2493.94428323,
+      "updatedAt": 1791972895,
+      "ageSec": 7529,
+      "maxAgeSec": 90000,
+      "fresh": true,
+      "mirror": true,
+      "description": "ETH / USD (mirror of Chainlink Arc mainnet)"
+    },
+    "quote": {
+      "venue": "Uniswap v2 (XORR testnet pool)",
+      "amountIn": "40000",
+      "amountOut": "15529342223250",
+      "price": 2575.7691101760493
+    }
+  },
+  "maintenance": {
+    "status": "repegged",
+    "hashes": [
+      "0xf23ab47bd54c0caa5184fe06fc3d1a72a3aef8f7d56b7866938f0b15bec38e7b",
+      "0xc079074185f733df57488782ce12821726231b81446bcc9722e902eb04617a6b",
+      "0x7027111358912f4964687c75eb872c4969059408a881a03d6a69063503dd53dd"
+    ],
+    "gapBps": 160,
+    "addedUsdc": "0",
+    "note": "Testnet only: seeded xWETH pool aligned to the unchanged mainnet mirror; normal price floor still enforced."
+  },
+  "after": {
+    "feed": {
+      "sym": "WETH",
+      "feed": "0xD8236B9BD4D141a3868B52a3Da01bA8e0074c2f1",
+      "price": 2507.59035437,
+      "updatedAt": 1791979470,
+      "ageSec": 966,
+      "maxAgeSec": 90000,
+      "fresh": true,
+      "mirror": true,
+      "description": "ETH / USD (mirror of Chainlink Arc mainnet)"
+    },
+    "quote": {
+      "venue": "Uniswap v2 (XORR testnet pool)",
+      "amountIn": "40000",
+      "amountOut": "15778567094096",
+      "price": 2535.084444706461
+    }
+  },
+  "gapBps": 109.64346823454152,
+  "executorUsdcReduction": 0.004617375,
+  "passed": true,
+  "mirrorHashes": [
+    "0x8f0973cf8c3f5f536a73f5c02ae7baf2fdf4ba6d9acab2c5861236ec464c21ee"
+  ]
+}

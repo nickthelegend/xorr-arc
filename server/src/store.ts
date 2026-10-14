@@ -31,10 +31,11 @@ export type RoundRecord = {
         venue: string;
       }
     | { error: string };
+  maintenance?: import('./repeg.js').Repeg;
   settlement?: { hash: Hex; edgeBps: number } | { error: string };
 };
 
-type Db = { rounds: RoundRecord[]; autopilot: Record<string, { on: boolean; usd: number; since: number }> };
+type Db = { repeg?: { day: number; usdc: string }; rounds: RoundRecord[]; autopilot: Record<string, { on: boolean; usd: number; since: number }> };
 
 const file = resolve(DATA_DIR, `${NETWORK}${IS_FORK ? '-fork' : ''}.json`);
 let db: Db = { rounds: [], autopilot: {} };
@@ -48,6 +49,13 @@ function save() {
 }
 
 export const store = {
+  reserveRepegUsdc(amount: bigint) {
+    const day = Math.floor(Date.now() / 86400000);
+    const spent = db.repeg?.day === day ? BigInt(db.repeg.usdc) : 0n;
+    if (spent + amount > 250_000n) throw new Error('Daily 0.25 USDC pool maintenance budget reached');
+    db.repeg = { day, usdc: String(spent + amount) };
+    save();
+  },
   add(r: RoundRecord) {
     db.rounds.unshift(r);
     if (db.rounds.length > 2_000) db.rounds.length = 2_000;

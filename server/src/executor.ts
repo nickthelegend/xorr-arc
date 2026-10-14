@@ -18,6 +18,9 @@ import { executor, explain, memoLine, memoLive, pub, send, wrapInMemo } from './
 import { convene, type RoundInputs } from './council.js';
 import { MAX_GAP_BPS, NETWORK, CFG } from './env.js';
 import { cirBtcReserve, fairOut, quote, readFeed, readRounds } from './market.js';
+import { postMirrors } from './mirrors.js';
+import { repegTestnet } from './repeg.js';
+import { riskKeeper } from './council.js';
 import { store, type RoundRecord } from './store.js';
 
 export type Proposal = { sym: Sym; side: 'buy' | 'sell'; usd: number };
@@ -135,12 +138,26 @@ function venueCall(d: XorrDeployment, from: Sym, to: Sym, amountIn: bigint, minO
 
 let counter = 0;
 
-export async function runRound(d: XorrDeployment, owner: Address, p: Proposal, trigger: RoundRecord['trigger']): Promise<RoundRecord> {
+async function runRoundSerial(d: XorrDeployment, owner: Address, p: Proposal, trigger: RoundRecord['trigger']): Promise<RoundRecord> {
   owner = getAddress(owner);
+  let maintenance: RoundRecord['maintenance'];
+  if (NETWORK === 'arc-testnet' && d.chainId === 5042002 && d.mirrorFeeds && d.venueKind === 'uniswap-v2' && p.sym === 'WETH') {
+    // Do not spend maintenance funds for absent, expired, stopped or over-cap permissions.
+    const preliminary = await gatherInputs(d, owner, p);
+    if (riskKeeper(preliminary.inputs).vote === 'yes') {
+      try {
+        await postMirrors(d);
+        maintenance = await repegTestnet(d);
+      } catch (e) {
+        maintenance = { status: 'unavailable', hashes: [], note: explain(e) };
+      }
+    }
+  }
   const { inputs, amountIn, quote: q, slippageBps } = await gatherInputs(d, owner, p);
+  if (maintenance?.status === 'unavailable') inputs.price = { ok: false, error: maintenance.note };
   const { ballots, decision, summary } = convene(inputs);
   const id = keccak256(toHex(`xorr:${NETWORK}:${owner}:${Date.now()}:${counter++}:${Math.random()}`));
-  const record: RoundRecord = { id, owner, createdAt: Date.now(), trigger, inputs, ballots, decision, summary };
+  const record: RoundRecord = { id, owner, createdAt: Date.now(), trigger, inputs, ballots, decision, summary, maintenance };
   store.add(record);
 
   // The decision and every vote, on chain — approved or not.
@@ -229,4 +246,12 @@ export async function settleDue(d: XorrDeployment): Promise<number> {
     }
   }
   return n;
+}
+
+// Serialize maintenance, quote, vote and fill together across owner and keeper requests.
+let roundQueue: Promise<unknown> = Promise.resolve();
+export function runRound(d: XorrDeployment, owner: Address, p: Proposal, trigger: RoundRecord['trigger']) {
+  const next = roundQueue.then(() => runRoundSerial(d, owner, p, trigger));
+  roundQueue = next.catch(() => undefined);
+  return next;
 }

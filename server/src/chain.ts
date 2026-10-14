@@ -41,6 +41,8 @@ export const wallet = executor
 
 const MIN_FEE = 20_000_000_000n; // Arc's 20 gwei maxFeePerGas floor
 
+let budgetUsed = 0n;
+const txBudget = process.env.XORR_TX_BUDGET_USDC ? BigInt(Math.floor(Number(process.env.XORR_TX_BUDGET_USDC) * 1e6)) * 10n ** 12n : null;
 let nonceLock: Promise<unknown> = Promise.resolve();
 
 /** Send one transaction from the executor, estimated, fee-floored, and wait for its (final) receipt. */
@@ -51,6 +53,11 @@ export async function send(to: Address, data: Hex, label: string): Promise<{ has
     const gas = await pub.estimateGas({ account: executor.address, to, data });
     const fees = await pub.estimateFeesPerGas().catch(() => ({ maxFeePerGas: MIN_FEE, maxPriorityFeePerGas: 1_000_000_000n }));
     const maxFeePerGas = (fees.maxFeePerGas ?? MIN_FEE) < MIN_FEE ? MIN_FEE * 2n : (fees.maxFeePerGas ?? MIN_FEE) * 2n;
+    if (txBudget !== null) {
+      const ceiling = (gas * 125n / 100n) * maxFeePerGas;
+      if (budgetUsed + ceiling > txBudget) throw new Error('Executor rehearsal gas budget reached');
+      budgetUsed += ceiling; // Conservative reservation, including uncertain broadcasts.
+    }
     const hash = await wallet.sendTransaction({
       to,
       data,

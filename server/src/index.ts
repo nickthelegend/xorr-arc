@@ -76,6 +76,8 @@ app.get('/config', async (c) => {
       memoLive: await memoLive(),
       maxRoundUsd: MAX_ROUND_USD,
       features: FEATURES,
+      keeperEnabled: KEEPER,
+      testnetRepeg: NETWORK === 'arc-testnet' && !!d?.mirrorFeeds && d?.venueKind === 'uniswap-v2',
       block,
       seats: SEATS,
     }),
@@ -216,6 +218,7 @@ app.post('/autopilot', async (c) => {
   const req = (await c.req.json()) as Signed<{ on: boolean; usd: number }>;
   const owner = await verifyRequest({ ...req, action: 'autopilot' });
   let input;
+  if (req.body.on && !KEEPER) return c.json({ error: 'Autopilot is unavailable while the keeper is off. Convene a round manually.' }, 409);
   try { input = autopilotInput(req.body, MAX_ROUND_USD); } catch (e) { return c.json({ error: (e as Error).message }, 400); }
   if (!requests.claim(requestReplayKey({ ...req, action: 'autopilot' }), req.at + 5 * 60_000)) return c.json({ error: 'This signed request has already been used or expired. Sign a new request.' }, 409);
   store.setAutopilot(owner, input.on, input.usd);
