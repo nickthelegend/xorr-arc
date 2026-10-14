@@ -13,8 +13,9 @@ export default function Markets() {
   return (
     <Page title="Markets" eyebrow={data?.mirror ? 'Mirror of Chainlink mainnet · XORR test pools' : 'Chainlink on Arc · Uniswap on Arc'}>
       {data?.mirror ? (
-        <Note tone="warn">XORR-seeded testnet market. Arc testnet has no Chainlink feeds and no Uniswap: the prices are XORR mirror feeds, posted by the keeper from Chainlink’s Arc mainnet answers, and the pools are XORR’s own ~5 USDC Uniswap v2 pools for test tokens (xWETH, xcirBTC; the USDC/EURC pool is not seeded). Pools this thin move about 1% per $0.04, so quotes are for cents. Mainnet trades the real Uniswap v3 pools against real Chainlink feeds.</Note>
+        <Note tone="warn">XORR-seeded testnet market. Arc testnet has no Chainlink feeds and no Uniswap: the prices are XORR mirror feeds, posted by the keeper from Chainlink’s Arc mainnet answers, and the pools are XORR’s own ~5 USDC Uniswap v2 pools for test tokens (xWETH, xcirBTC; the USDC/EURC pool is not seeded). Pools this thin move about 1% per $0.04, so quotes are for cents. Before valid xWETH rounds the executor re-pegs the seeded pool to the unchanged mirror price; maintenance transactions appear in the round. Mainnet uses real Uniswap v3 and Chainlink feeds (Fork evidence).</Note>
       ) : null}
+      {!data && !m.error ? <Text variant="secondary">Reading testnet prices and pool quotes…</Text> : null}
       {m.error ? <Note tone="down">{m.error}</Note> : null}
       {(data?.rows ?? []).map((r) => (
         <Card key={r.sym} title={r.label} eyebrow={r.feed?.description} testID={`market-${r.sym}`}>

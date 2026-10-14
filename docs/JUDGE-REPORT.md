@@ -1,3 +1,78 @@
+# LEAD: RUN THESE
+
+```sh
+cd '/Volumes/Extreme SSD/Projects/arc/xorr-arc'
+npm run e2e:browser -- --trade
+```
+
+Run outside the Codex sandbox. If Chromium is missing, run `npx playwright install chromium` first.
+Read-only alternative: `npm run e2e:browser` (do not run concurrently).
+The command owns ports 9120/9130, writes screenshots to `docs/screens/testnet/round2/`, saves the throwaway key in
+`.keys/round2-owner.env`, funds ≤0.20 testnet USDC under the shared lock, revokes and sweeps back on exit, and stops its PIDs.
+Budget ceiling is <1 USDC including executor maintenance. Do not share the executor key with a running keeper during it.
+No server or fork was left running by this pass. Browser checks below are prepared, **Not run** in round 2.
+
+# Round 2 — product judge + fixes, 2026-10-14
+
+Method: source audit of all 14 routes and controls, previous browser evidence, live testnet pool/quote reads,
+one real testnet re-peg, read-only API smoke, unit/contract tests and builds. Chromium was deliberately not launched:
+the task requires the lead to run it outside the sandbox. No new screenshots or browser trades are claimed.
+
+## Round-2 scores (/10, provisional until browser and release checks)
+
+| Criterion | Before | After | Evidence and remaining deduction |
+|---|---:|---:|---|
+| Relevance to Arc | 8 | 8 | USDC gas, Memo and on-chain permissions remain real testnet flows; external Circle flows still Not run. |
+| Technical credibility | 7 | 8 | A live re-peg restored the default quote inside the guard, with bounded funding and unchanged mirror/floor. Full updated browser flow pending. |
+| Build quality | 6 | 7 | Fixed dead keeper-off Autopilot, unsupported rotation, unavailable treasury controls, stale copy, retry and long-label layout. Visual results pending. |
+| Worth taking further | 8 | 8 | Permission primitive remains useful; testnet maintenance is clearly separated from real mainnet v3. No audit or public round-2 release. |
+| Cold judge can complete a trade | 4 | 6 | Price veto cause repaired and local rehearsal is one command; browser execution and reachable updated hosting still required. |
+
+The previous round's 8/10 build score predates the observed drift and newly audited keeper-off behavior.
+
+## Findings and disposition
+
+| Surface | Finding | Fix / verification |
+|---|---|---|
+| Council / executor | Seeded xWETH pool drift makes default buys fail Price Desk | Valid testnet rounds refresh mirrors, donate faucet xWETH or bounded executor USDC, sync pool, then re-read and vote. Live re-peg passed; browser trade pending. |
+| Concurrent council / keeper requests | Another request can trade between re-peg and quote | Serialize whole rounds in one executor; on-chain floor still refuses intervening external drift. One executor writer required. |
+| Autopilot | UI allows On while keeper is off; rotates into dust cirBTC and unseeded EURC | API rejects On while off; UI explains manual rounds. Testnet rotation uses only xWETH. |
+| Treasury | Disabled deposit/redeem look like available features; EURC text implies testnet trading | Hide untested write controls when off; label USYC Not run and EURC testnet unavailable. |
+| Executor outage | Dead-end technical setup instructions | Product explanation and working Try again action; browser recovery assertion prepared. |
+| Markets / audit / Arc proof | Long labels cannot shrink; blank markets load; unconditional reputation/one-tap claims | Flexible labels/proof headings, explicit loading, conditional reputation and hold-to-stop wording. |
+| Round result / audit | A judge cannot tell maintenance from a normal fill | Separate labelled maintenance note and explorer links; failures retain partial tx evidence and veto. |
+| Home / Explore / rooms / history / runs / how / fund / permission | Reviewed navigation handlers and data sources; no new mock dataset found | Prepared cold/connected checks, all routes at 1440/390, story links, room tabs, disclosures, balance privacy and core buttons. No new visual pass claimed. |
+| Hosting | Existing Railway URL is stale round-2 evidence; executor depends on durable files/timers | Vercel SPA config added; README no longer calls old deployment round-2 live. Use local on-demand demo; public backend needs lead decision. |
+
+## Evidence and checks
+
+- Live (testnet): `docs/ROUND2-REPEG-TESTNET.json`; 0.004617375 USDC executor reduction; no owner/deployer funds used.
+- After maintenance, the $0.04 xWETH buy quote differs by 109.64 bps, below Price Desk's 150 bps default.
+- Mirror refresh: https://explorer.testnet.arc.io/tx/0x8f0973cf8c3f5f536a73f5c02ae7baf2fdf4ba6d9acab2c5861236ec464c21ee
+- Faucet: https://explorer.testnet.arc.io/tx/0xf23ab47bd54c0caa5184fe06fc3d1a72a3aef8f7d56b7866938f0b15bec38e7b
+- Donation: https://explorer.testnet.arc.io/tx/0xc079074185f733df57488782ce12821726231b81446bcc9722e902eb04617a6b
+- Sync: https://explorer.testnet.arc.io/tx/0x7027111358912f4964687c75eb872c4969059408a881a03d6a69063503dd53dd
+- Read-only live API smoke: health/config/markets/agents/account/rounds all HTTP 200; keeper-off and re-peg flags correct.
+- App/server TypeScript, correctness + hooks lint, static web export and compiled executor: PASS.
+- Vitest: 209/209. Includes mainnet/RPC/stale-feed/drift/budget/partial-failure re-peg boundaries and integer reserve math.
+- Arc Foundry unit/fuzz/invariant/Chainlink Local: 68/68. Mainnet fork suite not rerun; contracts unchanged.
+- Mechanical UI detector: no findings. This is not screenshot evidence.
+- Browser syntax checks: PASS. Chromium/browser trades/screenshots: **Not run**, lead command above.
+
+## Still weak / release gate
+
+The updated app/executor are not publicly deployed. Frontends belong on Vercel; its config is ready, but it needs a
+reachable updated API. The current executor's replay log, round history, maintenance quota and nonce coordination
+need one durable writer; the keeper uses timers. An ephemeral Vercel function is unsafe without a durable database/
+queue migration. No Railway or other paid resources were created. Use the local on-demand demo until the lead decides.
+
+Seeded liquidity remains shallow; >10% drift, >0.10 USDC maintenance or the 0.25/day budget deliberately refuses a round.
+Multiple external writers can still move the pool. Live cross-chain CCIP, Gateway, CCTP, USYC and reputation horizon
+settlement remain Not run. Mainnet undeployed and not audited. Dependency audit reports vulnerabilities;
+no breaking dependency upgrade was attempted. Prior screenshots and browser receipts below are historical only.
+
+---
+
 # Judge + fix report (Arc testnet), 2026-10-13
 
 Method: read README, SUBMISSION, docs/JUDGE-WALKTHROUGH and the app copy as a cold judge; grepped app and server for mocks;

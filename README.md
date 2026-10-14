@@ -1,9 +1,11 @@
 # XORR on Arc
 
-Live: https://app-production-0530.up.railway.app (Arc testnet)
+**Round 2:** contracts are live on Arc testnet; the updated frontend/executor have not been published.
+Use the on-demand browser rehearsal below. Frontend hosting target: Vercel (`vercel.json`).
+The previous Railway URL is not round-2 evidence; no paid resources are provisioned by this workflow.
 
 
-**A council of five rule-based agents trades for you inside an on-chain permission you can revoke in one tap.** You hold
+**A council of five rule-based agents trades for you inside an on-chain permission you can revoke with a hold.** You hold
 only USDC. You grant a daily cap, a venue allowlist and an end date; every fill is floored at Chainlink's price on chain;
 the CCIP receiver can take a stop sent from Base or Ethereum (not yet run over a live lane, see below). Arc takes its gas
 in the same USDC and finalizes deterministically.
@@ -25,6 +27,18 @@ fork of Arc mainnet, **Not run**):
   published bytecode with about 5 USDC per pool for test tokens (xWETH, xcirBTC), and prices them with mirror feeds of
   Chainlink's Arc mainnet answers. Trades there are cents. The USDC/EURC pool is not seeded (no testnet EURC). Mainnet
   uses none of this: real Uniswap v3 pools and real Chainlink feeds.
+
+## Testnet pool maintenance (round 2)
+
+Before a valid xWETH round, the executor refreshes unchanged mainnet answers into the testnet mirrors, then aligns
+XORR's seeded pool to the mirror. It donates faucet xWETH when the pool price is high, or executor USDC when low.
+The mirror is never changed to fit a trade; the on-chain floor and Price Desk remain enforced. Maintenance hashes are
+shown on the result and audit page. Only testnet chain 5042002 + mirror feeds + Uniswap v2 can enter this path.
+Mainnet still uses the original real Uniswap v3 path, verified only on a local fork.
+
+Limits: 10% maximum drift, 0.10 executor USDC per re-peg, 0.25 per UTC day persisted in the data file, plus a 0.05 USDC
+gas reserve. An exceeded limit or stale feed produces a clear veto. Multiple rounds in one executor are serialized.
+Use one executor writer; multiple processes do not share a transaction lock. Only xWETH is available on testnet.
 
 ## Arc stack
 
@@ -75,6 +89,7 @@ Arc, so XORR does not offer perps.
 
 ```sh
 npm ci && npm --prefix server ci && (cd contracts && sh setup.sh && npm ci)
+npm run lint
 npm run typecheck && npm --prefix server run typecheck
 npm test                      # app + executor unit tests (vitest)
 (cd contracts && forge test)  # contracts: unit, fuzz, invariant, Chainlink Local CCIP
@@ -91,6 +106,37 @@ Foundry by default (a USDC stand-in is placed over `0x3600…`, see `docs/E2E-FO
 Arc Foundry for the real precompiles.
 
 Fork-only Solidity tests (`contracts/test/fork`, opt-in `ARC_FORK_TESTS=1`) need Arc Foundry's `forge --network arc`.
+
+## Round-2 browser rehearsal — lead runs outside the sandbox
+
+```sh
+cd '/Volumes/Extreme SSD/Projects/arc/xorr-arc'
+npm run e2e:browser -- --trade
+```
+
+Requires installed Playwright Chromium (`npx playwright install chromium` if missing), the existing executor key file
+`../.deployer/xorr-roles.env`, and deployer funding file `../.deployer/deployer.env`. The command builds the frontend,
+starts one executor on 9120 and one static server on 9130, funds a throwaway owner with at most 0.20 testnet USDC
+under the shared deployer lock, and saves its key to gitignored `.keys/round2-owner.env` with mode 0600.
+It clicks grant, a $0.04 buy, a repeated $0.02 buy, two sell-back rounds, and hold-to-stop. It then checks all 14 routes
+at 1440 and 390 px, cold Home, Explore links, agent rooms, disclosures, privacy and executor recovery.
+On exit it revokes if necessary, sweeps remaining owner USDC to the deployer (gas dust remains), and stops only its PIDs.
+Executor gas reservations are capped at 0.25 USDC; re-peg donations retain their own persisted daily 0.25 cap.
+Gross owner funding, executor balance reduction and cleanup/funding allowance must stay below 1 USDC.
+Do not run another process with the same executor key during the rehearsal. Do not run both commands concurrently.
+
+`npm run e2e:browser` performs read-only screen checks without funding or trades. Screenshots go to
+`docs/screens/testnet/round2/`; results to `docs/ROUND2-{BROWSER-TESTNET,SCREEN-CHECK,BROWSER-RUN}.json`.
+Round-2 browser execution is **Not run** until the lead returns these results. Earlier screenshots/receipts are historical.
+
+## Hosting
+
+The frontend is a static Vercel export with SPA route rewrites. Set `EXPO_PUBLIC_API_URL` to a reachable updated executor
+before publishing; leave `EXPO_PUBLIC_TEST_WALLET` off. No Railway resources are required or created by the rehearsal.
+The current executor is stateful: replay protection, round history and re-peg quota live in files, with a single-writer
+nonce queue and keeper timers. Deploying it unchanged to ephemeral Vercel functions would lose replay/budget guarantees.
+For the demo, run it on demand locally with the command above. A public deployment needs a lead-approved persistent
+executor, or a durable database/queue migration plus scheduled settlement; this round does not claim either is deployed.
 
 ## Layout
 

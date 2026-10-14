@@ -73,6 +73,10 @@ export function RoundResult({ r }: { r: Round }) {
     <Card tone={r.decision === 'approved' ? 'accent' : undefined} eyebrow={`${r.inputs.proposal.side} ${r.inputs.proposal.label} ${usd(r.inputs.proposal.usd)}`} title={r.summary} testID="round-result">
       <View style={{flexDirection:"row",gap:4}}>{r.ballots.map(b=><View key={b.seat} style={{flex:1,height:5,borderRadius:3,backgroundColor:VOTE_TONE[b.vote]}} />)}</View>
       <VoteChips ballots={r.ballots} />
+      {r.maintenance ? <View style={{ gap: space.s6 }}>
+        <Note tone={r.maintenance.status === 'unavailable' ? 'warn' : undefined}>{r.maintenance.note}</Note>
+        {r.maintenance.hashes.map(hash => <TxLink key={hash} hash={hash} label="Testnet pool maintenance" />)}
+      </View> : null}
       <View style={{ gap: 4, marginTop: space.s6 }}>
         {r.record && 'hash' in r.record ? <TxLink hash={r.record.hash} label="Votes recorded on XorrCouncil" /> : r.record ? <Note tone="down">Not recorded: {r.record.error}</Note> : null}
         {t && 'hash' in t ? (
@@ -101,7 +105,7 @@ export default function Council() {
   const [last, setLast] = useState<Round | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const testnet = config?.network === 'arc-testnet';
-  // XORR's testnet pools hold ~5 USDC each: rounds are cents there, and cirBTC/EURC have no usable pool.
+  // Only the xWETH testnet pool has useful liquidity.
   const amounts = testnet ? [0.02, 0.04, 0.05] : [5, 10, 20];
   const autoUsd = testnet ? 0.04 : 5;
   useEffect(() => {
@@ -145,7 +149,7 @@ export default function Council() {
         <Choice options={[{ label: 'Buy', value: 'buy' as const }, { label: 'Sell', value: 'sell' as const }]} value={side} onChange={setSide} testID="side" />
         <Choice options={amounts.filter((n) => n <= config.maxRoundUsd).map((n) => ({ label: usd(n, n < 1 ? 2 : 0), value: n }))} value={amount} onChange={setAmount} testID="usd" />
         <Text variant="secondarySm">You sign the request (no gas); the executor runs the round. It can never exceed the permission on chain. The five votes are deterministic rules over what was read this round, not an LLM.</Text>
-        {testnet ? <Note tone="warn">Testnet: XORR’s own ~5 USDC pools, so rounds are cents. Only the xWETH pool is deep enough to fill; cirBTC is dust and the EURC pool is not seeded.</Note> : null}
+        {testnet ? <Note tone="warn">Testnet: XORR’s own ~5 USDC pools, so rounds are cents. Before a valid round, the executor re-pegs xWETH to the unchanged mirror price using faucet tokens or at most 0.10 executor USDC (0.25/day). The price floor still applies. Only xWETH is offered; cirBTC is dust and the EURC pool is not seeded.</Note> : null}
         <Button label={busy ? 'The council is voting…' : 'Convene the council'} loading={busy} onPress={convene} testID="convene" />
       </Card>
       {err ? <Note tone="down">{err}</Note> : null}
@@ -153,15 +157,15 @@ export default function Council() {
 
       <Card title="Autopilot" eyebrow="The keeper proposes, the council decides">
         <Text variant="secondary">
-          Every ten minutes the keeper proposes a {usd(autoUsd, autoUsd < 1 ? 2 : 0)} buy, rotating cirBTC, WETH and EURC. Each round still needs the council and still fits inside the permission.
+          Every ten minutes the keeper proposes a {usd(autoUsd, autoUsd < 1 ? 2 : 0)} buy, {testnet ? 'using only the seeded xWETH market' : 'rotating cirBTC, WETH and EURC'}. Each round still needs the council and still fits inside the permission.
         </Text>
-        <Choice options={[{ label: 'On', value: 1 }, { label: 'Off', value: 0 }]} value={account.data?.autopilot.on ? 1 : 0} onChange={(v) => autopilot(v === 1)} testID="autopilot" />
+        {config.keeperEnabled ? <Choice options={[{ label: 'On', value: 1 }, { label: 'Off', value: 0 }]} value={account.data?.autopilot.on ? 1 : 0} onChange={(v) => autopilot(v === 1)} testID="autopilot" /> : <Note>Autopilot is unavailable while the keeper is off. Use “Convene the council” for an on-demand round.</Note>}
       </Card>
 
       {rounds.error ? <Note tone="down">{rounds.error}</Note> : null}
       <Eyebrow>Rounds</Eyebrow>
       {rounds.data && rounds.data.rounds.length === 0 ? (
-        <Note>No rounds yet. Convene the council above, or switch autopilot on: each round lands here with its votes and its audit.</Note>
+        <Note>No rounds yet. Convene the council above: each round lands here with its votes and its audit.</Note>
       ) : null}
       {(rounds.data?.rounds ?? []).map((r) => (
         <Press key={r.id} onPress={() => router.push(`/round/${r.id}`)}>

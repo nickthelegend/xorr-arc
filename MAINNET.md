@@ -36,16 +36,18 @@ It builds, checks the RPC answers chain 5042, runs `contracts/script/Deploy.s.so
 `XorrCouncil`: venue and feed additions are 24 h timelocked, removals are immediate, and the council owner only registers
 seats and recorders. Move ownership to a multisig after deploy if you have one. Details: `contracts/README.md`.
 
-## 3. Executor (Railway, Dockerfile in the repo)
+## 3. Executor (on demand locally; public hosting decision pending)
 
-Persistent volume mounted at `/data`; one replica (one writer for `signed-requests.json`).
+The current implementation requires durable files and one writer for replay protection, maintenance quota and nonce sequencing.
+Use it locally for the demo. Do not create Railway or other paid resources. Public serverless deployment needs a durable
+database/queue migration first; keep the lead informed rather than losing state in ephemeral functions.
 
 | Variable | Value |
 |---|---|
 | `XORR_NETWORK` | `arc-mainnet` |
 | `ALLOW_MAINNET` | `yes` (deliberate) |
 | `XORR_DEPLOYMENT` | absolute path of `deployments/arc-mainnet.json` in the image or volume |
-| `XORR_EXECUTOR_KEY` | the executor private key (Railway secret) |
+| `XORR_EXECUTOR_KEY` | the executor private key (secret environment variable) |
 | `KEEPER` | `on` once the loop is checked (settles rounds into ERC-8004, runs autopilot) |
 | `ALLOWED_ORIGINS` | the exact frontend origin |
 | `MAX_ROUND_USD` | default 25 on mainnet |

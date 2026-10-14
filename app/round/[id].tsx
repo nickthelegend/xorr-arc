@@ -31,6 +31,10 @@ export default function RoundAudit() {
     <Page title={`${p.side === 'buy' ? 'Buy' : 'Sell'} ${p.label} ${usd(p.usd)}`} eyebrow={`Round ${r.id.slice(0, 10)} · ${when(r.createdAt)}`}>
       <Note tone={r.decision === 'approved' ? 'up' : r.decision === 'vetoed' ? 'down' : undefined}>{r.summary}</Note>
       <SpeedReceipt round={r} />
+      {r.maintenance ? <Card title="Testnet pool maintenance">
+        <Note tone={r.maintenance.status === 'unavailable' ? 'warn' : undefined}>{r.maintenance.note}</Note>
+        {r.maintenance.hashes.map(hash => <TxLink key={hash} hash={hash} label="Re-peg transaction" />)}
+      </Card> : null}
       <Card title="What the council read">
         {price.ok ? (
           <>
@@ -78,7 +82,7 @@ export default function RoundAudit() {
             {r.settlement.hash.length > 4 ? <TxLink hash={r.settlement.hash} label="Settled" /> : null}
           </>
         ) : (
-          <Text variant="secondary">Settles an hour after the {t && 'hash' in t ? 'fill' : 'vote'}: anyone can call XorrCouncil.settle; XORR’s keeper does.</Text>
+          <Text variant="secondary">Settles an hour after the {t && 'hash' in t ? 'fill' : 'vote'}: anyone can call XorrCouncil.settle; automatic settlement requires the keeper to be running.</Text>
         )}
         {config?.deployment ? <KV k="Reputation registry" v={<AddressLink address={config.deployment.reputationRegistry} />} /> : null}
       </Card>

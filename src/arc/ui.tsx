@@ -100,7 +100,7 @@ export function Details({ children, testID }: { children: React.ReactNode; testI
 export function KV({ k, v, tone, figure = 'own' }: { k: string; v: React.ReactNode; tone?: string; figure?: FigureKind }) {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: space.s12, alignItems: 'flex-start' }}>
-      <Text variant="secondary" style={{ flexShrink: 0 }}>
+      <Text variant="secondary" style={{ flexShrink: 1, flexBasis: '52%' }}>
         {k}
       </Text>
       {typeof v === 'string' || typeof v === 'number' ? (

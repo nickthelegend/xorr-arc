@@ -24,6 +24,8 @@ export type Config = {
   deployment: XorrDeployment | null;
   executor: Address | null;
   memoLive: boolean;
+  keeperEnabled?: boolean;
+  testnetRepeg?: boolean;
   maxRoundUsd: number;
   features: { gateway: boolean; cctp: boolean; usyc: boolean };
   block: string | null;
@@ -74,6 +76,7 @@ export type Round = {
   summary: string;
   record?: { hash: Hex; ms: number } | { error: string };
   trade?: { hash: Hex; ms: number; gasUsed: string; memo: { tagged: boolean; line: string }; amountIn: string; received: string | null; floor: string; venue: string } | { error: string };
+  maintenance?: { status: 'aligned' | 'repegged' | 'unavailable'; note: string; hashes: Hex[] };
   settlement?: { hash: Hex; edgeBps: number } | { error: string };
 };
 

@@ -38,3 +38,5 @@ server/data/
 /ios
 
 /server/dist/
+
+.vercel/

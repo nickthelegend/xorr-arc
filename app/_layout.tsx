@@ -7,7 +7,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { PhoneFrame, Text, colors } from '@/ui';
+import { Button, PhoneFrame, Text, colors } from '@/ui';
 import { installWebFocusRing } from '@/ui/webFocus';
 import { useConfig } from '@/arc/hooks';
 import { useWallet } from '@/arc/wallet';
@@ -51,8 +51,9 @@ export default function RootLayout() {
             <View style={{ flex: 1, justifyContent: 'center', padding: 24, gap: 8 }}>
               <Text variant="screenTitle">The executor is not reachable</Text>
               <Text variant="body" color={colors.ink70}>
-                {error}. Start it with `npm run server` (see README), or set EXPO_PUBLIC_API_URL.
+                The trading service is temporarily unavailable. Your wallet and on-chain permission are unchanged.
               </Text>
+              <Button label="Try again" onPress={() => void load()} testID="retry-executor" />
             </View>
           ) : (
             <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }} />

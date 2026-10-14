@@ -77,3 +77,20 @@ resubmitting. The frontend now waits briefly for the tag while retaining every e
 
 Gateway, CCTP, USYC and a CCIP stop from another chain remain **Not run**. This rehearsal did not settle the one-hour
 reputation horizon, sell the test token, run native mobile apps or broadcast to mainnet.
+
+
+## Round 2 — live pool maintenance, browser run pending (2026-10-14)
+
+`docs/ROUND2-REPEG-TESTNET.json` records real testnet reads and three successful maintenance transactions:
+[faucet](https://explorer.testnet.arc.io/tx/0xf23ab47bd54c0caa5184fe06fc3d1a72a3aef8f7d56b7866938f0b15bec38e7b),
+[pool token donation](https://explorer.testnet.arc.io/tx/0xc079074185f733df57488782ce12821726231b81446bcc9722e902eb04617a6b),
+[reserve sync](https://explorer.testnet.arc.io/tx/0x7027111358912f4964687c75eb872c4969059408a881a03d6a69063503dd53dd).
+The run also [refreshed one mirror](https://explorer.testnet.arc.io/tx/0x8f0973cf8c3f5f536a73f5c02ae7baf2fdf4ba6d9acab2c5861236ec464c21ee) from the mainnet answer.
+The executor spent **0.004617375 USDC**, all gas, and no owner/deployer funding was needed. The unchanged mirror remained
+fresh; the $0.04 quote finished at **109.64 bps** from it, inside the 150 bps Price Desk guard.
+This is a live maintenance/quote check, **not a new browser trade**. No mainnet broadcast, anvil or dev server was used.
+
+Lead outside the sandbox: `npm run e2e:browser -- --trade`. It prepares a funded throwaway key in gitignored
+`.keys/round2-owner.env`, clicks grant → buy → repeat buy → sell back → hold-stop, checks every route at 1440/390,
+writes `docs/screens/testnet/round2/`, and cleans up with revoke + USDC sweep. Its JSON reports and screenshots have
+not been generated in round 2. Earlier browser evidence above is preserved, not relabelled as fresh.

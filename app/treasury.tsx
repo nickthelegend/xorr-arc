@@ -54,7 +54,8 @@ export default function Treasury() {
 
   return (
     <Page title="Treasury" eyebrow="USYC · EURC">
-      <Card title="Park idle USDC in USYC" eyebrow="Yield between trades">
+      {account.error ? <Note tone="down">{account.error}</Note> : null}
+      <Card title="USYC" eyebrow="Not run · requires Circle entitlement">
         <KV figure="units" k="USYC held" v={a ? amt(a.balances.usyc) : '…'} />
         {u && 'entitled' in u ? (
           <>
@@ -66,20 +67,21 @@ export default function Treasury() {
           <Text variant="secondary">USYC unreadable: {u.error}</Text>
         ) : null}
         {!writes ? (
-          <Note>Parking is switched off on this executor (FEATURE_USYC=on, and the wallet must be entitled by Circle). Reading your entitlement and the USYC price stays on.</Note>
+          <Note>USYC deposits and redemptions have not been tested and are unavailable here. Entitlement and price reads are shown when available.</Note>
         ) : !entitled ? (
           <Note tone="warn">
             USYC is permissioned: Circle (Hashnote) entitles each wallet in the Entitlements contract ({cfg.usycEntitlements.slice(0, 10)}…). Ask Circle Support to allowlist this address; until then XORR leaves idle USDC in your wallet.
           </Note>
         ) : null}
-        <Choice options={[10, 25, 50].map((n) => ({ label: usd(n, 0), value: n }))} value={amount} onChange={setAmount} />
+        {writes ? <><Choice options={[10, 25, 50].map((n) => ({ label: usd(n, 0), value: n }))} value={amount} onChange={setAmount} />
         <Button label="Park in USYC" onPress={park} disabled={!entitled} />
-        <Button label="Redeem all USYC" variant="ghost" onPress={unpark} disabled={!entitled || !a?.balances.usyc} />
+        <Button label="Redeem all USYC" variant="ghost" onPress={unpark} disabled={!entitled || !a?.balances.usyc} /></> : null}
       </Card>
       <Card title="EURC" eyebrow="The FX desk">
+        {config.network === 'arc-testnet' ? <Note>Testnet EURC trading is unavailable: the pool is not seeded.</Note> : null}
         <KV figure="units" k="EURC held" v={amt(eurc)} />
         <Text variant="secondary">
-          The council trades EURC against USDC on Uniswap v3’s USDC/EURC pool on Arc, floored by Chainlink’s EURC/USD feed; the Peg Desk vetoes when EURC leaves the euro. Circle StableFX (FxEscrow {cfg.fxEscrow.slice(0, 10)}…) needs a Circle StableFX account and API quotes, so XORR does not route through it.
+          On mainnet (Fork evidence), the council trades EURC against USDC on Uniswap v3’s USDC/EURC pool, floored by Chainlink’s EURC/USD feed; the Peg Desk vetoes when EURC leaves the euro. Circle StableFX (FxEscrow {cfg.fxEscrow.slice(0, 10)}…) needs a Circle StableFX account and API quotes, so XORR does not route through it.
         </Text>
       </Card>
       {tx ? <Note tone="up">Final on Arc: <TxLink hash={tx} /></Note> : null}
