@@ -132,7 +132,7 @@
   },
   "keeperEnabled": false,
   "testnetRepeg": false,
-  "block": "25946418",
+  "block": "25950863",
   "seats": [
     {
       "id": "price-desk",
