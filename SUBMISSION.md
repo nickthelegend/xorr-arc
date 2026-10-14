@@ -1,6 +1,6 @@
 # XORR on Arc: submission
 
-Live: https://xorr-arc.vercel.app (Arc testnet)
+Live: https://xorr-arc.vercel.app (Arc mainnet, chain 5042)
 
 
 ## Description (DoraHacks)
@@ -59,3 +59,7 @@ Mainnet smoke: [Smoke: grant bounded 0.1 USDC permission (no trade)](https://exp
 
 Mainnet smoke: [Smoke: revoke permission immediately](https://explorer.arc.io/tx/0x55b1f456cae7f08b74d2b2a431560b232884ac95ab6f2fcb34247204766d1617).
 <!-- /MAINNET-ADDRESSES -->
+
+## Production network
+
+Live: https://xorr-arc.vercel.app (Arc mainnet, chain 5042). [Hosted mainnet checks](docs/HOSTED-MAINNET.md). Hosted mode reads mainnet markets and contracts; council execution needs the on-demand local executor. No mainnet transactions were sent during the hosting migration. Historical **Live (testnet)** and **Fork** results below are separate evidence, not production smoke results.

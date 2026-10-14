@@ -47,7 +47,7 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <StatusBar style="light" />
         <PhoneFrame>
-          {config?.readOnly ? <View style={{ padding: 12, backgroundColor: colors.bg }}><Text variant="body" color={colors.ink70}>Live Arc testnet reads. Start the local executor to run council rounds or autopilot.</Text></View> : null}
+          {config?.readOnly ? <View style={{ padding: 12, backgroundColor: colors.bg }}><Text variant="body" color={colors.ink70}>Live Arc {config.network === 'arc-mainnet' ? 'mainnet' : 'testnet'} reads. Start the local executor to run council rounds or autopilot.</Text></View> : null}
           {!config && error ? (
             <View style={{ flex: 1, justifyContent: 'center', padding: 24, gap: 8 }}>
               <Text variant="screenTitle">The executor is not reachable</Text>

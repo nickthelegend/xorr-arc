@@ -28,12 +28,25 @@ export default function BuiltOnArc() {
     { piece: 'USYC', what: 'Idle USDC parked for yield (entitled wallets).', address: a.usyc, state: config.features?.usyc ? 'permissioned, enabled' : 'read-only (FEATURE_USYC off)', ok: !!config.features?.usyc, proof: 'Not run: only an entitled wallet can hold it.' },
     { piece: 'EURC', what: 'The FX desk; Peg Desk checks EURC against EUR/USD.', address: a.eurc, state: test ? 'pool not seeded' : 'Uniswap USDC/EURC', ok: !test, proof: 'Testnet: the USDC/EURC pool is not seeded, so nothing trades EURC there. Mainnet fork: bought on the real pool.' },
   ];
+  const mainnetProof = [
+    'USDC pays gas on chain 5042. The current block is read live.',
+    'Deployed on Arc mainnet. The hosted reader cannot run council rounds; use the local executor.',
+    'Live Chainlink Data Feeds on Arc mainnet. Freshness is shown above.',
+    'Live quotes from Uniswap v3. Fills were verified on a local mainnet fork.',
+    'Five council identities are registered on mainnet. Reputation writes were verified on a local fork.',
+    'Memo availability is probed on this node. Trade tagging was verified on a local fork.',
+    'Not run over a live cross-chain lane; covered by Chainlink Local tests.',
+    'Not run: requires Circle attestation and minting.',
+    'Not run: requires a burn and destination mint.',
+    'Not run: holding USYC requires an entitled wallet.',
+    'Live EURC pool quotes. Buying was verified on a local mainnet fork.',
+  ];
   return (
     <Page title="Built on Arc" eyebrow="State read from Arc now">
       {config.fork ? <Note tone="warn">This is a local fork of {a.name}: real contracts and state, transactions that never leave this machine.</Note> : null}
       {rows.map((r, i) => (
         <Card key={r.piece}>
-          <Text variant="footnote" color={colors.accentHi}>{i >= 6 && i <= 9 ? 'Not run' : i === 10 || config.fork ? 'Fork' : 'Live (testnet)'}</Text>
+          <Text variant="footnote" color={colors.accentHi}>{i >= 6 && i <= 9 ? 'Not run' : i === 10 || config.fork ? 'Fork' : test ? 'Live (testnet)' : 'Mainnet reads'}</Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', gap: space.s8 }}>
             <Text variant="cardTitle" style={{ flexShrink: 1 }}>
               {r.piece}
@@ -44,7 +57,7 @@ export default function BuiltOnArc() {
           </View>
           {r.address ? <AddressLink address={r.address} /> : null}
           <Text variant="secondarySm" color={colors.ink65}>
-            {r.proof}
+            {test || config.fork ? r.proof : mainnetProof[i]}
           </Text>
           <Details testID={`arc-details-${r.piece.split(' ')[0]?.toLowerCase()}`}>
             <Text variant="secondary">{r.what}</Text>

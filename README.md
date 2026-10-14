@@ -1,7 +1,9 @@
 # XORR on Arc
 
-**Round 2:** contracts are live on Arc testnet; the updated frontend/executor have not been published.
-Use the on-demand browser rehearsal below. Hosted frontend: https://xorr-arc.vercel.app — live reads on Arc testnet, local executor required for council execution. [Hosting checks](docs/HOSTED.md).
+Live: https://xorr-arc.vercel.app (Arc mainnet, chain 5042)
+
+**Production:** the frontend and contract reads target Arc mainnet.
+Use the on-demand browser rehearsal below. Hosted frontend: https://xorr-arc.vercel.app — live reads on Arc mainnet, local executor required for council execution. [Hosting checks](docs/HOSTED.md).
 The previous Railway URL is not round-2 evidence; no paid resources are provisioned by this workflow.
 
 
@@ -179,3 +181,7 @@ Mainnet smoke: [Smoke: grant bounded 0.1 USDC permission (no trade)](https://exp
 
 Mainnet smoke: [Smoke: revoke permission immediately](https://explorer.arc.io/tx/0x55b1f456cae7f08b74d2b2a431560b232884ac95ab6f2fcb34247204766d1617).
 <!-- /MAINNET-ADDRESSES -->
+
+## Production network
+
+Live: https://xorr-arc.vercel.app (Arc mainnet, chain 5042). [Hosted mainnet checks](docs/HOSTED-MAINNET.md). Hosted mode reads mainnet markets and contracts; council execution needs the on-demand local executor. No mainnet transactions were sent during the hosting migration. Historical **Live (testnet)** and **Fork** results below are separate evidence, not production smoke results.

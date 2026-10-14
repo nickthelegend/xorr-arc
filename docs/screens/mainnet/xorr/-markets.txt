@@ -1,0 +1,56 @@
+A bot that trades while you get on with your life
+Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.
+A daily USDC cap, a venue list and an end date, enforced by Arc.
+Every fill floored at Chainlink’s price, on chain.
+One hold stops every agent on Arc.
+Live Arc mainnet reads. Start the local executor to run council rounds or autopilot.
+Markets
+Arc
+Chainlink on Arc · Uniswap on Arc
+USDC / USD
+USDC
+Chainlink
+$0.9999
+Updated
+14 min ago (limit 25.0 h)
+Feed
+0x84EA90…7905 ↗
+BTC / USD
+cirBTC
+Chainlink
+$81,989
+Updated
+86 min ago (limit 25.0 h)
+Feed
+0xa109B5…03De ↗
+$10 on Uniswap v3 (0.01% pool)
+$81,780
+From Chainlink
+-25.5 bps
+ETH / USD
+WETH
+Chainlink
+$2,443
+Updated
+20 min ago (limit 25.0 h)
+Feed
+0x50FCDD…D364 ↗
+$10 on Uniswap v3 (0.30% pool)
+$2,443
+From Chainlink
++2.1 bps
+EURC / USD
+EURC
+Chainlink
+$1.11
+Updated
+3.0 h ago (limit 25.0 h)
+Feed
+0x361b95…Bf23 ↗
+$10 on Uniswap v3 (0.05% pool)
+$1.11
+From Chainlink
+-16.2 bps
+CHAINLINK POR ON ARC MAINNET
+cirBTC Proof of Reserve
+Proof of Reserve requires a local Arc mainnet fork; unavailable on hosted testnet.

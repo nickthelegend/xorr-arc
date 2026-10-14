@@ -106,7 +106,7 @@ export async function fairOut(d: XorrDeployment, from: Sym, to: Sym, amountIn: b
 }
 
 const forkRpc = process.env.ARC_MAINNET_RPC_URL;
-const mainnetClient = forkRpc && /^https?:\/\/(127\.0\.0\.1|localhost)(:|\/|$)/.test(forkRpc) ? createPublicClient({ transport: http(forkRpc) }) : null;
+const mainnetClient = NETWORK === 'arc-mainnet' ? pub : forkRpc && /^https?:\/\/(127\.0\.0\.1|localhost)(:|\/|$)/.test(forkRpc) ? createPublicClient({ transport: http(forkRpc) }) : null;
 
 /**
  * cirBTC's Chainlink Proof of Reserve on Arc mainnet against cirBTC's supply. Read on MAINNET even from the testnet
@@ -114,7 +114,7 @@ const mainnetClient = forkRpc && /^https?:\/\/(127\.0\.0\.1|localhost)(:|\/|$)/.
  */
 export async function cirBtcReserve(): Promise<{ reserve: number; supply: number; ratio: number; ageSec: number } | { error: string }> {
   try {
-    if (!mainnetClient) return { error: 'Proof of Reserve requires a local Arc mainnet fork; unavailable on hosted testnet.' };
+    if (!mainnetClient) return { error: 'Proof of Reserve requires an Arc mainnet connection or a local mainnet fork.' };
     const m = ARC['arc-mainnet'];
     const cbtc = '0x171A4217b86A807A64eB94757Db6849fb4bDbAA0' as const;
     const [r, dec, supply] = await Promise.all([

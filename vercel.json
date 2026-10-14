@@ -16,7 +16,7 @@
   "functions": {
     "api/index.mjs": {
       "maxDuration": 60,
-      "includeFiles": "deployments/arc-testnet.json"
+      "includeFiles": "deployments/arc-*.json"
     }
   }
 }

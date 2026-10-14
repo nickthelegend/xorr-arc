@@ -201,8 +201,7 @@ export default function Home() {
                 onPress={connect}
               />
               <Text variant="footnote" color={colors.ink55}>
-                Device keys stay in this browser’s storage. Use them for testnet
-                only.
+                Device keys stay in this browser’s storage and are lost when it is cleared. For mainnet, connect a browser wallet you can recover.
               </Text>
             </SheetCard>
           ) : (

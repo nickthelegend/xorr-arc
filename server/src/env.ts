@@ -32,7 +32,6 @@ if (!(asked in ARC)) throw new Error(`XORR_NETWORK=${asked} is not arc-testnet o
 if (asked === 'arc-mainnet' && process.env.ALLOW_MAINNET !== 'yes' && !process.env.ARC_RPC_URL?.includes('127.0.0.1')) {
   throw new Error('XORR_NETWORK=arc-mainnet needs ALLOW_MAINNET=yes: real money, a deliberate decision.');
 }
-if (process.env.VERCEL && asked !== 'arc-testnet') throw new Error('Hosted reads require Arc testnet');
 export const NETWORK: ArcNetwork = asked;
 export const CFG: ArcConfig = ARC[NETWORK];
 export const RPC_URL = process.env.ARC_RPC_URL ?? CFG.rpcUrl;

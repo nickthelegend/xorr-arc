@@ -1,0 +1,30 @@
+[
+  {
+    "base": "https://xorr-arc.vercel.app",
+    "routes": [
+      "/",
+      "/arc",
+      "/how",
+      "/runs",
+      "/treasury",
+      "/fund",
+      "/explore",
+      "/rooms",
+      "/permission",
+      "/history",
+      "/council",
+      "/agents",
+      "/markets"
+    ],
+    "waitMs": 4500,
+    "name": "xorr",
+    "contract": "0x83d58219484EB94cFaDFe4D975393c13051B36b1",
+    "networkApi": "https://xorr-arc.vercel.app/api/config",
+    "requireVisible": true,
+    "requireExplorer": true,
+    "explorerClick": {
+      "route": "/markets",
+      "text": "^0x84EA90.*\u2197$"
+    }
+  }
+]

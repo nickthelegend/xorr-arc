@@ -50,7 +50,7 @@ import { send } from './chain.js';
 const app = new Hono();
 app.use('*', cors({ origin: ALLOWED_ORIGINS.includes('*') ? '*' : ALLOWED_ORIGINS }));
 app.use('*', async (c, next) => {
-  if (process.env.VERCEL && c.req.method !== 'GET' && c.req.method !== 'HEAD' && c.req.method !== 'OPTIONS') return c.json({ error: 'Start the local executor to run council rounds. Hosted mode reads live Arc testnet only.' }, 503);
+  if (process.env.VERCEL && c.req.method !== 'GET' && c.req.method !== 'HEAD' && c.req.method !== 'OPTIONS') return c.json({ error: 'Start the local executor to run council rounds. Hosted mode reads the configured Arc network only.' }, 503);
   await next();
 });
 app.onError((e, c) => c.json({ error: explain(e) }, 500));
