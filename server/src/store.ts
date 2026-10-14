@@ -7,7 +7,8 @@ import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from '
 import { resolve } from 'node:path';
 import type { Address, Hex } from 'viem';
 import type { Ballot, Decision, RoundInputs } from './council.js';
-import { DATA_DIR, IS_FORK, NETWORK } from './env.js';
+import { DATA_DIR, IS_FORK, NETWORK, DEPLOYMENT } from './env.js';
+import archive from '../../deployments/hosted-rounds-mainnet.json';
 
 export type RoundRecord = {
   id: Hex;
@@ -40,6 +41,10 @@ type Db = { repeg?: { day: number; usdc: string }; rounds: RoundRecord[]; autopi
 const file = resolve(DATA_DIR, `${NETWORK}${IS_FORK ? '-fork' : ''}.json`);
 let db: Db = { rounds: [], autopilot: {} };
 if (existsSync(file)) db = JSON.parse(readFileSync(file, 'utf8')) as Db;
+// Vercel serves verified historical records; live execution remains disabled.
+if (process.env.VERCEL && !IS_FORK && NETWORK === 'arc-mainnet' && DEPLOYMENT?.council.toLowerCase() === archive.council.toLowerCase()) {
+  db = { rounds: archive.rounds as unknown as RoundRecord[], autopilot: {} };
+}
 
 function save() {
   mkdirSync(DATA_DIR, { recursive: true });

@@ -1,0 +1,481 @@
+{
+  "chainId": 5042,
+  "council": "0x1d628d3C6588Fe1AC7234C08EB2D4Ea2A4a16E55",
+  "verifiedAt": "2026-10-14T20:34:40.707Z",
+  "source": "Original mainnet video rounds; successful council and trade receipts verified. Historical observations, not current market quotes.",
+  "rounds": [
+    {
+      "id": "0x58a77fe5d9d897f27eee26c063a2d432a91f5ca771d317e55cee837bd7e9806d",
+      "owner": "0x4F7Ce633F0E598e6Bd7F50d55D176015925fb3a6",
+      "createdAt": 1792001195046,
+      "trigger": "owner",
+      "inputs": {
+        "proposal": {
+          "sym": "CBTC",
+          "side": "buy",
+          "usd": 0.02,
+          "label": "cirBTC"
+        },
+        "price": {
+          "ok": true,
+          "chainlink": 81577.17874143,
+          "ageSec": 903,
+          "maxAgeSec": 90000,
+          "mirror": false,
+          "fill": 83333.33333333334,
+          "venue": "Uniswap v3 (0.01% pool)",
+          "gapBps": 215.27523003335398,
+          "maxGapBps": 100
+        },
+        "permission": {
+          "ok": true,
+          "dailyCapUsd": 0.1,
+          "expiresAt": 1792086662,
+          "slippageBps": 100,
+          "revoked": false,
+          "stopped": true,
+          "remainingUsd": 0,
+          "venueAllowed": true
+        },
+        "holding": {
+          "ok": true,
+          "assetUsd": 0.049762079032272304
+        },
+        "trend": {
+          "ok": true,
+          "rounds": [
+            {
+              "price": 82441.2,
+              "at": 1791986299
+            },
+            {
+              "price": 81988.58195897,
+              "at": 1791987139
+            },
+            {
+              "price": 81577.98878954,
+              "at": 1791992691
+            },
+            {
+              "price": 81992.32973697,
+              "at": 1791997523
+            },
+            {
+              "price": 81577.17874143,
+              "at": 1792000284
+            }
+          ]
+        },
+        "peg": {
+          "ok": true,
+          "usdc": 0.99985277,
+          "eurc": 1.11455748,
+          "eur": 1.11457,
+          "por": {
+            "reserve": 6110.15794039,
+            "supply": 5231.77708702,
+            "ratio": 1.1678934019473528,
+            "ageSec": 966
+          }
+        },
+        "now": 1792001184
+      },
+      "ballots": [
+        {
+          "seat": "price-desk",
+          "vote": "veto",
+          "confidence": 1,
+          "reason": "The fill is too far from Chainlink: Chainlink $81,577.18, 15 min old; fill $83,333.33 on Uniswap v3 (0.01% pool); 215.3 bps apart (limit 100)."
+        },
+        {
+          "seat": "risk-keeper",
+          "vote": "veto",
+          "confidence": 1,
+          "reason": "The owner stopped the agents (kill switch)."
+        },
+        {
+          "seat": "trend-reader",
+          "vote": "no",
+          "confidence": 0.5548045465822904,
+          "reason": "Falling: Chainlink -1.05% over 5 rounds (3.9 h)."
+        },
+        {
+          "seat": "peg-desk",
+          "vote": "yes",
+          "confidence": 0.7,
+          "reason": "On peg: USDC $0.9999 (1 bps off); cirBTC reserve 116.79% of supply (Chainlink PoR, Arc mainnet)."
+        },
+        {
+          "seat": "strategist",
+          "vote": "abstain",
+          "confidence": 0,
+          "reason": "A desk vetoed; there is nothing to weigh."
+        }
+      ],
+      "decision": "vetoed",
+      "summary": "Vetoed by the Price Desk: The fill is too far from Chainlink: Chainlink $81,577.18, 15 min old; fill $83,333.33 on Uniswap v3 (0.01% pool); 215.3 bps apart (limit 100). (also vetoed by the Risk Keeper)",
+      "record": {
+        "hash": "0xec628137e3a8d27f7e0fdf592f5055d0f0a5d1086143f8d945771ff69066d367",
+        "ms": 3785
+      }
+    },
+    {
+      "id": "0x1b438832fda4aba4bf2487c8ba278064802fa348c1c81d9966ba35861bfa133b",
+      "owner": "0x4F7Ce633F0E598e6Bd7F50d55D176015925fb3a6",
+      "createdAt": 1792001160382,
+      "trigger": "owner",
+      "inputs": {
+        "proposal": {
+          "sym": "CBTC",
+          "side": "sell",
+          "usd": 0.049,
+          "label": "cirBTC"
+        },
+        "price": {
+          "ok": true,
+          "chainlink": 81577.17874143,
+          "ageSec": 868,
+          "maxAgeSec": 90000,
+          "mirror": false,
+          "fill": 80286.66666666667,
+          "venue": "Uniswap v3 (0.01% pool)",
+          "gapBps": 158.195232376666,
+          "maxGapBps": 100
+        },
+        "permission": {
+          "ok": true,
+          "dailyCapUsd": 0.1,
+          "expiresAt": 1792086662,
+          "slippageBps": 100,
+          "revoked": false,
+          "stopped": false,
+          "remainingUsd": 0.05,
+          "venueAllowed": true
+        },
+        "holding": {
+          "ok": true,
+          "assetUsd": 0.049762079032272304
+        },
+        "trend": {
+          "ok": true,
+          "rounds": [
+            {
+              "price": 82441.2,
+              "at": 1791986299
+            },
+            {
+              "price": 81988.58195897,
+              "at": 1791987139
+            },
+            {
+              "price": 81577.98878954,
+              "at": 1791992691
+            },
+            {
+              "price": 81992.32973697,
+              "at": 1791997523
+            },
+            {
+              "price": 81577.17874143,
+              "at": 1792000284
+            }
+          ]
+        },
+        "peg": {
+          "ok": true,
+          "usdc": 0.99985277,
+          "eurc": 1.11455748,
+          "eur": 1.11457,
+          "por": {
+            "reserve": 6110.15794039,
+            "supply": 5231.77708702,
+            "ratio": 1.1678934019473528,
+            "ageSec": 931
+          }
+        },
+        "now": 1792001149
+      },
+      "ballots": [
+        {
+          "seat": "price-desk",
+          "vote": "veto",
+          "confidence": 1,
+          "reason": "The fill is too far from Chainlink: Chainlink $81,577.18, 14 min old; fill $80,286.67 on Uniswap v3 (0.01% pool); 158.2 bps apart (limit 100)."
+        },
+        {
+          "seat": "risk-keeper",
+          "vote": "yes",
+          "confidence": 0.8,
+          "reason": "A sale reduces exposure ($0.05 of cirBTC held); closing is outside the daily cap by design."
+        },
+        {
+          "seat": "trend-reader",
+          "vote": "yes",
+          "confidence": 0.5548045465822904,
+          "reason": "Leaning down: Chainlink -1.05% over 5 rounds (3.9 h)."
+        },
+        {
+          "seat": "peg-desk",
+          "vote": "yes",
+          "confidence": 0.7,
+          "reason": "On peg: USDC $0.9999 (1 bps off); cirBTC reserve 116.79% of supply (Chainlink PoR, Arc mainnet)."
+        },
+        {
+          "seat": "strategist",
+          "vote": "abstain",
+          "confidence": 0,
+          "reason": "A desk vetoed; there is nothing to weigh."
+        }
+      ],
+      "decision": "vetoed",
+      "summary": "Vetoed by the Price Desk: The fill is too far from Chainlink: Chainlink $81,577.18, 14 min old; fill $80,286.67 on Uniswap v3 (0.01% pool); 158.2 bps apart (limit 100).",
+      "record": {
+        "hash": "0x24624df7913ac96b53e4afbfa02b70d06471277899b4fb5da7c4e23d034b2935",
+        "ms": 4569
+      }
+    },
+    {
+      "id": "0x208471d4e403af0514566e360fbb6596c44cddcf9d254c01c419bf036c580180",
+      "owner": "0x4F7Ce633F0E598e6Bd7F50d55D176015925fb3a6",
+      "createdAt": 1792001072100,
+      "trigger": "owner",
+      "inputs": {
+        "proposal": {
+          "sym": "CBTC",
+          "side": "buy",
+          "usd": 0.08,
+          "label": "cirBTC"
+        },
+        "price": {
+          "ok": true,
+          "chainlink": 81577.17874143,
+          "ageSec": 769,
+          "maxAgeSec": 90000,
+          "mirror": false,
+          "fill": 82474.22680412371,
+          "venue": "Uniswap v3 (0.01% pool)",
+          "gapBps": 109.96311425981305,
+          "maxGapBps": 100
+        },
+        "permission": {
+          "ok": true,
+          "dailyCapUsd": 0.1,
+          "expiresAt": 1792086662,
+          "slippageBps": 100,
+          "revoked": false,
+          "stopped": false,
+          "remainingUsd": 0.05,
+          "venueAllowed": true
+        },
+        "holding": {
+          "ok": true,
+          "assetUsd": 0.049762079032272304
+        },
+        "trend": {
+          "ok": true,
+          "rounds": [
+            {
+              "price": 82441.2,
+              "at": 1791986299
+            },
+            {
+              "price": 81988.58195897,
+              "at": 1791987139
+            },
+            {
+              "price": 81577.98878954,
+              "at": 1791992691
+            },
+            {
+              "price": 81992.32973697,
+              "at": 1791997523
+            },
+            {
+              "price": 81577.17874143,
+              "at": 1792000284
+            }
+          ]
+        },
+        "peg": {
+          "ok": true,
+          "usdc": 0.99985277,
+          "eurc": 1.11455748,
+          "eur": 1.11457,
+          "por": {
+            "reserve": 6110.15794039,
+            "supply": 5231.77708702,
+            "ratio": 1.1678934019473528,
+            "ageSec": 843
+          }
+        },
+        "now": 1792001051
+      },
+      "ballots": [
+        {
+          "seat": "price-desk",
+          "vote": "veto",
+          "confidence": 1,
+          "reason": "The fill is too far from Chainlink: Chainlink $81,577.18, 13 min old; fill $82,474.23 on Uniswap v3 (0.01% pool); 110.0 bps apart (limit 100)."
+        },
+        {
+          "seat": "risk-keeper",
+          "vote": "veto",
+          "confidence": 1,
+          "reason": "$0.08 is more than the $0.05 left of today's $0.10 cap; the contract would refuse it."
+        },
+        {
+          "seat": "trend-reader",
+          "vote": "no",
+          "confidence": 0.5548045465822904,
+          "reason": "Falling: Chainlink -1.05% over 5 rounds (3.9 h)."
+        },
+        {
+          "seat": "peg-desk",
+          "vote": "yes",
+          "confidence": 0.7,
+          "reason": "On peg: USDC $0.9999 (1 bps off); cirBTC reserve 116.79% of supply (Chainlink PoR, Arc mainnet)."
+        },
+        {
+          "seat": "strategist",
+          "vote": "abstain",
+          "confidence": 0,
+          "reason": "A desk vetoed; there is nothing to weigh."
+        }
+      ],
+      "decision": "vetoed",
+      "summary": "Vetoed by the Price Desk: The fill is too far from Chainlink: Chainlink $81,577.18, 13 min old; fill $82,474.23 on Uniswap v3 (0.01% pool); 110.0 bps apart (limit 100). (also vetoed by the Risk Keeper)",
+      "record": {
+        "hash": "0x3a390b9d1a91cfb258996fdba296e41f9b23e6d5041ae3385f6f3bd0fda42c4e",
+        "ms": 7534
+      }
+    },
+    {
+      "id": "0xfc562f3130a14e174584ef47550b58e8c60f5e98a561a9007d84c27fb18b7734",
+      "owner": "0x4F7Ce633F0E598e6Bd7F50d55D176015925fb3a6",
+      "createdAt": 1792001002322,
+      "trigger": "owner",
+      "inputs": {
+        "proposal": {
+          "sym": "CBTC",
+          "side": "buy",
+          "usd": 0.05,
+          "label": "cirBTC"
+        },
+        "price": {
+          "ok": true,
+          "chainlink": 81577.17874143,
+          "ageSec": 690,
+          "maxAgeSec": 90000,
+          "mirror": false,
+          "fill": 81967.21311475411,
+          "venue": "Uniswap v3 (0.01% pool)",
+          "gapBps": 47.81170167215143,
+          "maxGapBps": 100
+        },
+        "permission": {
+          "ok": true,
+          "dailyCapUsd": 0.1,
+          "expiresAt": 1792086662,
+          "slippageBps": 100,
+          "revoked": false,
+          "stopped": false,
+          "remainingUsd": 0.1,
+          "venueAllowed": true
+        },
+        "holding": {
+          "ok": true,
+          "assetUsd": 0
+        },
+        "trend": {
+          "ok": true,
+          "rounds": [
+            {
+              "price": 82441.2,
+              "at": 1791986299
+            },
+            {
+              "price": 81988.58195897,
+              "at": 1791987139
+            },
+            {
+              "price": 81577.98878954,
+              "at": 1791992691
+            },
+            {
+              "price": 81992.32973697,
+              "at": 1791997523
+            },
+            {
+              "price": 81577.17874143,
+              "at": 1792000284
+            }
+          ]
+        },
+        "peg": {
+          "ok": true,
+          "usdc": 0.99985277,
+          "eurc": 1.11455748,
+          "eur": 1.11457,
+          "por": {
+            "reserve": 6110.15794039,
+            "supply": 5231.77708702,
+            "ratio": 1.1678934019473528,
+            "ageSec": 773
+          }
+        },
+        "now": 1792000966
+      },
+      "ballots": [
+        {
+          "seat": "price-desk",
+          "vote": "yes",
+          "confidence": 0.7609414916392429,
+          "reason": "Prices agree: Chainlink $81,577.18, 12 min old; fill $81,967.21 on Uniswap v3 (0.01% pool); 47.8 bps apart (limit 100)."
+        },
+        {
+          "seat": "risk-keeper",
+          "vote": "yes",
+          "confidence": 0.75,
+          "reason": "Fits: $0.05 of $0.10 left today; cirBTC goes to $0.05 of a $0.20 limit; slippage limit 100 bps, enforced on chain against Chainlink."
+        },
+        {
+          "seat": "trend-reader",
+          "vote": "no",
+          "confidence": 0.5548045465822904,
+          "reason": "Falling: Chainlink -1.05% over 5 rounds (3.9 h)."
+        },
+        {
+          "seat": "peg-desk",
+          "vote": "yes",
+          "confidence": 0.7,
+          "reason": "On peg: USDC $0.9999 (1 bps off); cirBTC reserve 116.79% of supply (Chainlink PoR, Arc mainnet)."
+        },
+        {
+          "seat": "strategist",
+          "vote": "yes",
+          "confidence": 0.8988029711223608,
+          "reason": "Weighted by confidence the desks lean yes (2.21 for, 0.55 against)."
+        }
+      ],
+      "decision": "approved",
+      "summary": "Approved 4–1.",
+      "record": {
+        "hash": "0x5e47406014467850b2496953e8b3bc6dbb88e93f8cd1b728f6f6cf984f97dfce",
+        "ms": 9958
+      },
+      "trade": {
+        "hash": "0xc58104e6e0beb5301b85e8e01662702f5fad2361df4fc88fe21415eb4c224bde",
+        "ms": 7825,
+        "gasUsed": "322104",
+        "memo": {
+          "tagged": false,
+          "line": "xorr buy cirBTC 0.05 USDC decision 0xfc562f31"
+        },
+        "amountIn": "50000",
+        "received": "61",
+        "floor": "60",
+        "venue": "Uniswap v3 (0.01% pool)"
+      }
+    }
+  ]
+}
