@@ -1,0 +1,57 @@
+{
+  "routes": [
+    {
+      "route": "/explore",
+      "snapshot": ""
+    },
+    {
+      "route": "/permission",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"Permission\" [level=1]\n- generic: No deployment loaded."
+    },
+    {
+      "route": "/council",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"Council\" [level=1]\n- generic: Connect a wallet on the home screen first."
+    },
+    {
+      "route": "/markets",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"Markets\" [level=1]\n- generic: Chainlink on Arc · Uniswap on Arc"
+    },
+    {
+      "route": "/agents",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"The agents\" [level=1]\n- generic: ERC-8004 on Arc\n- generic: \"Each seat is an agent on Arc’s ERC-8004 Identity Registry. After every round, XorrCouncil measures the decision against Chainlink and writes each seat’s signed edge to the Reputation Registry: a "
+    },
+    {
+      "route": "/rooms",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"Agent rooms\" [level=1]\n- generic: Recorded reasons · rule-based, not an LLM\n- generic \"Price Desk\":\n  - generic: Price Desk\n- generic \"Risk Keeper\":\n  - generic: Risk Keeper\n- generic \"Trend Reader\":\n  - generic: Trend Reader\n- generic \"Peg Desk\":\n  - gene"
+    },
+    {
+      "route": "/history",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"History\" [level=1]\n- generic: Confirmed fills recorded by this executor\n- generic: All\n- generic: Buys\n- generic: Sells\n- generic: Connect your wallet to see its history.\n- button \"Connect a wallet\":\n  - generic: Connect a wallet\n- button \"All rounds and r"
+    },
+    {
+      "route": "/runs",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"Fills, timed\" [level=1]\n- generic: Public council rounds · all wallets\n- generic: The vote, the fill and the measured wait. Refusals stay in the record too. This executor keeps the latest 100 rounds.\n- generic: Reading rounds…"
+    },
+    {
+      "route": "/fund",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"Fund & withdraw\" [level=1]\n- generic: Connect a wallet on the home screen first."
+    },
+    {
+      "route": "/treasury",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"Treasury\" [level=1]\n- generic: Connect a wallet on the home screen first."
+    },
+    {
+      "route": "/arc",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"Built on Arc\" [level=1]"
+    },
+    {
+      "route": "/how",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"How xorr works\" [level=1]\n- generic: \"1\"\n- generic: Fund your wallet\n- generic: USDC is your trading balance and your gas on Arc. Your assets stay in your wallet.\n- generic: \"2\"\n- generic: Give it a limit\n- generic: Choose a daily cap, venue and expiry. Xo"
+    },
+    {
+      "route": "/round/0x962bfacf460ab51ff83e8f4dae1929de6b27128d8d0b342c1a476d1b0399e055",
+      "snapshot": "- heading [level=1]: A bot that trades while you get on with your life\n- generic: Five rule-based agents (not an LLM) vote on each trade of your USDC on Arc, inside a permission you can revoke in one tap. It never holds your money.\n- generic: A daily USDC cap, a venue list and an end date, enforced by Arc.\n- generic: Every fill floored at Chainlink’s price, on chain.\n- generic: One hold stops every agent on Arc.\n- button \"Back\":\n- heading \"Round\" [level=1]\n- generic: Reading…"
+    }
+  ],
+  "errors": []
+}

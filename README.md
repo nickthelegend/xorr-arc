@@ -1,5 +1,8 @@
 # XORR on Arc
 
+Live: https://app-production-0530.up.railway.app (Arc testnet)
+
+
 **A council of five rule-based agents trades for you inside an on-chain permission you can revoke in one tap.** You hold
 only USDC. You grant a daily cap, a venue allowlist and an end date; every fill is floored at Chainlink's price on chain;
 the CCIP receiver can take a stop sent from Base or Ethereum (not yet run over a live lane, see below). Arc takes its gas

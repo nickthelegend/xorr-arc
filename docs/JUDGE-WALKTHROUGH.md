@@ -1,5 +1,8 @@
 # Two-minute walkthrough
 
+Live: https://app-production-0530.up.railway.app (Arc testnet)
+
+
 **Live on Arc testnet, no setup:** open `docs/E2E-TESTNET.md`: every step has an explorer link on explorer.testnet.arc.io (grant, a Memo-tagged
 trade, an over-cap veto, mined over-cap and price-floor reverts, revoke, a mined post-revoke revert). The testnet market is
 XORR-seeded (about 5 USDC Uniswap v2 pools, mirror feeds of Chainlink mainnet), so those trades are cents; the numbers below
@@ -25,3 +28,5 @@ What you will see, in order:
 Home: create a device key (no wallet needed to load; with an empty wallet the app says so). Permission: set cap and
 expiry, Approve and grant. Council: Convene the council, open the audit of a round. Home: hold the stop button to revoke.
 "Built on Arc" lists every Arc piece with its live state, and which extras are switched off.
+
+Hosted checks, receipt and screenshots: [HOSTED.md](HOSTED.md).

@@ -1,5 +1,8 @@
 # XORR on Arc: submission
 
+Live: https://app-production-0530.up.railway.app (Arc testnet)
+
+
 ## Description (DoraHacks)
 
 XORR is a council of five rule-based agents (deterministic rules, not an LLM) that trades inside an on-chain permission you can revoke in one tap. You hold only USDC

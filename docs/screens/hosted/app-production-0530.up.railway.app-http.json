@@ -1,0 +1,62 @@
+[
+  {
+    "route": "/",
+    "status": 200
+  },
+  {
+    "route": "/explore",
+    "status": 200
+  },
+  {
+    "route": "/permission",
+    "status": 200
+  },
+  {
+    "route": "/council",
+    "status": 200
+  },
+  {
+    "route": "/markets",
+    "status": 200
+  },
+  {
+    "route": "/agents",
+    "status": 200
+  },
+  {
+    "route": "/rooms",
+    "status": 200
+  },
+  {
+    "route": "/history",
+    "status": 200
+  },
+  {
+    "route": "/runs",
+    "status": 200
+  },
+  {
+    "route": "/fund",
+    "status": 200
+  },
+  {
+    "route": "/treasury",
+    "status": 200
+  },
+  {
+    "route": "/arc",
+    "status": 200
+  },
+  {
+    "route": "/how",
+    "status": 200
+  },
+  {
+    "route": "/health",
+    "status": 200,
+    "body": {
+      "ok": true,
+      "service": "xorr-web"
+    }
+  }
+]
