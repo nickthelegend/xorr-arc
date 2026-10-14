@@ -151,3 +151,31 @@ council ledger, five ERC-8004 seats, CCIP stop receiver). Not deployed to mainne
 written by `scripts/deploy.sh mainnet` and `MAINNET.md` lists the steps and caps. Signed round and autopilot requests are
 replay-protected (`signed-requests.json` under the data dir; keep it on persistent storage and run one executor writer per
 data directory). Not audited. See `docs/JUDGE-REPORT.md` for the claims audit.
+
+<!-- MAINNET-ADDRESSES -->
+## Addresses — live mainnet and testnet
+
+Mainnet **5042: Live**, deployed 2026-10-14. [All mainnet addresses and transaction receipts](docs/MAINNET-DEPLOYMENT.md).
+Testnet **5042002: Live**; [testnet deployment](deployments/arc-testnet.json) and [testnet evidence](docs/E2E-TESTNET.md).
+
+- cbtc: [0x171A4217b86A807A64eB94757Db6849fb4bDbAA0](https://explorer.arc.io/address/0x171A4217b86A807A64eB94757Db6849fb4bDbAA0).
+- ccipRouter: [0xB79791184973589c38e114D43Eb8E4588C283A18](https://explorer.arc.io/address/0xB79791184973589c38e114D43Eb8E4588C283A18).
+- council: [0x1d628d3C6588Fe1AC7234C08EB2D4Ea2A4a16E55](https://explorer.arc.io/address/0x1d628d3C6588Fe1AC7234C08EB2D4Ea2A4a16E55).
+- delegation: [0x83d58219484EB94cFaDFe4D975393c13051B36b1](https://explorer.arc.io/address/0x83d58219484EB94cFaDFe4D975393c13051B36b1).
+- eurc: [0xbEf5f6d51CB62b58e6A8f77868681825C6fe21c1](https://explorer.arc.io/address/0xbEf5f6d51CB62b58e6A8f77868681825C6fe21c1).
+- identityRegistry: [0x8004A169FB4a3325136EB29fA0ceB6D2e539a432](https://explorer.arc.io/address/0x8004A169FB4a3325136EB29fA0ceB6D2e539a432).
+- memo: [0x5294E9927c3306DcBaDb03fe70b92e01cCede505](https://explorer.arc.io/address/0x5294E9927c3306DcBaDb03fe70b92e01cCede505).
+- priceGuard: [0x301536E42A40CF723e2a4948630D731Da732cd5A](https://explorer.arc.io/address/0x301536E42A40CF723e2a4948630D731Da732cd5A).
+- quoter: [0x7DfD4F31be6814D2906BDE155c3e1B146EAc1468](https://explorer.arc.io/address/0x7DfD4F31be6814D2906BDE155c3e1B146EAc1468).
+- reputationRegistry: [0x8004BAa17C55a88189AE136b182e5fdA19dE9b63](https://explorer.arc.io/address/0x8004BAa17C55a88189AE136b182e5fdA19dE9b63).
+- stopReceiver: [0x77329D679CE9c17543821575C6D3681A672cff7A](https://explorer.arc.io/address/0x77329D679CE9c17543821575C6D3681A672cff7A).
+- usyc: [0x8a5D989Bbb96929F689B0200f435f53dA42bF490](https://explorer.arc.io/address/0x8a5D989Bbb96929F689B0200f435f53dA42bF490).
+- v2Factory: [0x0000000000000000000000000000000000000000](https://explorer.arc.io/address/0x0000000000000000000000000000000000000000).
+- venue: [0x53BF6B0684Ec7eF91e1387Da3D1a1769bC5A6F77](https://explorer.arc.io/address/0x53BF6B0684Ec7eF91e1387Da3D1a1769bC5A6F77).
+- venueRegistry: [0x391eEB248ED9311057CFBfA7E218310281cfe4fa](https://explorer.arc.io/address/0x391eEB248ED9311057CFBfA7E218310281cfe4fa).
+- weth: [0x128cC466B61f542da60c70e3aA11c10e19B84EDB](https://explorer.arc.io/address/0x128cC466B61f542da60c70e3aA11c10e19B84EDB).
+
+Mainnet smoke: [Smoke: grant bounded 0.1 USDC permission (no trade)](https://explorer.arc.io/tx/0x37955e8e29f48209b76600b490c5f144864e5b409f91df00a6e1d89e0d60ad05).
+
+Mainnet smoke: [Smoke: revoke permission immediately](https://explorer.arc.io/tx/0x55b1f456cae7f08b74d2b2a431560b232884ac95ab6f2fcb34247204766d1617).
+<!-- /MAINNET-ADDRESSES -->
